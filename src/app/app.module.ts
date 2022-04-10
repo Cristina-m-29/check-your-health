@@ -3,10 +3,11 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppointmentsComponent } from './components/dashboards/specialist-dashboard/appointments/appointments.component';
 import { BaseRegisterComponent } from './components/register/base-register/base-register.component';
 import { BrowserModule } from '@angular/platform-browser';
+import { ChooseLoginTypeComponent } from './components/login/choose-login-type/choose-login-type.component';
 import { ConfirmedAppointmentsComponent } from './components/confirmed-appointments/confirmed-appointments.component';
 import { FarmacyDashboardComponent } from './components/dashboards/farmacy-dashboard/farmacy-dashboard/farmacy-dashboard.component';
 import { FarmacyRegisterComponent } from './components/register/farmacy-register/farmacy-register.component';
-import { LoginComponent } from './components/login/login.component';
+import { LoginComponent } from './components/login/login/login.component';
 import { MedicDashboardComponent } from './components/dashboards/medic-dashboard/medic-dashboard/medic-dashboard.component';
 import { MedicRegisterComponent } from './components/register/medic-register/medic-register.component';
 import { MyMedicComponent } from './components/dashboards/pacient-dashboard/my-medic/my-medic.component';
@@ -29,6 +30,7 @@ import { SpecialistRegisterComponent } from './components/register/specialist-re
     AppComponent,
     AppointmentsComponent,
     BaseRegisterComponent,
+    ChooseLoginTypeComponent,
     ConfirmedAppointmentsComponent,
     FarmacyDashboardComponent,
     FarmacyRegisterComponent,
