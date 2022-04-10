@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-choose-login-type',
+  selector: 'cyh-choose-login-type',
   templateUrl: './choose-login-type.component.html',
   styleUrls: ['./choose-login-type.component.sass']
 })

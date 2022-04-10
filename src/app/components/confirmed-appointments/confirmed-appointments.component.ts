@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-confirmed-appointments',
+  selector: 'cyh-confirmed-appointments',
   templateUrl: './confirmed-appointments.component.html',
   styleUrls: ['./confirmed-appointments.component.sass']
 })

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-base-register',
+  selector: 'cyh-base-register',
   templateUrl: './base-register.component.html',
   styleUrls: ['./base-register.component.sass']
 })

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-my-medic',
+  selector: 'cyh-my-medic',
   templateUrl: './my-medic.component.html',
   styleUrls: ['./my-medic.component.sass']
 })

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-specialist-dashboard',
+  selector: 'cyh-specialist-dashboard',
   templateUrl: './specialist-dashboard.component.html',
   styleUrls: ['./specialist-dashboard.component.sass']
 })

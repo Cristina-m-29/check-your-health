@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-prescriptions-for-pickup',
+  selector: 'cyh-prescriptions-for-pickup',
   templateUrl: './prescriptions-for-pickup.component.html',
   styleUrls: ['./prescriptions-for-pickup.component.sass']
 })
