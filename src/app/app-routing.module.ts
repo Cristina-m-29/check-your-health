@@ -16,7 +16,7 @@ const routes: Routes = [
     component: ChooseLoginTypeComponent,
   },
   {
-    path: 'login',
+    path: 'login/:userType',
     component: LoginComponent
   },
   // register

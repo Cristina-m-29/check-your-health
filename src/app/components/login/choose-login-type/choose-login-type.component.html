@@ -1,13 +1,15 @@
-<div class="select-user-type">
-    <p class="margin_bottom-xl">Selectați tipul de utilizator</p>
+<div class="flex_column flex_column-align-center flex_column-justify-center choose-user-type">
+  <span class="title margin_bottom-s">Choose account type</span>
 
-    <div class="user-types">
-        <button class="margin_right margin_bottom">Pacient</button>
+  <span class="subtitle">Check your heath makes it easy to stay up to speed with the most import thing in life</span>
 
-        <button>Medic de familie</button>
+  <div class="user-types margin_top-xl">
+    <button mat-raised-button color="primary" [routerLink]="['login', 'pacient']">Pacient</button>
 
-        <button>Farmacie</button>
+    <button mat-raised-button color="primary" [routerLink]="['login', 'medic']">Medic</button>
 
-        <button>Medic specialist</button>
-    </div>
+    <button mat-raised-button color="primary" [routerLink]="['login', 'farmacy']">Farmacy</button>
+
+    <button mat-raised-button color="primary" [routerLink]="['login', 'specialist-medic']">Specialist medic</button>
+  </div>
 </div>
