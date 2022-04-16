@@ -1,19 +1,23 @@
 <div class="flex_column flex_column-align-center flex_column-justify-center login">
-  <span class="title margin_bottom-s">Login into your account</span>
+  <div class="title width-full margin_bottom-s">
+    <mat-icon (click)="backToChooseUserType()">keyboard_arrow_left</mat-icon>
+
+    <span>Login into your account</span>
+  </div>
 
   <span class="subtitle margin_bottom-xl">Check your heath makes it easy to stay up to speed with the most import thing in life</span>
 
-  <mat-form-field appearance="fill" class="width-full">
+  <mat-form-field appearance="outline" class="width-full">
     <mat-label>Email</mat-label>
 
     <input matInput placeholder="mail@gmail.com">
   </mat-form-field>
 
-  <mat-form-field appearance="fill" class="width-full margin_bottom">
+  <mat-form-field appearance="outline" class="width-full margin_bottom">
     <mat-label>Password</mat-label>
 
     <input matInput type="password" placeholder="**********">
   </mat-form-field>
 
-  <button mat-raised-button color="primary" class="width-full height-small button">Login</button>
+  <button mat-raised-button color="primary" class="width-full height-small button" (click)="login()">Login</button>
 </div>

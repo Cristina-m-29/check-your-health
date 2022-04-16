@@ -10,7 +10,6 @@ import { PacientDashboardComponent } from './components/dashboards/pacient-dashb
 import { SpecialistDashboardComponent } from './components/dashboards/specialist-dashboard/specialist-dashboard/specialist-dashboard.component';
 
 const routes: Routes = [
-  // login
   {
     path: '',
     component: ChooseLoginTypeComponent,
@@ -19,38 +18,25 @@ const routes: Routes = [
     path: 'login/:userType',
     component: LoginComponent
   },
-  // register
   {
-    path: 'register-medic',
-    component: BaseRegisterComponent
-  },
-  {
-    path: 'register-specialist',
-    component: BaseRegisterComponent
-  },
-  {
-    path: 'register-pacient',
-    component: BaseRegisterComponent
-  },
-  {
-    path: 'register-farmacy',
+    path: 'register/:userType',
     component: BaseRegisterComponent
   },
   // dashboards
   {
-    path: 'medic-dashboard',
+    path: 'dashboard/medic',
     component: MedicDashboardComponent
   },
   {
-    path: 'specialist-dashboard',
+    path: 'dashboard/specialist',
     component: SpecialistDashboardComponent
   },
   {
-    path: 'pacient-dashboard',
+    path: 'dashboard/pacient',
     component: PacientDashboardComponent
   },
   {
-    path: 'farmacy-dashboard',
+    path: 'dashboard/farmacy',
     component: FarmacyDashboardComponent
   }
 ];

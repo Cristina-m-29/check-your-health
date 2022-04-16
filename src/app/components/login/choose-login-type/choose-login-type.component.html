@@ -4,12 +4,40 @@
   <span class="subtitle">Check your heath makes it easy to stay up to speed with the most import thing in life</span>
 
   <div class="user-types margin_top-xl">
-    <button mat-raised-button color="primary" [routerLink]="['login', 'pacient']">Pacient</button>
+    <button
+      [routerLink]="['login', 'pacient']"
+      (click)="selectUserType('pacient')"
+      color="primary"
+      mat-raised-button
+    >
+      Pacient
+    </button>
 
-    <button mat-raised-button color="primary" [routerLink]="['login', 'medic']">Medic</button>
+    <button
+      [routerLink]="['login', 'medic']"
+      (click)="selectUserType('medic')"
+      color="primary"
+      mat-raised-button
+    >
+      Medic
+    </button>
 
-    <button mat-raised-button color="primary" [routerLink]="['login', 'farmacy']">Farmacy</button>
+    <button
+      [routerLink]="['login', 'farmacy']"
+      (click)="selectUserType('farmacy')"
+      color="primary"
+      mat-raised-button
+    >
+      Farmacy
+    </button>
 
-    <button mat-raised-button color="primary" [routerLink]="['login', 'specialist-medic']">Specialist medic</button>
+    <button
+      [routerLink]="['login', 'specialist']"
+      (click)="selectUserType('specialist')"
+      color="primary"
+      mat-raised-button
+    >
+      Specialist medic
+    </button>
   </div>
 </div>
