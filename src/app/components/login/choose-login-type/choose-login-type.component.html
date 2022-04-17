@@ -1,43 +1,17 @@
 <div class="flex_column flex_column-align-center flex_column-justify-center choose-user-type">
-  <span class="title margin_bottom-s">Choose account type</span>
+  <span class="title margin_bottom-s">Alegeți tipul de utilizator</span>
 
-  <span class="subtitle">Check your heath makes it easy to stay up to speed with the most import thing in life</span>
+  <span class="subtitle">Check your heath - cea mai simplă metodă de a avea grijă de sănătatea ta</span>
 
   <div class="user-types margin_top-xl">
     <button
-      [routerLink]="['login', 'pacient']"
-      (click)="selectUserType('pacient')"
+      *ngFor="let type of userTypes"
+      [routerLink]="['login', removeDash(type)]"
+      (click)="selectUserType((removeDash(type)))"
       color="primary"
       mat-raised-button
     >
-      Pacient
-    </button>
-
-    <button
-      [routerLink]="['login', 'medic']"
-      (click)="selectUserType('medic')"
-      color="primary"
-      mat-raised-button
-    >
-      Medic
-    </button>
-
-    <button
-      [routerLink]="['login', 'farmacy']"
-      (click)="selectUserType('farmacy')"
-      color="primary"
-      mat-raised-button
-    >
-      Farmacy
-    </button>
-
-    <button
-      [routerLink]="['login', 'specialist']"
-      (click)="selectUserType('specialist')"
-      color="primary"
-      mat-raised-button
-    >
-      Specialist medic
+      {{ type | upperCaseFirstLetter }}
     </button>
   </div>
 </div>

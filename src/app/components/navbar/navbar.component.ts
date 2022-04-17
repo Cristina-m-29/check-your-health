@@ -1,26 +1,25 @@
 import { Component, OnInit } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
+import { NavigationStart, Router } from '@angular/router';
 import { filter } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'cyh-navbar',
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.sass']
+  styleUrls: ['./navbar.component.sass'],
 })
 export class NavbarComponent implements OnInit {
   public onChooseUserType = true;
   public onRegisterPage = false;
-  public loggedIn = false;
 
   constructor(private authService: AuthService, private router: Router) { }
 
   public ngOnInit(): void {
     this.router.events
-      .pipe(filter(event => event instanceof NavigationEnd))
+      .pipe(filter(event => event instanceof NavigationStart))
       .subscribe((event: any) => {
         this.onChooseUserType = event.url === '/';
-        this.onRegisterPage = event.url.includes('register') && !this.loggedIn;
+        this.onRegisterPage = event.url.includes('register');
       });
   }
 

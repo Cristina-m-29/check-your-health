@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { menus } from 'src/app/models/menu';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -20,6 +21,7 @@ export class LoginComponent {
   public login(): void {
     // to do
     this.userType = this.authService.getUserType();
-    this.router.navigateByUrl(`dashboard/${this.userType}`);
+    const tab = menus.find(menu => menu.userType === this.userType)?.menuList[0];
+    this.router.navigateByUrl(`dashboard/${this.userType}/${tab}`);
   }
 }

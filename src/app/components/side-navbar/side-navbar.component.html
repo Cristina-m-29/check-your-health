@@ -1,0 +1,61 @@
+<div>
+  <div class="logo flex flex-align-center margin_bottom-xl" (click)="goHome()">
+    <img class="icon margin_right-s" src="../../../assets/images/logo.svg" alt="logo">
+
+    <span class="display_block">Check your health</span>
+  </div>
+
+  <div *ngFor="let menu of menus">
+    <div *ngIf="menu.userType === userType">
+      <div
+        *ngFor="let item of menu.translateMenuList"
+        (click)="goTo(menu, item)"
+        class="flex_column width-full margin_bottom-s"
+      >
+        <button
+          *ngIf="selectedMenuItem !== item"
+          color="primary"
+          class="width-full"
+          mat-button
+        >
+          {{ item | upperCaseFirstLetter }}
+        </button>
+
+        <button
+          *ngIf="selectedMenuItem === item"
+          color="primary"
+          class="width-full"
+          mat-stroked-button
+        >
+          {{ item | upperCaseFirstLetter }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="flex_column padding_top options width-full">
+  <div
+    *ngFor="let item of options.translateMenuList"
+    (click)="goTo(options, item)"
+    class="flex_column width-full"
+  >
+    <button
+      *ngIf="selectedMenuItem !== item"
+      color="primary"
+      class="width-full"
+      mat-button
+    >
+      {{ item | upperCaseFirstLetter }}
+    </button>
+
+    <button
+      *ngIf="selectedMenuItem === item"
+      color="primary"
+      class="width-full"
+      mat-stroked-button
+    >
+      {{ item | upperCaseFirstLetter }}
+    </button>
+  </div>
+</div>

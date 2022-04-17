@@ -1,13 +1,19 @@
+import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { BaseRegisterComponent } from './components/register/base-register/base-register.component';
-import { ChooseLoginTypeComponent } from './components/login/choose-login-type/choose-login-type.component';
-import { FarmacyDashboardComponent } from './components/dashboards/farmacy-dashboard/farmacy-dashboard/farmacy-dashboard.component';
-import { LoginComponent } from './components/login/login/login.component';
 import { MedicDashboardComponent } from './components/dashboards/medic-dashboard/medic-dashboard/medic-dashboard.component';
-import { NgModule } from '@angular/core';
-import { PacientDashboardComponent } from './components/dashboards/pacient-dashboard/pacient-dashboard/pacient-dashboard.component';
-import { SpecialistDashboardComponent } from './components/dashboards/specialist-dashboard/specialist-dashboard/specialist-dashboard.component';
+import {
+  MyDiagnoasticsComponent,
+} from './components/dashboards/pacient-dashboard/my-diagnoastics/my-diagnoastics.component';
+import { MyMedicComponent } from './components/dashboards/pacient-dashboard/my-medic/my-medic.component';
+import {
+  MyPrescriptionsComponent,
+} from './components/dashboards/pacient-dashboard/my-prescriptions/my-prescriptions.component';
+import { ChooseLoginTypeComponent } from './components/login/choose-login-type/choose-login-type.component';
+import { LoginComponent } from './components/login/login/login.component';
+import { NotificationsComponent } from './components/notifications/notifications.component';
+import { BaseRegisterComponent } from './components/register/base-register/base-register.component';
+import { UserComponent } from './components/user/user.component';
 
 const routes: Routes = [
   {
@@ -25,19 +31,64 @@ const routes: Routes = [
   // dashboards
   {
     path: 'dashboard/medic',
-    component: MedicDashboardComponent
+    // to add menu items
+    children: [
+      {
+        path: '**',
+        component: MedicDashboardComponent
+      }
+    ]
   },
   {
     path: 'dashboard/specialist',
-    component: SpecialistDashboardComponent
+    // to add menu items
+    children: [
+      {
+        path: '**',
+        component: MedicDashboardComponent
+      }
+    ]
   },
   {
     path: 'dashboard/pacient',
-    component: PacientDashboardComponent
+    // to add menu items
+    children: [
+      {
+        path: 'diagnostice',
+        component: MyDiagnoasticsComponent
+      },
+      {
+        path: 'prescriptii',
+        component: MyPrescriptionsComponent
+      },
+      {
+        path: 'medic',
+        component: MyMedicComponent,
+      },
+      {
+        path: '**',
+        redirectTo: '/dashboard/pacient/diagnostics'
+      }
+    ]
   },
   {
-    path: 'dashboard/farmacy',
-    component: FarmacyDashboardComponent
+    path: 'dashboard/farmacie',
+    // to add menu items
+    children: [
+      {
+        path: '**',
+        component: MedicDashboardComponent
+      }
+    ]
+  },
+  // other
+  {
+    path: 'notificari',
+    component: NotificationsComponent
+  },
+  {
+    path: 'cont',
+    component: UserComponent
   }
 ];
 

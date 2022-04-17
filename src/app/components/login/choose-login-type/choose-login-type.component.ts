@@ -7,9 +7,16 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./choose-login-type.component.sass']
 })
 export class ChooseLoginTypeComponent {
+  public userTypes = ['pacient', 'medic', 'farmacie', 'medic-specialist'];
+
   constructor(private authService: AuthService) {}
 
+  public removeDash(value: string): string {
+    return value.substring(value.indexOf('-') + 1)
+  }
+
   public selectUserType(userType: string): void {
+    console.log(userType);
     this.authService.setUserType(userType);
   }
 }

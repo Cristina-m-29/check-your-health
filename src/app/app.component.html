@@ -1,6 +1,8 @@
-<div class="main-container">
-    <cyh-navbar class="min-width-full height-small flex-align-center flex-justify"></cyh-navbar>
-    
+<div class="main-container" [ngClass]="{'main-container-flex': showMainNavbar}">
+    <cyh-navbar *ngIf="!showMainNavbar" class="min-width-full height-small flex-align-center flex-justify"></cyh-navbar>
+
+    <cyh-side-navbar *ngIf="showMainNavbar"></cyh-side-navbar>
+
     <div class="second-container">
         <router-outlet></router-outlet>
     </div>

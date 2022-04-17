@@ -5,7 +5,7 @@
 </div>
 
 <div *ngIf="!onChooseUserType && !onRegisterPage">
-  <span class="margin_right">Are you new?</span>
+  <span class="margin_right">Nu ai cont?</span>
 
   <button
     (click)="goToRegister()"
@@ -13,12 +13,12 @@
     class="button button-border"
     mat-button
   >
-    Register
+    Înregistreză-te
   </button>
 </div>
 
 <div *ngIf="!onChooseUserType && onRegisterPage">
-  <span class="margin_right">Already have an account?</span>
+  <span class="margin_right">Ai deja cont?</span>
 
   <button
     (click)="goToLogin()"
@@ -26,20 +26,6 @@
     class="button button-border"
     mat-button
   >
-    Login
-  </button>
-</div>
-
-<div *ngIf="loggedIn">
-  <button mat-icon-button>
-    <mat-icon class="icon">notifications</mat-icon>
-  </button>
-
-  <button mat-icon-button>
-    <mat-icon>account_circle</mat-icon>
-  </button>
-
-  <button mat-icon-button>
-    <mat-icon>exit_to_app</mat-icon>
+    Intră în cont
   </button>
 </div>
