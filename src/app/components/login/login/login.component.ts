@@ -9,7 +9,7 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./login.component.sass']
 })
 export class LoginComponent {
-  private userType: string | null = null;
+  private userType: string | null = this.authService.getUserType();
 
   constructor(private authService: AuthService, private router: Router) { }
 
@@ -20,8 +20,6 @@ export class LoginComponent {
 
   public login(): void {
     // to do
-    this.userType = this.authService.getUserType();
-    const tab = menus.find(menu => menu.userType === this.userType)?.menuList[0];
-    this.router.navigateByUrl(`dashboard/${this.userType}/${tab}`);
+    this.authService.navigateToDashboard();
   }
 }

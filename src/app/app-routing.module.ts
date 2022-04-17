@@ -16,6 +16,7 @@ import { BaseRegisterComponent } from './components/register/base-register/base-
 import { UserComponent } from './components/user/user.component';
 
 const routes: Routes = [
+  // login
   {
     path: '',
     component: ChooseLoginTypeComponent,
@@ -24,6 +25,7 @@ const routes: Routes = [
     path: 'login/:userType',
     component: LoginComponent
   },
+  // register
   {
     path: 'register/:userType',
     component: BaseRegisterComponent

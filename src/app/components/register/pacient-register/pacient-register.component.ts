@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'cyh-pacient-register',
@@ -6,10 +7,19 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./pacient-register.component.sass']
 })
 export class PacientRegisterComponent implements OnInit {
+  @Output() public goBackToBaseRegister = new EventEmitter();
 
-  constructor() { }
+  constructor(private authService: AuthService) {}
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
+
+  public goBack(): void {
+    this.goBackToBaseRegister.emit();
+  }
+
+  public register(): void {
+    // to do
+    this.authService.navigateToDashboard();
   }
 
 }

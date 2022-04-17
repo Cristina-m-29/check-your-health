@@ -21,3 +21,40 @@ html, body
 
 p
   width: auto
+
+.login, .register
+  width: 30rem
+  padding: 3rem
+  text-align: center
+  border-radius: 1rem
+  box-shadow: 0 5px 5px -3px #0003,0 8px 10px 1px #00000024,0 3px 14px 2px #0000001f
+
+  .title
+    display: flex
+    justify-content: center
+    font-size: 1.5rem
+    font-weight: 500
+
+  .subtitle
+    font: 1.25rem
+    color: $dark_grey
+
+  mat-icon
+    justify-self: left
+    cursor: pointer
+    display: flex
+    align-items: center
+    width: 2rem
+    height: 2rem
+    color: $dark_grey
+
+    &:hover, &:focus
+      color: $dark_purple
+
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button
+    -webkit-appearance: none
+    margin: 0
+
+  input[type=number]
+    -moz-appearance: textfield
