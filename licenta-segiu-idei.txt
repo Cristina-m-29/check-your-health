@@ -1,0 +1,82 @@
+// pagina profil -> date suplimentare de completat:
+
+Pacient: []
+Medic: []
+Specialist: []
+Farmacie: []
+
+// pacient 
+-> tab medic: 
+    1. buton pt programari (zi, ora, detalii pt programare)
+    durata progtaare: 30 min (dupa acceptare nu mai poate fi selectat de alt pacient aceeasi perioada)
+    primere notificare pt confirmare)
+
+    2. lista programari (urmatoare + istoric)
+
+-> tab prescriptii:
+    1. lista retete/prescriptii (ordine cronologica) 
+        - lista medicamente
+        - farmacia asignata de medic
+        - status pt comanda (cand pot fi ridicate medicamentele)
+        - popup pt program/locatie farmacie
+
+-> tab profil user:
+    1. Date aditionale:
+    - domiciliu
+    - conditii medicale cunoscute de pacient (alergii, boli, fumat etc..)
+
+    2. Diagnostice stabilite de medic si medic specialist (nume medic + descriere)
+
+// medic
+-> tab home:
+    1. programari (confirmate + respinse) (redirect catre pagina de pacient)
+    2. popup pt confirmare/respingere programare - respingerea = free text (modicare program medic)
+
+-> tab pacienti: 
+    - lista pacienti + popup/pagina separata pt profil + diagnostice (btn adauga diagnotic) + retete(
+        btn adauga reteta:
+            - tip reteta: compensata/necompensata
+            - lista medicante + cantitate (autocomplete cu val predefinite + posibilitate de adaugare val noi)
+            - farmacia asignata (optionala)
+            - necesita notificari pt disponibilitatea farmaciei de a onora reteta
+            - posibilitatea de a asigna mai tarziu catre o farmacie
+            - btn de print
+    )
+    - trimiteri catre un medic specialist ( form: input - nume + specializare [select] + free text [detalii trimitere] )
+    - search dupa nume
+
+-> tab profil:
+    - datele normale
+    - program general medic (program lucru)
+
+//medic specialist
+-> tab home 
+    - search dupa nume
+    - lista trimiteri asignate catre acel medic specialist (nr tel pt sunat)
+    - btn adaugare recomandare (free text)
+
+-> tab profil
+    1. date aditionale 
+        - locatie
+        - program lucru
+
+//farmacie
+-> tab home:
+    1. Lista retete (pending + waiting for pickup + istoric retete) 
+        -> PENDING: necisita pagini/popup (date pacient: nume + nr tel, date contact medic) - dupa accept se muta in ready for pickup
+        -> waiting for pickup: btn pt schimbare status
+        -> liste dinamice updatate pe baza statusului
+        -> istoric retete -> cateva pt preview + btn de load more (redirect catre pagian de retete)
+
+-> tab retete:
+    - intreg istoric retete + status individual
+
+-> tab profil:
+    - date aditionale:
+        - locatie
+        - program
+
+// notificari
+    - de la farmacie: 
+        - accept retata -> notif pacient
+        - reject reteta -> notif medic
