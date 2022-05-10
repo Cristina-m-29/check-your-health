@@ -5,8 +5,8 @@ Medic: []
 Specialist: []
 Farmacie: []
 
-// pacient 
--> tab medic: 
+// pacient
+-> tab medic:
     1. buton pt programari (zi, ora, detalii pt programare)
     durata progtaare: 30 min (dupa acceptare nu mai poate fi selectat de alt pacient aceeasi perioada)
     primere notificare pt confirmare)
@@ -14,7 +14,7 @@ Farmacie: []
     2. lista programari (urmatoare + istoric)
 
 -> tab prescriptii:
-    1. lista retete/prescriptii (ordine cronologica) 
+    1. lista retete/prescriptii (ordine cronologica)
         - lista medicamente
         - farmacia asignata de medic
         - status pt comanda (cand pot fi ridicate medicamentele)
@@ -32,7 +32,7 @@ Farmacie: []
     1. programari (confirmate + respinse) (redirect catre pagina de pacient)
     2. popup pt confirmare/respingere programare - respingerea = free text (modicare program medic)
 
--> tab pacienti: 
+-> tab pacienti:
     - lista pacienti + popup/pagina separata pt profil + diagnostice (btn adauga diagnotic) + retete(
         btn adauga reteta:
             - tip reteta: compensata/necompensata
@@ -50,19 +50,19 @@ Farmacie: []
     - program general medic (program lucru)
 
 //medic specialist
--> tab home 
+-> tab home
     - search dupa nume
     - lista trimiteri asignate catre acel medic specialist (nr tel pt sunat)
     - btn adaugare recomandare (free text)
 
 -> tab profil
-    1. date aditionale 
+    1. date aditionale
         - locatie
         - program lucru
 
 //farmacie
 -> tab home:
-    1. Lista retete (pending + waiting for pickup + istoric retete) 
+    1. Lista retete (pending + waiting for pickup + istoric retete)
         -> PENDING: necisita pagini/popup (date pacient: nume + nr tel, date contact medic) - dupa accept se muta in ready for pickup
         -> waiting for pickup: btn pt schimbare status
         -> liste dinamice updatate pe baza statusului
@@ -77,6 +77,13 @@ Farmacie: []
         - program
 
 // notificari
-    - de la farmacie: 
+    - de la farmacie:
         - accept retata -> notif pacient
         - reject reteta -> notif medic
+
+// de documentat:
+  - trimitere sms uri
+
+
+// pt sergiu
+    - notificari - realizate cu ajutorul websocket urilor
