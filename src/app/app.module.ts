@@ -1,3 +1,4 @@
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatNativeDateModule } from '@angular/material/core';
@@ -97,6 +98,7 @@ import { UpperCaseFirstLetterPipe } from './pipes/upper-case-first-letter.pipe';
     MatInputModule,
     MatNativeDateModule,
     MatSelectModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
