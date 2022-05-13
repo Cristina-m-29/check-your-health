@@ -2,8 +2,24 @@
   <div class="title width-full margin_bottom-s">
     <mat-icon (click)="goBack()">keyboard_arrow_left</mat-icon>
 
-    <span>Înregistrați-vă</span>
+    <span>Date aditionale</span>
   </div>
 
-  <span class="subtitle margin_bottom-xl">Check your heath - cea mai simplă metodă de a avea grijă de sănătatea ta</span>
+  <span class="subtitle margin_bottom-xl">Completati locatia farmaciei</span>
+
+  <form [formGroup]="farmacyRegisterForm" class="width-full">
+    <mat-form-field appearance="outline" class="width-full">
+      <mat-label>Locatie farmacie</mat-label>
+
+      <input matInput placeholder="Bulevardul Stefan Cel Mare nr.4" required formControlName="location">
+    </mat-form-field>
+  </form>
+
+  <button
+    mat-raised-button
+    color="primary"
+    class="width-full height-small button"
+    (click)="finishRegister()"
+    [disabled]="!farmacyRegisterForm.valid"
+  >Înregistrați-vă</button>
 </div>

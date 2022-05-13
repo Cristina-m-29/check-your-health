@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -11,6 +12,13 @@ export class BaseRegisterComponent {
   public showBaseRegisterView = true;
   public userType = this.authService.getUserType();
 
+  public baseRegisterForm = new FormGroup({
+    name: new FormControl(),
+    email: new FormControl(),
+    password: new FormControl(),
+    phoneNumber: new FormControl(),
+  });
+
   constructor(private authService: AuthService, private router: Router) {}
 
   public backToChooseUserType(): void {
@@ -20,6 +28,21 @@ export class BaseRegisterComponent {
 
   public continueRegister(): void {
     this.showBaseRegisterView = false;
+  }
+
+  public register(event: any): void {
+    const baseForm: {[key: string]: any} = {};
+    Object.keys(this.baseRegisterForm.value).forEach((key: string) => {
+      baseForm[key] = this.baseRegisterForm.value[key];
+    })
+
+    const form = <FormGroup>event;
+    Object.keys(form.value).forEach((key: string) => {
+      baseForm[key] = form.value[key];
+    });
+
+    // to do
+    this.authService.navigateToDashboard();
   }
 
   public goBackToBaseRegister() {

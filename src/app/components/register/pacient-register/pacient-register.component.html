@@ -5,25 +5,21 @@
     <span>Date adiționale</span>
   </div>
 
-  <span class="subtitle margin_bottom-xl">Completează datele medicului tău de familie!</span>
+  <span class="subtitle margin_bottom-xl">Completează numele medicului tău de familie!</span>
 
-  <mat-form-field appearance="outline" class="width-full">
-    <mat-label>Nume</mat-label>
+  <form [formGroup]="medicName" class="width-full">
+    <mat-form-field appearance="outline" class="width-full">
+      <mat-label>Nume medic de familie</mat-label>
 
-    <input matInput placeholder="Ana Grigorescu">
-  </mat-form-field>
+      <input matInput placeholder="Ana Grigorescu" required formControlName="name">
+    </mat-form-field>
+  </form>
 
-  <mat-form-field appearance="outline" class="width-full">
-    <mat-label>Email</mat-label>
-
-    <input matInput placeholder="mail@gmail.com">
-  </mat-form-field>
-
-  <mat-form-field appearance="outline" class="width-full margin_bottom">
-    <mat-label>Numar de telefon</mat-label>
-
-    <input matInput placeholder="0723232344" type="number">
-  </mat-form-field>
-
-  <button mat-raised-button color="primary" class="width-full height-small button" (click)="register()">Înregistrați-vă</button>
+  <button
+    mat-raised-button
+    color="primary"
+    class="width-full height-small button"
+    (click)="finishRegister()"
+    [disabled]="!medicName.valid"
+  >Înregistrați-vă</button>
 </div>

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { menus } from 'src/app/models/menu';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -9,7 +9,13 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./login.component.sass']
 })
 export class LoginComponent {
-  private userType: string | null = this.authService.getUserType();
+  public userType: string | null = this.authService.getUserType();
+
+  public loginForm = new FormGroup({
+    phoneNumber: new FormControl(),
+    email: new FormControl(),
+    pass: new FormControl()
+  });
 
   constructor(private authService: AuthService, private router: Router) { }
 

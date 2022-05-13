@@ -1,5 +1,6 @@
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -91,6 +92,7 @@ import { UpperCaseFirstLetterPipe } from './pipes/upper-case-first-letter.pipe';
     AppRoutingModule,
     BrowserAnimationsModule,
     BrowserModule,
+    HttpClientModule,
     MatButtonModule,
     MatDatepickerModule,
     MatFormFieldModule,
@@ -98,7 +100,7 @@ import { UpperCaseFirstLetterPipe } from './pipes/upper-case-first-letter.pipe';
     MatInputModule,
     MatNativeDateModule,
     MatSelectModule,
-    HttpClientModule,
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

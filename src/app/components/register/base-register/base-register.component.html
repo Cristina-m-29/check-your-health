@@ -7,37 +7,61 @@
 
   <span class="subtitle margin_bottom-xl">Check your heath - cea mai simplă metodă de a avea grijă de sănătatea ta</span>
 
-  <mat-form-field appearance="outline" class="width-full">
-    <mat-label>Nume</mat-label>
+  <form [formGroup]="baseRegisterForm">
+    <mat-form-field appearance="outline" class="width-full">
+      <mat-label>Nume</mat-label>
 
-    <input matInput placeholder="Ana Grigorescu / Catena">
-  </mat-form-field>
+      <input matInput placeholder="Ana Grigorescu / Catena" required formControlName="name">
+    </mat-form-field>
 
-  <mat-form-field appearance="outline" class="width-full">
-    <mat-label>Email</mat-label>
+    <mat-form-field appearance="outline" class="width-full">
+      <mat-label>Numar de telefon</mat-label>
 
-    <input matInput placeholder="mail@gmail.com">
-  </mat-form-field>
+      <input matInput placeholder="0723232344" required formControlName="phoneNumber">
+    </mat-form-field>
 
-  <mat-form-field appearance="outline" class="width-full">
-    <mat-label>Parolă</mat-label>
+    <mat-form-field appearance="outline" class="width-full">
+      <mat-label>Email</mat-label>
 
-    <input matInput type="password" placeholder="**********">
-  </mat-form-field>
+      <input matInput placeholder="mail@gmail.com" formControlName="email" [required]="userType !== 'pacient'">
+    </mat-form-field>
 
-  <mat-form-field appearance="outline" class="width-full margin_bottom">
-    <mat-label>Numar de telefon</mat-label>
+    <mat-form-field appearance="outline" class="width-full">
+      <mat-label>Parolă</mat-label>
 
-    <input matInput placeholder="0723232344" type="number">
-  </mat-form-field>
+      <input matInput type="password" placeholder="**********" required formControlName="password">
+    </mat-form-field>
+  </form>
 
-  <button mat-raised-button color="primary" class="width-full height-small button" (click)="continueRegister()">Continuă</button>
+  <button
+    mat-raised-button
+    color="primary"
+    class="width-full height-small button"
+    (click)="continueRegister()"
+    [disabled]="!baseRegisterForm.valid"
+  >Continuă</button>
 </div>
 
-<cyh-pacient-register *ngIf="!showBaseRegisterView && userType === 'pacient'" (goBackToBaseRegister)="goBackToBaseRegister()"></cyh-pacient-register>
+<cyh-pacient-register
+  *ngIf="!showBaseRegisterView && userType === 'pacient'"
+  (goBackToBaseRegister)="goBackToBaseRegister()"
+  (register)="register($event)"
+></cyh-pacient-register>
 
-<cyh-medic-register *ngIf="!showBaseRegisterView && userType === 'medic'" (goBackToBaseRegister)="goBackToBaseRegister()"></cyh-medic-register>
+<cyh-medic-register
+  *ngIf="!showBaseRegisterView && userType === 'medic'"
+  (goBackToBaseRegister)="goBackToBaseRegister()"
+  (register)="register($event)"
+></cyh-medic-register>
 
-<cyh-farmacy-register *ngIf="!showBaseRegisterView && userType === 'farmacie'" (goBackToBaseRegister)="goBackToBaseRegister()"></cyh-farmacy-register>
+<cyh-farmacy-register
+  *ngIf="!showBaseRegisterView && userType === 'farmacie'"
+  (goBackToBaseRegister)="goBackToBaseRegister()"
+  (register)="register($event)"
+></cyh-farmacy-register>
 
-<cyh-specialist-register *ngIf="!showBaseRegisterView && userType === 'specialist'" (goBackToBaseRegister)="goBackToBaseRegister()"></cyh-specialist-register>
+<cyh-specialist-register
+  *ngIf="!showBaseRegisterView && userType === 'specialist'"
+  (goBackToBaseRegister)="goBackToBaseRegister()"
+  (register)="register($event)"
+></cyh-specialist-register>

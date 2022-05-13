@@ -7,17 +7,43 @@
 
   <span class="subtitle margin_bottom-xl">Check your heath - cea mai simplă metodă de a avea grijă de sănătatea ta</span>
 
-  <mat-form-field appearance="outline" class="width-full">
-    <mat-label>Email</mat-label>
+  <form [formGroup]="loginForm" class="width-full">
+    <mat-form-field
+      *ngIf="userType === 'pacient'"
+      appearance="outline"
+      class="width-full"
+    >
+      <mat-label>Phone number</mat-label>
 
-    <input matInput placeholder="mail@gmail.com">
-  </mat-form-field>
+      <input matInput placeholder="0773339999" required formControlName="phoneNumber">
+    </mat-form-field>
 
-  <mat-form-field appearance="outline" class="width-full margin_bottom">
-    <mat-label>Parolă</mat-label>
+    <mat-form-field
+      *ngIf="userType !== 'pacient'"
+      appearance="outline"
+      class="width-full"
+    >
+      <mat-label>Email</mat-label>
 
-    <input matInput type="password" placeholder="**********">
-  </mat-form-field>
+      <input matInput type="email" placeholder="mail@gmail.com" required formControlName="email">
+    </mat-form-field>
 
-  <button mat-raised-button color="primary" class="width-full height-small button" (click)="login()">Intră</button>
+    <mat-form-field
+      appearance="outline"
+      class="width-full margin_bottom"
+    >
+      <mat-label>Parolă</mat-label>
+
+      <input matInput type="password" placeholder="**********" required formControlName="pass">
+    </mat-form-field>
+  </form>
+
+
+  <button
+    mat-raised-button
+    color="primary"
+    class="width-full height-small button"
+    [disabled]="!loginForm.valid"
+    (click)="login()"
+  >Intră</button>
 </div>

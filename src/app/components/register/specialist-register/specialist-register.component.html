@@ -2,8 +2,36 @@
   <div class="title width-full margin_bottom-s">
     <mat-icon (click)="goBack()">keyboard_arrow_left</mat-icon>
 
-    <span>Înregistrați-vă</span>
+    <span>Date aditionale</span>
   </div>
 
-  <span class="subtitle margin_bottom-xl">Check your heath - cea mai simplă metodă de a avea grijă de sănătatea ta</span>
+  <span class="subtitle margin_bottom-xl">Completati datele profesiei dumnevoastra</span>
+
+  <form [formGroup]="medicRegisterForm" class="width-full">
+    <mat-form-field appearance="outline" class="width-full">
+      <mat-label>Cod unic parafa</mat-label>
+
+      <input matInput placeholder="AG96H" required formControlName="code">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="width-full">
+      <mat-label>Specializare</mat-label>
+
+      <input matInput placeholder="Medicina dentara" required formControlName="domain">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="width-full">
+      <mat-label>Locatie Cabinet</mat-label>
+
+      <input matInput placeholder="Bulevardul Stefan Cel Mare nr.4" required formControlName="location">
+    </mat-form-field>
+  </form>
+
+  <button
+    mat-raised-button
+    color="primary"
+    class="width-full height-small button"
+    (click)="finishRegister()"
+    [disabled]="!medicRegisterForm.valid"
+  >Înregistrați-vă</button>
 </div>

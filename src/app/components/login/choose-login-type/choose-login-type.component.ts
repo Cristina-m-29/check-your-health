@@ -16,7 +16,6 @@ export class ChooseLoginTypeComponent {
   }
 
   public selectUserType(userType: string): void {
-    console.log(userType);
     this.authService.setUserType(userType);
   }
 }
