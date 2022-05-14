@@ -1,3 +1,9 @@
-<p>
-  pacient-dashboard-home works!
-</p>
+<ng-container *ngIf="loading; else notLoading">
+  <cyh-loading-screen></cyh-loading-screen>
+</ng-container>
+
+<ng-template #notLoading>
+  test
+</ng-template>
+
+<button (click)="loading = !loading">Toggle loading screen</button>
