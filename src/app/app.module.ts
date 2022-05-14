@@ -18,12 +18,14 @@ import { ChooseLoginTypeComponent } from './components/auth/login/choose-login-t
 import { LoginComponent } from './components/auth/login/login/login.component';
 import { BaseRegisterComponent } from './components/auth/register/base-register/base-register.component';
 import { MedicRegisterComponent } from './components/auth/register/medic-register/medic-register.component';
-import { PacientRegisterComponent } from './components/auth/register/pacient-register/pacient-register.component';
+import { PatientRegisterComponent } from './components/auth/register/patient-register/patient-register.component';
 import { PharmacyRegisterComponent } from './components/auth/register/pharmacy-register/pharmacy-register.component';
 import { SpecialistRegisterComponent } from './components/auth/register/specialist-register/specialist-register.component';
 import { MedicDashboardHomeComponent } from './components/dashboards/medic-dashboard/menu-tabs/medic-dashboard-home/medic-dashboard-home.component';
-import { PacientDashboardHomeComponent } from './components/dashboards/pacient-dashboard/menu-tabs/pacient-dashboard-home/pacient-dashboard-home.component';
-import { PacientDashboardPrescriptionsComponent } from './components/dashboards/pacient-dashboard/menu-tabs/pacient-dashboard-prescriptions/pacient-dashboard-prescriptions.component';
+import { PatientDashboardHomeComponent } from './components/dashboards/patient-dashboard/menu-tabs/patient-dashboard-home/patient-dashboard-home.component';
+import { PatientDashboardPrescriptionsComponent } from './components/dashboards/patient-dashboard/menu-tabs/patient-dashboard-prescriptions/patient-dashboard-prescriptions.component';
+import { PatientDashboardAppointmentsComponent } from './components/dashboards/patient-dashboard/parts/patient-dashboard-appointments/patient-dashboard-appointments.component';
+import { PatientDashboardMedicComponent } from './components/dashboards/patient-dashboard/parts/patient-dashboard-medic/patient-dashboard-medic.component';
 import { PharmacyDashboardHomeComponent } from './components/dashboards/pharmacy-dashboard/menu-tabs/pharmacy-dashboard-home/pharmacy-dashboard-home.component';
 import { SpecialistDashboardHomeComponent } from './components/dashboards/specialist-dashboard/menu-tabs/specialist-dashboard-home/specialist-dashboard-home.component';
 import { UserComponent } from './components/dashboards/user/user.component';
@@ -46,9 +48,11 @@ import { UpperCaseFirstLetterPipe } from './pipes/upper-case-first-letter.pipe';
     MedicRegisterComponent,
     NavbarComponent,
     NotificationsComponent,
-    PacientDashboardHomeComponent,
-    PacientDashboardPrescriptionsComponent,
-    PacientRegisterComponent,
+    PatientDashboardHomeComponent,
+    PatientDashboardPrescriptionsComponent,
+    PatientDashboardAppointmentsComponent,
+    PatientDashboardMedicComponent,
+    PatientRegisterComponent,
     PharmacyDashboardHomeComponent,
     PharmacyRegisterComponent,
     SideNavbarComponent,

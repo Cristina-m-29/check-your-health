@@ -23,7 +23,7 @@
     <mat-form-field appearance="outline" class="width-full">
       <mat-label>Email</mat-label>
 
-      <input matInput placeholder="mail@gmail.com" formControlName="email" [required]="userType !== 'pacient'">
+      <input matInput placeholder="mail@gmail.com" formControlName="email" [required]="userType !== 'patient'">
     </mat-form-field>
 
     <mat-form-field appearance="outline" class="width-full">
@@ -42,11 +42,11 @@
   >Continuă</button>
 </div>
 
-<!-- <cyh-pacient-register
-  *ngIf="!showBaseRegisterView && userType === 'pacient'"
+<cyh-patient-register
+  *ngIf="!showBaseRegisterView && userType === 'patient'"
   (goBackToBaseRegister)="goBackToBaseRegister()"
   (register)="register($event)"
-></cyh-pacient-register>
+></cyh-patient-register>
 
 <cyh-medic-register
   *ngIf="!showBaseRegisterView && userType === 'medic'"
@@ -64,4 +64,4 @@
   *ngIf="!showBaseRegisterView && userType === 'specialist'"
   (goBackToBaseRegister)="goBackToBaseRegister()"
   (register)="register($event)"
-></cyh-specialist-register> -->
+></cyh-specialist-register>

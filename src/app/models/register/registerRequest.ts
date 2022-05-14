@@ -7,7 +7,7 @@ export class BaseRegisterRequest {
   password: string = '';
 }
 
-export class RegisterPacientRequest extends BaseRegisterRequest {
+export class RegisterPatientRequest extends BaseRegisterRequest {
   medicName: string = '';
 }
 

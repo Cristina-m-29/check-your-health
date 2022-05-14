@@ -1,1 +1,1 @@
-export declare type UserType = 'pacient' | 'medic' | 'specialist' | 'pharmacy';
+export declare type UserType = 'patient' | 'medic' | 'specialist' | 'pharmacy';

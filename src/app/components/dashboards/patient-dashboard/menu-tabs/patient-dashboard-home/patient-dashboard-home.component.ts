@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'cyh-pacient-dashboard-home',
-  templateUrl: './pacient-dashboard-home.component.html',
-  styleUrls: ['./pacient-dashboard-home.component.sass']
+  selector: 'cyh-patient-dashboard-home',
+  templateUrl: './patient-dashboard-home.component.html',
+  styleUrls: ['./patient-dashboard-home.component.sass']
 })
-export class PacientDashboardHomeComponent {
-  public loading = true;
+export class PatientDashboardHomeComponent {
+  // public loading = true;
+  public loading = false;
 
   private gotAppointments = false;
   private gotMedic = false;

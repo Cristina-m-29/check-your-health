@@ -1,0 +1,17 @@
+<ng-container *ngIf="loading; else notLoading">
+  <cyh-loading-screen></cyh-loading-screen>
+</ng-container>
+
+<ng-template #notLoading>
+  <div class="flex height-full">
+    <div class="width-medium margin_right-xl">
+      <cyh-patient-dashboard-appointments></cyh-patient-dashboard-appointments>
+    </div>
+
+    <div class="width-medium">
+      <cyh-patient-dashboard-medic></cyh-patient-dashboard-medic>
+    </div>
+  </div>
+</ng-template>
+
+<button (click)="loading = !loading">Toggle loading screen</button>

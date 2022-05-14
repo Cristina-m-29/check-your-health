@@ -1,7 +1,7 @@
 import { UserType } from "../userType";
 
 export class UpdateEmailRequest {
-  userType: UserType = 'pacient';
+  userType: UserType = 'patient';
   userId: string = '';
   newEmail: string = '';
 }

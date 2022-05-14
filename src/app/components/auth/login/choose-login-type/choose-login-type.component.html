@@ -6,8 +6,8 @@
   <div class="user-types margin_top-xl">
     <button
       *ngFor="let type of userTypes"
-      [routerLink]="['login', removeDash(type)]"
-      (click)="selectUserType((removeDash(type)))"
+      [routerLink]="['login', realUserTypes[userTypes.indexOf(type)]]"
+      (click)="selectUserType(type)"
       color="primary"
       mat-raised-button
     >

@@ -8,6 +8,7 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class ChooseLoginTypeComponent {
   public userTypes = ['pacient', 'medic', 'farmacie', 'medic-specialist'];
+  public realUserTypes = ['patient', 'medic', 'pharmacy', 'specialist']
 
   constructor(private authService: AuthService) {}
 
@@ -16,6 +17,6 @@ export class ChooseLoginTypeComponent {
   }
 
   public selectUserType(userType: string): void {
-    this.authService.setUserType(userType);
+    this.authService.setUserType(this.realUserTypes[this.userTypes.indexOf(userType)]);
   }
 }

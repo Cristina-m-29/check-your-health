@@ -1,5 +1,5 @@
 import { Appointment } from "./appointment";
-import { Recomandation } from "./recomandation";
+import { Recommendation } from "./recommendation";
 import { WorkingHours } from "./workingHours";
 
 export class Medic {
@@ -10,7 +10,7 @@ export class Medic {
   code: string = '';
   location: string = '';
   workingHours: WorkingHours = new WorkingHours();
-  pacientsIds: string[] = [];
+  patientsIds: string[] = [];
   appointments: Appointment[] = [];
 }
 
@@ -23,5 +23,5 @@ export class Specialist {
   domain: string = '';
   location: string = '';
   workingHours: WorkingHours = new WorkingHours();
-  recomandations: Recomandation[] = [];
+  recommendations: Recommendation[] = [];
 }

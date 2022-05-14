@@ -2,10 +2,10 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
-  selector: 'cyh-pacient-register',
-  templateUrl: './pacient-register.component.html',
+  selector: 'cyh-patient-register',
+  templateUrl: './patient-register.component.html',
 })
-export class PacientRegisterComponent {
+export class PatientRegisterComponent {
   @Output() public goBackToBaseRegister = new EventEmitter();
   @Output() public register = new EventEmitter();
 

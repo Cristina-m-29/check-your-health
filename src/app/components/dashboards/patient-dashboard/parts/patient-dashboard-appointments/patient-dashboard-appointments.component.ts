@@ -1,25 +1,29 @@
 import { Component, OnInit } from '@angular/core';
 import { Appointment } from 'src/app/models/appointment';
-import { Medic, Specialist } from 'src/app/models/medic';
-import { WorkingHours } from 'src/app/models/workingHours';
 
 @Component({
-  selector: 'cyh-my-medic',
-  templateUrl: './my-medic.component.html',
-  styleUrls: ['./my-medic.component.sass']
+  selector: 'cyh-patient-dashboard-appointments',
+  templateUrl: './patient-dashboard-appointments.component.html',
+  styleUrls: ['./patient-dashboard-appointments.component.sass']
 })
-export class MyMedicComponent implements OnInit {
+export class PatientDashboardAppointmentsComponent implements OnInit {
   public appointments$: Appointment[] = [];
   public oldAppointments$: Appointment[] = [];
 
-  constructor() {}
 
-  public ngOnInit(): void {
+  constructor() { }
+
+  public ngOnInit() {
     this.appointments$ = [
       {
         id: '1hfw',
         date: new Date(),
         status: 'accepted',
+      },
+      {
+        id: '1hfw',
+        date: new Date(),
+        status: 'pending',
       },
       {
         id: '1hfw',
@@ -70,7 +74,4 @@ export class MyMedicComponent implements OnInit {
   public getMedicName(appointmentId: string): string {
     return 'Popescu Valeria';
   }
-
-  // public getLocation()
-
 }

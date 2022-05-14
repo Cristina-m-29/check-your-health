@@ -2,8 +2,8 @@ import { Medicine } from "./medicine";
 
 export class Prescription {
   id: string = '';
-  pacientId: string = '';
-  pacientName: string[] = [];
+  patientId: string = '';
+  patientName: string[] = [];
   medicines: Medicine[] = [];
   pharmacyId: string = '';
   pharmacyName: string = '';

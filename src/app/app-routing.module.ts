@@ -8,11 +8,11 @@ import {
   MedicDashboardHomeComponent,
 } from './components/dashboards/medic-dashboard/menu-tabs/medic-dashboard-home/medic-dashboard-home.component';
 import {
-  PacientDashboardHomeComponent,
-} from './components/dashboards/pacient-dashboard/menu-tabs/pacient-dashboard-home/pacient-dashboard-home.component';
+  PatientDashboardHomeComponent,
+} from './components/dashboards/patient-dashboard/menu-tabs/patient-dashboard-home/patient-dashboard-home.component';
 import {
-  PacientDashboardPrescriptionsComponent,
-} from './components/dashboards/pacient-dashboard/menu-tabs/pacient-dashboard-prescriptions/pacient-dashboard-prescriptions.component';
+  PatientDashboardPrescriptionsComponent,
+} from './components/dashboards/patient-dashboard/menu-tabs/patient-dashboard-prescriptions/patient-dashboard-prescriptions.component';
 import {
   PharmacyDashboardHomeComponent,
 } from './components/dashboards/pharmacy-dashboard/menu-tabs/pharmacy-dashboard-home/pharmacy-dashboard-home.component';
@@ -59,16 +59,16 @@ const routes: Routes = [
     ]
   },
   {
-    path: 'dashboard/pacient',
+    path: 'dashboard/patient',
     // to add menu items
     children: [
       {
         path: 'home',
-        component: PacientDashboardHomeComponent,
+        component: PatientDashboardHomeComponent,
       },
       {
         path: 'prescriptii',
-        component: PacientDashboardPrescriptionsComponent
+        component: PatientDashboardPrescriptionsComponent
       },
       {
         path: '**',
@@ -77,7 +77,7 @@ const routes: Routes = [
     ]
   },
   {
-    path: 'dashboard/farmacie',
+    path: 'dashboard/pharmacy',
     // to add menu items
     children: [
       {

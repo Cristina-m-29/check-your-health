@@ -1,4 +1,4 @@
-export class Recomandation {
+export class Recommendation {
   id: string = '';
   userId: string = '';
   specialistId: string = '';

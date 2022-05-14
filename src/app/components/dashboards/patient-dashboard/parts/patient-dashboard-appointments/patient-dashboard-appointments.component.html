@@ -1,0 +1,45 @@
+<div class="card appointments-card flex_column flex_column-justify margin_bottom-xl">
+  <div class="appointments-list-container">
+    <span class="title">Programări viitoare</span>
+
+    <div class="appointments-list">
+      <div class="appointment" *ngFor="let appointment of appointments$">
+        <span class="subtitle">
+          {{appointment.date | date: 'dd MMM yyyy - HH:MM'}}
+          <span class="small-subtitle-purple">
+            - {{getMedicName(appointment.id)}}
+          </span>
+        </span>
+
+        <span class="small-subtitle pending" *ngIf="appointment.status === 'pending'">Așteaptă confirmare</span>
+        <span class="small-subtitle accepted" *ngIf="appointment.status === 'accepted'">Confirmată</span>
+        <span class="small-subtitle refused" *ngIf="appointment.status === 'refused'">Respinsă</span>
+      </div>
+
+      <span *ngIf="appointments$.length === 0" class="small-subtitle">Nu există programări viitoare</span>
+    </div>
+  </div>
+
+  <button
+    mat-raised-button
+    color="primary"
+    class="width-full height-small button"
+  >Programare noua</button>
+</div>
+
+<div class="card old-appointments-card">
+  <span class="title">Istoric programări</span>
+
+  <div class="old-appointments-container">
+    <div class="old-appointment" *ngFor="let appointment of oldAppointments$">
+      <span class="subtitle">
+        {{appointment.date | date: 'dd MMM yyyy - HH:MM'}}
+        <span class="small-subtitle-purple">
+          - {{getMedicName(appointment.id)}}
+        </span>
+      </span>
+    </div>
+
+    <span *ngIf="oldAppointments$.length === 0" class="small-subtitle">Istoricul programărilor este gol</span>
+  </div>
+</div>

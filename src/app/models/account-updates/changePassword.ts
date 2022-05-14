@@ -1,7 +1,7 @@
 import { UserType } from "../userType";
 
 export class ChangePasswordRequest {
-  userType: UserType = 'pacient';
+  userType: UserType = 'patient';
   userId: string = '';
   newPassword: string = '';
 }
