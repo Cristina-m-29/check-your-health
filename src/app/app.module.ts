@@ -44,6 +44,7 @@ import { MyPacientsComponent } from './components/dashboards/specialist-dashboar
 import {
   SpecialistDashboardComponent,
 } from './components/dashboards/specialist-dashboard/specialist-dashboard/specialist-dashboard.component';
+import { GoogleMapComponent } from './components/google-map/google-map.component';
 import { ChooseLoginTypeComponent } from './components/login/choose-login-type/choose-login-type.component';
 import { LoginComponent } from './components/login/login/login.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
@@ -87,6 +88,7 @@ import { UpperCaseFirstLetterPipe } from './pipes/upper-case-first-letter.pipe';
     SpecialistRegisterComponent,
     UserComponent,
     UpperCaseFirstLetterPipe,
+    GoogleMapComponent,
   ],
   imports: [
     AppRoutingModule,

@@ -21,8 +21,8 @@ export class SideNavbarComponent {
     this.router.navigateByUrl('');
   }
 
-  public goTo(menu: Menu, setectedMenuItem: string): void {
-    this.selectedMenuItem = this.getUrlItemOfMenuList(menu, setectedMenuItem);
+  public goTo(menu: Menu, selectedMenuItem: string): void {
+    this.selectedMenuItem = this.getUrlItemOfMenuList(menu, selectedMenuItem);
 
     if (this.selectedMenuItem === 'iesire') {
       // to do
@@ -30,7 +30,7 @@ export class SideNavbarComponent {
       return;
     }
 
-    if (options.menuList.find(option => option === this.selectedMenuItem)) {
+    if (options.menuList.find(option => option === this.selectedMenuItem) || selectedMenuItem === 'profil') {
       this.router.navigateByUrl(this.selectedMenuItem);
       return;
     }

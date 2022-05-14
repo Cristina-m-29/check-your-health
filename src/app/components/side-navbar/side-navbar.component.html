@@ -13,7 +13,7 @@
         class="flex_column width-full margin_bottom-s"
       >
         <button
-          *ngIf="selectedMenuItem !== item"
+          *ngIf="item !== menu.translateMenuList[menu.menuList.indexOf(selectedMenuItem)]"
           color="primary"
           class="width-full"
           mat-button
@@ -22,7 +22,7 @@
         </button>
 
         <button
-          *ngIf="selectedMenuItem === item"
+          *ngIf="item === menu.translateMenuList[menu.menuList.indexOf(selectedMenuItem)]"
           color="primary"
           class="width-full"
           mat-stroked-button

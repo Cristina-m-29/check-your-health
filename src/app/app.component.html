@@ -3,7 +3,7 @@
 
     <cyh-side-navbar *ngIf="showMainNavbar"></cyh-side-navbar>
 
-    <div class="second-container">
-        <router-outlet></router-outlet>
+    <div class="second-container" [ngClass]="{'side-nav-second-container': showMainNavbar}">
+      <router-outlet></router-outlet>
     </div>
 </div>

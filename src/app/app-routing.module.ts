@@ -2,9 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { MedicDashboardComponent } from './components/dashboards/medic-dashboard/medic-dashboard/medic-dashboard.component';
-import {
-  MyDiagnoasticsComponent,
-} from './components/dashboards/pacient-dashboard/my-diagnoastics/my-diagnoastics.component';
 import { MyMedicComponent } from './components/dashboards/pacient-dashboard/my-medic/my-medic.component';
 import {
   MyPrescriptionsComponent,
@@ -56,15 +53,11 @@ const routes: Routes = [
     // to add menu items
     children: [
       {
-        path: 'diagnostice',
-        component: MyDiagnoasticsComponent
-      },
-      {
         path: 'prescriptii',
         component: MyPrescriptionsComponent
       },
       {
-        path: 'medic',
+        path: 'home',
         component: MyMedicComponent,
       },
       {

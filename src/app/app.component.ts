@@ -17,7 +17,7 @@ export class AppComponent implements OnInit {
     this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))
       .subscribe((event: any) => {
-        this.showMainNavbar = event.url.includes('dashboard') || options.menuList.find(option => event.url.includes(option));
+        this.showMainNavbar = event.url.includes('dashboard') || event.url.includes('cont') || options.menuList.find(option => event.url.includes(option));
       });
   }
 }
