@@ -6,11 +6,11 @@ import { MyMedicComponent } from './components/dashboards/pacient-dashboard/my-m
 import {
   MyPrescriptionsComponent,
 } from './components/dashboards/pacient-dashboard/my-prescriptions/my-prescriptions.component';
-import { ChooseLoginTypeComponent } from './components/login/choose-login-type/choose-login-type.component';
-import { LoginComponent } from './components/login/login/login.component';
-import { NotificationsComponent } from './components/notifications/notifications.component';
-import { BaseRegisterComponent } from './components/register/base-register/base-register.component';
-import { UserComponent } from './components/user/user.component';
+import { ChooseLoginTypeComponent } from './components/auth/login/choose-login-type/choose-login-type.component';
+import { LoginComponent } from './components/auth/login/login/login.component';
+import { NotificationsComponent } from './components/utils/notifications/notifications.component';
+import { BaseRegisterComponent } from './components/auth/register/base-register/base-register.component';
+import { UserComponent } from './components/dashboards/user/user.component';
 
 const routes: Routes = [
   // login

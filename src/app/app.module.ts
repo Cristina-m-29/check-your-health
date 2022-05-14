@@ -13,7 +13,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ConfirmedAppointmentsComponent } from './components/confirmed-appointments/confirmed-appointments.component';
+import { ChooseLoginTypeComponent } from './components/auth/login/choose-login-type/choose-login-type.component';
+import { LoginComponent } from './components/auth/login/login/login.component';
+import { BaseRegisterComponent } from './components/auth/register/base-register/base-register.component';
+import { FarmacyRegisterComponent } from './components/auth/register/farmacy-register/farmacy-register.component';
+import { MedicRegisterComponent } from './components/auth/register/medic-register/medic-register.component';
+import { PacientRegisterComponent } from './components/auth/register/pacient-register/pacient-register.component';
+import { SpecialistRegisterComponent } from './components/auth/register/specialist-register/specialist-register.component';
 import {
   FarmacyDashboardComponent,
 } from './components/dashboards/farmacy-dashboard/farmacy-dashboard/farmacy-dashboard.component';
@@ -44,18 +50,11 @@ import { MyPacientsComponent } from './components/dashboards/specialist-dashboar
 import {
   SpecialistDashboardComponent,
 } from './components/dashboards/specialist-dashboard/specialist-dashboard/specialist-dashboard.component';
-import { GoogleMapComponent } from './components/google-map/google-map.component';
-import { ChooseLoginTypeComponent } from './components/login/choose-login-type/choose-login-type.component';
-import { LoginComponent } from './components/login/login/login.component';
-import { NavbarComponent } from './components/navbar/navbar.component';
-import { NotificationsComponent } from './components/notifications/notifications.component';
-import { BaseRegisterComponent } from './components/register/base-register/base-register.component';
-import { FarmacyRegisterComponent } from './components/register/farmacy-register/farmacy-register.component';
-import { MedicRegisterComponent } from './components/register/medic-register/medic-register.component';
-import { PacientRegisterComponent } from './components/register/pacient-register/pacient-register.component';
-import { SpecialistRegisterComponent } from './components/register/specialist-register/specialist-register.component';
-import { SideNavbarComponent } from './components/side-navbar/side-navbar.component';
-import { UserComponent } from './components/user/user.component';
+import { UserComponent } from './components/dashboards/user/user.component';
+import { NavbarComponent } from './components/navigation/navbar/navbar.component';
+import { SideNavbarComponent } from './components/navigation/side-navbar/side-navbar.component';
+import { GoogleMapComponent } from './components/utils/google-map/google-map.component';
+import { NotificationsComponent } from './components/utils/notifications/notifications.component';
 import { UpperCaseFirstLetterPipe } from './pipes/upper-case-first-letter.pipe';
 
 @NgModule({
@@ -64,7 +63,6 @@ import { UpperCaseFirstLetterPipe } from './pipes/upper-case-first-letter.pipe';
     AppointmentsComponent,
     BaseRegisterComponent,
     ChooseLoginTypeComponent,
-    ConfirmedAppointmentsComponent,
     FarmacyDashboardComponent,
     FarmacyRegisterComponent,
     LoginComponent,
