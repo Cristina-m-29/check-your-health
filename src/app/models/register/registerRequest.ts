@@ -20,7 +20,7 @@ export class RegisterSpecialistRequest extends BaseRegisterRequest {
   domain: string = '';
 }
 
-export class RegisterFarmacyRequest extends BaseRegisterRequest {
+export class RegisterPharmacyRequest extends BaseRegisterRequest {
   location: string = '';
   workingHours: WorkingHours = new WorkingHours();
 }

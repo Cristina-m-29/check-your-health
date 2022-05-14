@@ -5,8 +5,8 @@ export class Prescription {
   pacientId: string = '';
   pacientName: string[] = [];
   medicines: Medicine[] = [];
-  farmacyId: string = '';
-  farmacyName: string = '';
+  pharmacyId: string = '';
+  pharmacyName: string = '';
   status: PrescriptionStatus = 'pending';
 }
 

@@ -16,7 +16,7 @@ export const menus: Menu[] = [
     translateMenuList: ['']
   },
   {
-    userType: 'farmacy',
+    userType: 'pharmacy',
     menuList: [''],
     translateMenuList: ['']
   },

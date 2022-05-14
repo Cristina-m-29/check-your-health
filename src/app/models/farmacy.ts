@@ -1,7 +1,7 @@
 import { Prescription } from "./prescription";
 import { WorkingHours } from "./workingHours";
 
-export class Farmacy {
+export class Pharmacy {
   id: string = '';
   name: string = '';
   email: string = '';
