@@ -3,7 +3,7 @@
     <span class="title">Programări viitoare</span>
 
     <div class="appointments-list">
-      <div class="appointment" *ngFor="let appointment of appointments$">
+      <div class="appointment" *ngFor="let appointment of appointments$" (click)="openAppointmentDetails(appointment)">
         <span class="subtitle">
           {{appointment.date | date: 'dd MMM yyyy - HH:MM'}}
           <span class="small-subtitle-purple">
@@ -24,6 +24,7 @@
     mat-raised-button
     color="primary"
     class="width-full height-small button"
+    (click)="openCreateNewAppointment()"
   >Programare noua</button>
 </div>
 
@@ -31,7 +32,7 @@
   <span class="title">Istoric programări</span>
 
   <div class="old-appointments-container">
-    <div class="old-appointment" *ngFor="let appointment of oldAppointments$">
+    <div class="old-appointment" *ngFor="let appointment of oldAppointments$" (click)="openAppointmentDetails(appointment)">
       <span class="subtitle">
         {{appointment.date | date: 'dd MMM yyyy - HH:MM'}}
         <span class="small-subtitle-purple">

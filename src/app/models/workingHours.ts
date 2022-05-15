@@ -1,12 +1,12 @@
 export class WorkingHours {
-  monday: WorkingHoursInterval = new WorkingHoursInterval();
-  thuesday: WorkingHoursInterval = new WorkingHoursInterval();
-  wednesday: WorkingHoursInterval = new WorkingHoursInterval();
-  thursday: WorkingHoursInterval = new WorkingHoursInterval();
-  friday: WorkingHoursInterval = new WorkingHoursInterval();
+  monday: HoursInterval = new HoursInterval();
+  thuesday: HoursInterval = new HoursInterval();
+  wednesday: HoursInterval = new HoursInterval();
+  thursday: HoursInterval = new HoursInterval();
+  friday: HoursInterval = new HoursInterval();
 }
 
-export class WorkingHoursInterval {
+export class HoursInterval {
   start: number = 0;
   end: number = 0;
 }

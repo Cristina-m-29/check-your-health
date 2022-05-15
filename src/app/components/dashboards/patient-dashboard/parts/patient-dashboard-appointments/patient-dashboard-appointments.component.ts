@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Appointment } from 'src/app/models/appointment';
 
 @Component({
@@ -11,60 +12,20 @@ export class PatientDashboardAppointmentsComponent implements OnInit {
   public oldAppointments$: Appointment[] = [];
 
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   public ngOnInit() {
     this.appointments$ = [
-      {
-        id: '1hfw',
+      <Appointment>{
+        id: '13845',
         date: new Date(),
         status: 'accepted',
       },
-      {
-        id: '1hfw',
-        date: new Date(),
-        status: 'pending',
-      },
-      {
-        id: '1hfw',
-        date: new Date(),
-        status: 'pending',
-      }
-    ]
+    ];
 
     this.oldAppointments$ = [
-      {
-        id: '1hfw',
-        date: new Date(),
-        status: 'refused',
-      },
-      {
-        id: '1hfw',
-        date: new Date(),
-        status: 'pending',
-      },
-      {
-        id: '1hfw',
-        date: new Date(),
-        status: 'refused',
-      },
-      {
-        id: '1hfw',
-        date: new Date(),
-        status: 'refused',
-      },
-      {
-        id: '1hfw',
-        date: new Date(),
-        status: 'refused',
-      },
-      {
-        id: '1hfw',
-        date: new Date(),
-        status: 'refused',
-      },
-      {
-        id: '1hfw',
+      <Appointment>{
+        id: '1078',
         date: new Date(),
         status: 'refused',
       },
@@ -73,5 +34,13 @@ export class PatientDashboardAppointmentsComponent implements OnInit {
 
   public getMedicName(appointmentId: string): string {
     return 'Popescu Valeria';
+  }
+
+  public openAppointmentDetails(appointment: Appointment): void {
+    this.router.navigateByUrl('dashboard/patient/appointment?id=' + appointment.id);
+  }
+
+  public openCreateNewAppointment(): void {
+    this.router.navigateByUrl('dashboard/patient/appointment/create');
   }
 }

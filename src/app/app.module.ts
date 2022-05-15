@@ -24,6 +24,7 @@ import { SpecialistRegisterComponent } from './components/auth/register/speciali
 import { MedicDashboardHomeComponent } from './components/dashboards/medic-dashboard/menu-tabs/medic-dashboard-home/medic-dashboard-home.component';
 import { PatientDashboardHomeComponent } from './components/dashboards/patient-dashboard/menu-tabs/patient-dashboard-home/patient-dashboard-home.component';
 import { PatientDashboardPrescriptionsComponent } from './components/dashboards/patient-dashboard/menu-tabs/patient-dashboard-prescriptions/patient-dashboard-prescriptions.component';
+import { PatientDashboardAppointmentDetailsComponent } from './components/dashboards/patient-dashboard/parts/patient-dashboard-appointment-details/patient-dashboard-appointment-details.component';
 import { PatientDashboardAppointmentsComponent } from './components/dashboards/patient-dashboard/parts/patient-dashboard-appointments/patient-dashboard-appointments.component';
 import { PatientDashboardMedicComponent } from './components/dashboards/patient-dashboard/parts/patient-dashboard-medic/patient-dashboard-medic.component';
 import { PharmacyDashboardHomeComponent } from './components/dashboards/pharmacy-dashboard/menu-tabs/pharmacy-dashboard-home/pharmacy-dashboard-home.component';
@@ -35,6 +36,7 @@ import { GoogleMapComponent } from './components/utils/google-map/google-map.com
 import { LoadingScreenComponent } from './components/utils/loading-screen/loading-screen.component';
 import { NotificationsComponent } from './components/utils/notifications/notifications.component';
 import { UpperCaseFirstLetterPipe } from './pipes/upper-case-first-letter.pipe';
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
   declarations: [
@@ -48,10 +50,11 @@ import { UpperCaseFirstLetterPipe } from './pipes/upper-case-first-letter.pipe';
     MedicRegisterComponent,
     NavbarComponent,
     NotificationsComponent,
-    PatientDashboardHomeComponent,
-    PatientDashboardPrescriptionsComponent,
+    PatientDashboardAppointmentDetailsComponent,
     PatientDashboardAppointmentsComponent,
+    PatientDashboardHomeComponent,
     PatientDashboardMedicComponent,
+    PatientDashboardPrescriptionsComponent,
     PatientRegisterComponent,
     PharmacyDashboardHomeComponent,
     PharmacyRegisterComponent,
@@ -75,6 +78,7 @@ import { UpperCaseFirstLetterPipe } from './pipes/upper-case-first-letter.pipe';
     MatProgressSpinnerModule,
     MatSelectModule,
     ReactiveFormsModule,
+    MatCardModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

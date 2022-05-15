@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'cyh-patient-dashboard-medic',
@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./patient-dashboard-medic.component.sass']
 })
 export class PatientDashboardMedicComponent implements OnInit {
+  @Input() isDynamicView = false;
 
   constructor() { }
 

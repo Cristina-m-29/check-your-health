@@ -1,5 +1,6 @@
 <div class="card medic-card">
-  <span class="title">Medicul meu</span>
+  <span *ngIf="!isDynamicView" class="title">Medicul meu</span>
+  <span *ngIf="isDynamicView" class="title">Medic</span>
 
   <span class="small-subtitle">Nume</span>
   <span class="subtitle margin_bottom-s">Popescu Valeria</span>
@@ -27,7 +28,6 @@
       <span class="subtitle margin_bottom-s"> 9:00-17:00</span>
     </div>
   </div>
-
 
   <span class="small-subtitle">Locatie cabinet</span>
   <span class="subtitle block margin_bottom">Bulevardul Stefan cel Mare si Sfant, Iasi, Romania</span>

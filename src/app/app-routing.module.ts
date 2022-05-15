@@ -13,6 +13,7 @@ import {
 import {
   PatientDashboardPrescriptionsComponent,
 } from './components/dashboards/patient-dashboard/menu-tabs/patient-dashboard-prescriptions/patient-dashboard-prescriptions.component';
+import { PatientDashboardAppointmentDetailsComponent } from './components/dashboards/patient-dashboard/parts/patient-dashboard-appointment-details/patient-dashboard-appointment-details.component';
 import {
   PharmacyDashboardHomeComponent,
 } from './components/dashboards/pharmacy-dashboard/menu-tabs/pharmacy-dashboard-home/pharmacy-dashboard-home.component';
@@ -69,6 +70,14 @@ const routes: Routes = [
       {
         path: 'prescriptii',
         component: PatientDashboardPrescriptionsComponent
+      },
+      {
+        path: 'appointment',
+        component: PatientDashboardAppointmentDetailsComponent
+      },
+      {
+        path: 'appointment/create',
+        component: PatientDashboardAppointmentDetailsComponent
       },
       {
         path: '**',
