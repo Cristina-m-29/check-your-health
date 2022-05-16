@@ -15,7 +15,7 @@ export class PatientDashboardAppointmentDetailsComponent implements OnInit {
   public appointmentId = '';
   public loading = true;
 
-  public hours_interval_options = [
+  public hoursInterval_options = [
     { start: 9, end: 10, state: 'available' },
     { start: 10, end: 11, state: 'available' },
     { start: 11, end: 12, state: 'not available' },
@@ -25,8 +25,8 @@ export class PatientDashboardAppointmentDetailsComponent implements OnInit {
     { start: 16, end: 17, state: 'available' },
   ];
 
-  public date = new Date();
-  public hours_interval = {
+  public date = 0;
+  public hoursInterval = {
     start: 0,
     end: 0,
   }
@@ -62,8 +62,8 @@ export class PatientDashboardAppointmentDetailsComponent implements OnInit {
     this.appointment = this.getAppointmentDetails();
 
     this.date = this.appointment.date;
-    this.hours_interval.start = this.appointment.hours_interval.start;
-    this.hours_interval.end = this.appointment.hours_interval.end;
+    this.hoursInterval.start = this.appointment.hoursInterval.start;
+    this.hoursInterval.end = this.appointment.hoursInterval.end;
 
     this.loading = false;
   }
@@ -71,8 +71,8 @@ export class PatientDashboardAppointmentDetailsComponent implements OnInit {
   private getAppointmentDetails(): Appointment {
     // call based on appointmentId to get more details
     return <Appointment>{
-      date: new Date(),
-      hours_interval: {
+      date: 0,
+      hoursInterval: {
         start: 9,
         end: 10
       },

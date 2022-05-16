@@ -14,9 +14,8 @@ export class BaseRegisterComponent {
 
   public baseRegisterForm = new FormGroup({
     name: new FormControl(),
-    email: new FormControl(),
+    identity: new FormControl(),
     password: new FormControl(),
-    phoneNumber: new FormControl(),
   });
 
   constructor(private authService: AuthService, private router: Router) {}

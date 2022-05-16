@@ -22,9 +22,9 @@
 
           <mat-form-field appearance="fill" class="select-interval" >
             <mat-label>Interval orar</mat-label>
-            <mat-select [(value)]="hours_interval">
+            <mat-select [(value)]="hoursInterval">
               <mat-option
-                *ngFor="let interval of hours_interval_options"
+                *ngFor="let interval of hoursInterval_options"
                 [value]="interval"
                 [disabled]="interval.state === 'not available'"
               >
@@ -58,7 +58,7 @@
 
           <span class="small-subtitle">Intervalul orar</span>
 
-          <span class="subtitle block margin_bottom">{{hours_interval.start}}:00 - {{hours_interval.end}}: 00</span>
+          <span class="subtitle block margin_bottom">{{hoursInterval.start}}:00 - {{hoursInterval.end}}: 00</span>
 
           <span class="small-subtitle">Status</span>
 

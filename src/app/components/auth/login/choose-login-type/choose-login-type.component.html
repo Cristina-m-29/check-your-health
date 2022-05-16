@@ -5,13 +5,36 @@
 
   <div class="user-types margin_top-xl">
     <button
-      *ngFor="let type of userTypes"
-      [routerLink]="['login', realUserTypes[userTypes.indexOf(type)]]"
-      (click)="selectUserType(type)"
+      [routerLink]="['login', 'patient']"
+      (click)="selectUserType('patient')"
       color="primary"
       mat-raised-button
     >
-      {{ type | upperCaseFirstLetter }}
+      Pacient
+    </button>
+    <button
+      [routerLink]="['login', 'medic']"
+      (click)="selectUserType('medic')"
+      color="primary"
+      mat-raised-button
+    >
+      Medic
+    </button>
+    <button
+      [routerLink]="['login', 'pharmacy']"
+      (click)="selectUserType('pharmacy')"
+      color="primary"
+      mat-raised-button
+    >
+      Farmacie
+    </button>
+    <button
+      [routerLink]="['login', 'specialist']"
+      (click)="selectUserType('specialist')"
+      color="primary"
+      mat-raised-button
+    >
+      Specialist
     </button>
   </div>
 </div>

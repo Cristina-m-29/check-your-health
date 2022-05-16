@@ -55,7 +55,7 @@
 ></cyh-medic-register>
 
 <cyh-pharmacy-register
-  *ngIf="!showBaseRegisterView && userType === 'farmacie'"
+  *ngIf="!showBaseRegisterView && userType === 'pharmacy'"
   (goBackToBaseRegister)="goBackToBaseRegister()"
   (register)="register($event)"
 ></cyh-pharmacy-register>

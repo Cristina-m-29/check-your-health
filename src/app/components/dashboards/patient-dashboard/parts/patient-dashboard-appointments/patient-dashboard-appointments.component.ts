@@ -1,36 +1,23 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { Appointment } from 'src/app/models/appointment';
+import { AppointmentsService } from 'src/app/services/appointments.service';
 
 @Component({
   selector: 'cyh-patient-dashboard-appointments',
   templateUrl: './patient-dashboard-appointments.component.html',
-  styleUrls: ['./patient-dashboard-appointments.component.sass']
+  styleUrls: ['./patient-dashboard-appointments.component.sass'],
+  providers: [AppointmentsService]
 })
 export class PatientDashboardAppointmentsComponent implements OnInit {
-  public appointments$: Appointment[] = [];
-  public oldAppointments$: Appointment[] = [];
+  public appointments$: Observable<Appointment[]> = this.appointmentsService.futureAppointmentsObservable;
+  public oldAppointments$: Observable<Appointment[]> = this.appointmentsService.pastAppointmentsObservable;
 
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private appointmentsService: AppointmentsService) { }
 
-  public ngOnInit() {
-    this.appointments$ = [
-      <Appointment>{
-        id: '13845',
-        date: new Date(),
-        status: 'accepted',
-      },
-    ];
-
-    this.oldAppointments$ = [
-      <Appointment>{
-        id: '1078',
-        date: new Date(),
-        status: 'refused',
-      },
-    ];
-  }
+  public ngOnInit() {}
 
   public getMedicName(appointmentId: string): string {
     return 'Popescu Valeria';

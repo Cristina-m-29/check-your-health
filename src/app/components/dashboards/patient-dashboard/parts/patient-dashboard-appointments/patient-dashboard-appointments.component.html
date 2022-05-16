@@ -2,10 +2,11 @@
   <div class="appointments-list-container">
     <span class="title">Programări viitoare</span>
 
-    <div class="appointments-list">
-      <div class="appointment" *ngFor="let appointment of appointments$" (click)="openAppointmentDetails(appointment)">
+    <div class="appointments-list" *ngIf="(appointments$ | async) as a">
+      <div class="appointment" *ngFor="let appointment of a" (click)="openAppointmentDetails(appointment)">
         <span class="subtitle">
-          {{appointment.date | date: 'dd MMM yyyy - HH:MM'}}
+          {{appointment.date * 1000 | date: 'dd MMM yyyy'}}
+          {{appointment.hoursInterval.start}}:00 - {{appointment.hoursInterval.end}}:00
           <span class="small-subtitle-purple">
             - {{getMedicName(appointment.id)}}
           </span>
@@ -16,7 +17,7 @@
         <span class="small-subtitle refused" *ngIf="appointment.status === 'refused'">Respinsă</span>
       </div>
 
-      <span *ngIf="appointments$.length === 0" class="small-subtitle">Nu există programări viitoare</span>
+      <span *ngIf="a.length === 0" class="small-subtitle">Nu există programări viitoare</span>
     </div>
   </div>
 
@@ -31,16 +32,17 @@
 <div class="card old-appointments-card">
   <span class="title">Istoric programări</span>
 
-  <div class="old-appointments-container">
-    <div class="old-appointment" *ngFor="let appointment of oldAppointments$" (click)="openAppointmentDetails(appointment)">
+  <div class="old-appointments-container" *ngIf="(oldAppointments$ | async) as a">
+    <div class="old-appointment" *ngFor="let appointment of a" (click)="openAppointmentDetails(appointment)">
       <span class="subtitle">
-        {{appointment.date | date: 'dd MMM yyyy - HH:MM'}}
+        {{appointment.date * 1000 | date: 'dd MMM yyyy'}}
+        {{appointment.hoursInterval.start}}:00 - {{appointment.hoursInterval.end}}:00
         <span class="small-subtitle-purple">
           - {{getMedicName(appointment.id)}}
         </span>
       </span>
     </div>
 
-    <span *ngIf="oldAppointments$.length === 0" class="small-subtitle">Istoricul programărilor este gol</span>
+    <span *ngIf="a.length === 0" class="small-subtitle">Istoricul programărilor este gol</span>
   </div>
 </div>

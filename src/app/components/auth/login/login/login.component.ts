@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { LoginRequest } from 'src/app/models/login/loginRequest';
+import { LoginResponse } from 'src/app/models/login/loginResponse';
+import { UserType } from 'src/app/models/userType';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -9,12 +12,11 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./login.component.sass']
 })
 export class LoginComponent {
-  public userType: string | null = this.authService.getUserType();
+  public userType: UserType | null = this.authService.getUserType();
 
   public loginForm = new FormGroup({
-    phoneNumber: new FormControl(),
-    email: new FormControl(),
-    pass: new FormControl()
+    identity: new FormControl(),
+    password: new FormControl()
   });
 
   constructor(private authService: AuthService, private router: Router) { }
@@ -25,7 +27,15 @@ export class LoginComponent {
   }
 
   public login(): void {
-    // to do
-    this.authService.navigateToDashboard();
+    if (this.userType) {
+      const loginRequest: LoginRequest = new LoginRequest(this.loginForm.value.identity, this.loginForm.value.password, this.userType);
+      this.authService.login(loginRequest).subscribe((loginResponse: LoginResponse) => {
+        if (loginResponse.err) {
+          console.error("Failed to login with error: " + loginResponse.err);
+          return;
+        }
+        this.authService.navigateToDashboard();
+      });
+    }
   }
 }

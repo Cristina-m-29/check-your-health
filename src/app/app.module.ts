@@ -1,4 +1,4 @@
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -37,6 +37,7 @@ import { LoadingScreenComponent } from './components/utils/loading-screen/loadin
 import { NotificationsComponent } from './components/utils/notifications/notifications.component';
 import { UpperCaseFirstLetterPipe } from './pipes/upper-case-first-letter.pipe';
 import { MatCardModule } from '@angular/material/card';
+import { InterceptorInterceptor } from './interceptors/interceptor.interceptor';
 
 @NgModule({
   declarations: [
@@ -80,7 +81,13 @@ import { MatCardModule } from '@angular/material/card';
     ReactiveFormsModule,
     MatCardModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: InterceptorInterceptor,
+      multi: true
+    },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

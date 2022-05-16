@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
+import { UserType } from 'src/app/models/userType'
 
 @Component({
   selector: 'cyh-choose-login-type',
@@ -7,8 +8,6 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./choose-login-type.component.sass']
 })
 export class ChooseLoginTypeComponent {
-  public userTypes = ['pacient', 'medic', 'farmacie', 'medic-specialist'];
-  public realUserTypes = ['patient', 'medic', 'pharmacy', 'specialist']
 
   constructor(private authService: AuthService) {}
 
@@ -16,7 +15,7 @@ export class ChooseLoginTypeComponent {
     return value.substring(value.indexOf('-') + 1)
   }
 
-  public selectUserType(userType: string): void {
-    this.authService.setUserType(this.realUserTypes[this.userTypes.indexOf(userType)]);
+  public selectUserType(userType: UserType): void {
+    this.authService.setUserType(userType);
   }
 }
