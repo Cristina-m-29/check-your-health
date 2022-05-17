@@ -9,6 +9,7 @@ export class Medic {
   phoneNumber: string = '';
   code: string = '';
   location: string = '';
+  address: string = '';
   workingHours: WorkingHours = new WorkingHours();
   patientsIds: string[] = [];
   appointments: Appointment[] = [];

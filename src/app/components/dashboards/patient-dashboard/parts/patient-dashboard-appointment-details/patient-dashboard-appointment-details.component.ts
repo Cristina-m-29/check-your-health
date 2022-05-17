@@ -1,8 +1,7 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormControl, FormGroup } from '@angular/forms';
 import { Appointment } from 'src/app/models/appointment';
-import { HoursInterval } from 'src/app/models/workingHours';
+import { AppointmentsService } from 'src/app/services/appointments.service';
 
 @Component({
   selector: 'cyh-patient-dashboard-appointment-details',
@@ -12,7 +11,6 @@ import { HoursInterval } from 'src/app/models/workingHours';
 export class PatientDashboardAppointmentDetailsComponent implements OnInit {
   public addAppointment = false;
   public appointment = new Appointment();
-  public appointmentId = '';
   public loading = true;
 
   public hoursInterval_options = [
@@ -25,13 +23,13 @@ export class PatientDashboardAppointmentDetailsComponent implements OnInit {
     { start: 16, end: 17, state: 'available' },
   ];
 
-  public date = 0;
+  public date = new Date();
   public hoursInterval = {
     start: 0,
     end: 0,
   }
 
-  constructor(private router: Router, private cd: ChangeDetectorRef) { }
+  constructor(private router: Router, private cd: ChangeDetectorRef, private appointmentsService: AppointmentsService) { }
 
   public ngOnInit() {
     if (this.router.url.includes('create')) {
@@ -39,45 +37,22 @@ export class PatientDashboardAppointmentDetailsComponent implements OnInit {
       this.loading = false;
     }
     else {
-      this.appointmentId = this.router.url.split('?id=')[1];
-      this.initAppointmentForm();
+      this.appointment = <Appointment>JSON.parse(localStorage.getItem('cyhSelectedAppointment') || '{}');
+      this.loading = false;
     }
   }
 
   public createAppointment(): void {
-    this.router.navigateByUrl('dashboard/patient/home');
-  }
-
-  public checkDate(date: any): void {
-    if (!this.addAppointment) {
-      this.date = this.appointment.date;
-    }
+    // this.appointmentsService.addAppointment(this.appointment.medic.id, this.date, this.hoursInterval)
+    //   .subscribe((app: Appointment) => {
+    //     console.log(app);
+    //     this.router.navigateByUrl('dashboard/patient/home');
+    //   });
   }
 
   public goBack(): void {
+    sessionStorage.removeItem('cyhSelectedAppointment');
     this.router.navigateByUrl('dashboard/patient/home');
-  }
-
-  private initAppointmentForm(): void {
-    this.appointment = this.getAppointmentDetails();
-
-    this.date = this.appointment.date;
-    this.hoursInterval.start = this.appointment.hoursInterval.start;
-    this.hoursInterval.end = this.appointment.hoursInterval.end;
-
-    this.loading = false;
-  }
-
-  private getAppointmentDetails(): Appointment {
-    // call based on appointmentId to get more details
-    return <Appointment>{
-      date: 0,
-      hoursInterval: {
-        start: 9,
-        end: 10
-      },
-      status: 'accepted'
-    }
   }
 
 }

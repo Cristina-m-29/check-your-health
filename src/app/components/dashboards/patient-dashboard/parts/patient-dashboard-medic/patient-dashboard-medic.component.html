@@ -3,13 +3,13 @@
   <span *ngIf="isDynamicView" class="title">Medic</span>
 
   <span class="small-subtitle">Nume</span>
-  <span class="subtitle margin_bottom-s">Popescu Valeria</span>
+  <span class="subtitle margin_bottom-s">{{medic.name || 'to do'}}</span>
 
   <span class="small-subtitle">Email</span>
-  <a class="subtitle margin_bottom-s email" [href]="'mailto:' + 'popescuvaleria@mail.com'">popescuvaleria@mail.com</a>
+  <a class="subtitle margin_bottom-s email" [href]="'mailto:' + 'popescuvaleria@mail.com'">{{medic.email || 'to do'}}</a>
 
   <span class="small-subtitle">Numar de telefon</span>
-  <span class="subtitle margin_bottom-s">0777898023</span>
+  <span class="subtitle margin_bottom-s">{{medic.phoneNumber || 'to do'}}</span>
 
   <span class="small-subtitle margin_top block">Program de lucru</span>
   <div class="flex margin_top-s">
@@ -21,16 +21,16 @@
       <span class="subtitle margin_bottom-s">Vineri:</span>
     </div>
     <div>
-      <span class="subtitle">9:00-17:00</span>
-      <span class="subtitle">9:00-17:00</span>
-      <span class="subtitle">9:00-17:00</span>
-      <span class="subtitle">9:00-17:00</span>
-      <span class="subtitle margin_bottom-s"> 9:00-17:00</span>
+      <span class="subtitle">{{medic.workingHours?.monday?.start}}:00 - {{medic.workingHours?.monday?.end}}:00</span>
+      <span class="subtitle">{{medic.workingHours?.tuesday?.start}}:00 - {{medic.workingHours?.tuesday?.end}}:00</span>
+      <span class="subtitle">{{medic.workingHours.wednesday.start}}:00 - {{medic.workingHours.wednesday.end}}:00</span>
+      <span class="subtitle">{{medic.workingHours.thursday.start}}:00 - {{medic.workingHours.thursday.end}}:00</span>
+      <span class="subtitle margin_bottom-s">{{medic.workingHours.friday.start}}:00 - {{medic.workingHours.friday.end}}:00</span>
     </div>
   </div>
 
   <span class="small-subtitle">Locatie cabinet</span>
-  <span class="subtitle block margin_bottom">Bulevardul Stefan cel Mare si Sfant, Iasi, Romania</span>
+  <span class="subtitle block margin_bottom">{{medic.address || 'to do'}}</span>
 
   <cyh-google-map></cyh-google-map>
 </div>

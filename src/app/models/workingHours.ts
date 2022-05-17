@@ -1,6 +1,6 @@
 export class WorkingHours {
   monday: HoursInterval = new HoursInterval();
-  thuesday: HoursInterval = new HoursInterval();
+  tuesday: HoursInterval = new HoursInterval();
   wednesday: HoursInterval = new HoursInterval();
   thursday: HoursInterval = new HoursInterval();
   friday: HoursInterval = new HoursInterval();

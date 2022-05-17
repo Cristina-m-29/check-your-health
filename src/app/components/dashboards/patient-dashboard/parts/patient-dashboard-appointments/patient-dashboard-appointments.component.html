@@ -8,7 +8,7 @@
           {{appointment.date * 1000 | date: 'dd MMM yyyy'}}
           {{appointment.hoursInterval.start}}:00 - {{appointment.hoursInterval.end}}:00
           <span class="small-subtitle-purple">
-            - {{getMedicName(appointment.id)}}
+            - {{appointment.medic.name}}
           </span>
         </span>
 
@@ -38,7 +38,7 @@
         {{appointment.date * 1000 | date: 'dd MMM yyyy'}}
         {{appointment.hoursInterval.start}}:00 - {{appointment.hoursInterval.end}}:00
         <span class="small-subtitle-purple">
-          - {{getMedicName(appointment.id)}}
+          - {{appointment.medic.name}}
         </span>
       </span>
     </div>

@@ -15,7 +15,7 @@
           <span class="subtitle block margin_bottom">Selecteaza ziua</span>
 
           <mat-card class="calendar-card block margin_bottom">
-            <mat-calendar [contentEditable]="false" [(selected)]="date" (click)="checkDate($event)"></mat-calendar>
+            <mat-calendar [contentEditable]="false" [(selected)]="date" ></mat-calendar>
           </mat-card>
 
           <span class="subtitle block margin_bottom">Selecteaza intervalul orar</span>
@@ -48,17 +48,17 @@
       <ng-container *ngIf="!addAppointment">
         <div class="flex flex-align-center margin_bottom">
           <mat-icon (click)="goBack()" class="back-btn">keyboard_arrow_left</mat-icon>
-          <span class="title card-title">Programarea nr. {{appointmentId}}</span>
+          <span class="title card-title">Programarea nr. {{appointment.id.slice(0, 5)}}</span>
         </div>
 
         <div class="padding_left-s">
           <span class="small-subtitle">Ziua programarii</span>
 
-          <span class="subtitle block margin_bottom">{{date | date: 'dd MMM yyyy'}}</span>
+          <span class="subtitle block margin_bottom">{{appointment.date * 1000 | date: 'dd MMM yyyy'}}</span>
 
           <span class="small-subtitle">Intervalul orar</span>
 
-          <span class="subtitle block margin_bottom">{{hoursInterval.start}}:00 - {{hoursInterval.end}}: 00</span>
+          <span class="subtitle block margin_bottom">{{appointment.hoursInterval.start}}:00 - {{appointment.hoursInterval.end}}: 00</span>
 
           <span class="small-subtitle">Status</span>
 
@@ -70,7 +70,7 @@
     </div>
 
     <div class="width-medium">
-      <cyh-patient-dashboard-medic [isDynamicView]="true"></cyh-patient-dashboard-medic>
+      <cyh-patient-dashboard-medic [isDynamicView]="true" [medic]="appointment.medic"></cyh-patient-dashboard-medic>
     </div>
   </div>
 </ng-template>
