@@ -13,7 +13,9 @@ export class PatientDashboardAppointmentsComponent {
   public appointments$: Observable<Appointment[]> = this.appointmentsService.futureAppointmentsObservable;
   public oldAppointments$: Observable<Appointment[]> = this.appointmentsService.pastAppointmentsObservable;
 
-  constructor(private router: Router, private appointmentsService: AppointmentsService) { }
+  constructor(private router: Router, private appointmentsService: AppointmentsService) {
+    this.appointmentsService.getAppointments();
+  }
 
   public openAppointmentDetails(appointment: Appointment): void {
     localStorage.setItem('cyhSelectedAppointment', JSON.stringify(appointment));
