@@ -14,6 +14,6 @@ export class UsersService {
     if (!userId) {
       userId = "current_user";
     }
-    return this.base.get<BaseUser>("/users/" + userId);
+    return this.base.get<BaseUser>("users/" + userId);
   }
 }
