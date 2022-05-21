@@ -1,9 +1,10 @@
 import { Medic } from "./medic";
+import { Patient } from "./patient";
 import { HoursInterval } from "./workingHours";
 
 export class Appointment {
   id: string = '';
-  patient: string = '';
+  patient: Patient = new Patient();
   medic: Medic = new Medic();
   date: number = 0;
   reason: string = '';
