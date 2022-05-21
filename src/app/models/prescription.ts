@@ -2,11 +2,10 @@ import { Medicine } from "./medicine";
 
 export class Prescription {
   id: string = '';
-  patientId: string = '';
-  patientName: string[] = [];
+  patient: string = '';
+  pharmacy: string = '';
+  medic: string = '';
   medicines: Medicine[] = [];
-  pharmacyId: string = '';
-  pharmacyName: string = '';
   status: PrescriptionStatus = 'pending';
 }
 

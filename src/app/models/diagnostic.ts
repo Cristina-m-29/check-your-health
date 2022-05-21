@@ -1,6 +1,6 @@
 export class Diagnostic {
   id: string = '';
-  medicId: string = '';
-  medicName: string = '';
+  patient: string = '';
+  medic: string = '';
   description: string = '';
 }

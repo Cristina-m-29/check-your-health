@@ -3,10 +3,11 @@ import { HoursInterval } from "./workingHours";
 
 export class Appointment {
   id: string = '';
-  date: number = 0;
-  hoursInterval: HoursInterval = new HoursInterval();
-  pacient: string = '';
+  patient: string = '';
   medic: Medic = new Medic();
+  date: number = 0;
+  reason: string = '';
+  hoursInterval: HoursInterval = new HoursInterval();
   status: AppointmentStatus = 'pending';
 }
 
