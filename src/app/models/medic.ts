@@ -1,28 +1,11 @@
-import { Appointment } from "./appointment";
-import { Recommendation } from "./recommendation";
+import { Patient } from "./patient";
 import { WorkingHours } from "./workingHours";
 
-export class Medic {
-  id: string = '';
-  name: string = '';
-  email: string = '';
-  phoneNumber: string = '';
+export class Medic extends Patient{
   code: string = '';
-  location: string = '';
-  address: string = '';
   workingHours: WorkingHours = new WorkingHours();
-  patientsIds: string[] = [];
-  appointments: Appointment[] = [];
 }
 
-export class Specialist {
-  id: string = '';
-  name: string = '';
-  email: string = '';
-  phoneNumber: string = '';
-  code: string = '';
+export class Specialist extends Medic{
   domain: string = '';
-  location: string = '';
-  workingHours: WorkingHours = new WorkingHours();
-  recommendations: Recommendation[] = [];
 }
