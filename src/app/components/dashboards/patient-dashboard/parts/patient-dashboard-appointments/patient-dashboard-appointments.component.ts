@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { Appointment } from 'src/app/models/appointment';
 import { AppointmentsService } from 'src/app/services/appointments.service';
 
@@ -10,8 +10,20 @@ import { AppointmentsService } from 'src/app/services/appointments.service';
   styleUrls: ['./patient-dashboard-appointments.component.sass'],
 })
 export class PatientDashboardAppointmentsComponent {
-  public appointments$: Observable<Appointment[]> = this.appointmentsService.futureAppointmentsObservable;
-  public oldAppointments$: Observable<Appointment[]> = this.appointmentsService.pastAppointmentsObservable;
+  @Output() gotAppointments = new EventEmitter<string>();
+
+  public appointments$: Observable<Appointment[]> = this.appointmentsService.futureAppointmentsObservable
+    .pipe(map((app: Appointment[]) => {
+      this.gotAppointments.emit('future');
+      return app;
+    })
+  );
+  public oldAppointments$: Observable<Appointment[]> = this.appointmentsService.pastAppointmentsObservable
+    .pipe(map((app: Appointment[]) => {
+      this.gotAppointments.emit('old');
+      return app;
+    })
+  );
 
   constructor(private router: Router, private appointmentsService: AppointmentsService) {
     this.appointmentsService.getAppointments();

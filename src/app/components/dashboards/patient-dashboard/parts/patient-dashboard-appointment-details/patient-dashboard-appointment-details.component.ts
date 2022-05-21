@@ -1,4 +1,5 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Appointment } from 'src/app/models/appointment';
 import { AppointmentsService } from 'src/app/services/appointments.service';
@@ -27,7 +28,8 @@ export class PatientDashboardAppointmentDetailsComponent implements OnInit {
   public hoursInterval = {
     start: 0,
     end: 0,
-  }
+  };
+  public reason = new FormControl('');
 
   constructor(private router: Router, private cd: ChangeDetectorRef, private appointmentsService: AppointmentsService) { }
 
@@ -40,6 +42,11 @@ export class PatientDashboardAppointmentDetailsComponent implements OnInit {
       this.appointment = <Appointment>JSON.parse(localStorage.getItem('cyhSelectedAppointment') || '{}');
       this.loading = false;
     }
+    this.reason.setValue('test');
+  }
+
+  public isCreateBtnDisabled(): boolean {
+    return this.hoursInterval.start === 0 || this.reason.value === '';
   }
 
   public createAppointment(): void {

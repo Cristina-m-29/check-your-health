@@ -1,17 +1,13 @@
-<ng-container *ngIf="loading; else notLoading">
+<ng-container *ngIf="loading">
   <cyh-loading-screen></cyh-loading-screen>
 </ng-container>
 
-<ng-template #notLoading>
-  <div class="flex height-full">
-    <div class="width-medium margin_right-xl">
-      <cyh-patient-dashboard-appointments></cyh-patient-dashboard-appointments>
-    </div>
-
-    <div class="width-medium">
-      <cyh-patient-dashboard-medic></cyh-patient-dashboard-medic>
-    </div>
+<div class="flex height-full" [ngClass]="{'hide': loading}">
+  <div class="width-medium margin_right-xl">
+    <cyh-patient-dashboard-appointments (gotAppointments)="doneWithGettingAppointments($event)"></cyh-patient-dashboard-appointments>
   </div>
-</ng-template>
 
-<!-- <button (click)="loading = !loading">Toggle loading screen</button> -->
+  <div class="width-medium">
+    <cyh-patient-dashboard-medic (gotMedic)="doneWithGettingMedic()"></cyh-patient-dashboard-medic>
+  </div>
+</div>

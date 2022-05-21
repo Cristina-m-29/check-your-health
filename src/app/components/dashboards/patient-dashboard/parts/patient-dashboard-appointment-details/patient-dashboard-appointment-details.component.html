@@ -20,7 +20,7 @@
 
           <span class="subtitle block margin_bottom">Selecteaza intervalul orar</span>
 
-          <mat-form-field appearance="fill" class="select-interval" >
+          <mat-form-field appearance="fill" class="select-interval">
             <mat-label>Interval orar</mat-label>
             <mat-select [(value)]="hoursInterval">
               <mat-option
@@ -34,11 +34,19 @@
           </mat-form-field>
         </form>
 
+        <span class="subtitle block margin_bottom">Motivul programarii</span>
+
+        <mat-form-field appearance="fill" class="select-interval">
+          <mat-label>Motiv</mat-label>
+          <textarea matInput [formControl]="reason"></textarea>
+        </mat-form-field>
+
         <button
           *ngIf="addAppointment"
           mat-raised-button
           color="primary"
           class="width-full height-small button"
+          [disabled]="isCreateBtnDisabled()"
           (click)="createAppointment()"
         >
           Creaza
@@ -62,9 +70,13 @@
 
           <span class="small-subtitle">Status</span>
 
-          <span class="subtitle pending" *ngIf="appointment.status === 'pending'">Așteaptă confirmare</span>
-          <span class="subtitle accepted" *ngIf="appointment.status === 'accepted'">Confirmată</span>
-          <span class="subtitle refused" *ngIf="appointment.status === 'refused'">Respinsă</span>
+          <span class="subtitle pending block margin_bottom" *ngIf="appointment.status === 'pending'">Așteaptă confirmare</span>
+          <span class="subtitle accepted block margin_bottom" *ngIf="appointment.status === 'accepted'">Confirmată</span>
+          <span class="subtitle refused block margin_bottom" *ngIf="appointment.status === 'refused'">Respinsă</span>
+
+          <span class="small-subtitle">Motiv</span>
+
+          <span class="subtitle block margin_bottom">Motiv to add here</span>
         </div>
       </ng-container>
     </div>

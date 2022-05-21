@@ -1,25 +1,25 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'cyh-patient-dashboard-home',
   templateUrl: './patient-dashboard-home.component.html',
   styleUrls: ['./patient-dashboard-home.component.sass']
 })
-export class PatientDashboardHomeComponent implements OnInit{
+export class PatientDashboardHomeComponent {
   public loading = true;
 
-  private gotAppointments = true;
-  private gotMedic = true;
+  private gotOldAppointments = false;
+  private gotFutureAppointments = false;
+  private gotMedic = false;
 
+  public doneWithGettingAppointments(type: string): void {
+    if (type === 'old') {
+      this.gotOldAppointments = true;
+    }
+    else {
+      this.gotFutureAppointments = true;
+    }
 
-  public ngOnInit(): void {
-    setTimeout(() => {
-      this.loading = false;
-    }, 800);
-  }
-
-  public doneWithGettingAppointments(): void {
-    this.gotAppointments = true;
     this.checkIfLoadingIsDone();
   }
 
@@ -29,7 +29,7 @@ export class PatientDashboardHomeComponent implements OnInit{
   }
 
   private checkIfLoadingIsDone(): void {
-    if (this.gotAppointments && this.gotMedic) {
+    if (this.gotOldAppointments && this.gotFutureAppointments && this.gotMedic) {
       this.loading = false;
     }
   }

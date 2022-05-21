@@ -67,11 +67,11 @@ export class AuthService {
         });
     }
   }
-  
+
   public setTokens(response: LoginResponse): void {
     localStorage.setItem('cyhAccessToken', response.accessToken);
     localStorage.setItem('cyhRefreshToken', response.refreshToken);
-    
+
     this.requestingRefreshToken = false;
   }
 
