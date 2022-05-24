@@ -12,6 +12,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { SafePipeModule } from 'safe-pipe';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ChooseLoginTypeComponent } from './components/auth/login/choose-login-type/choose-login-type.component';
@@ -83,6 +84,7 @@ import { UpperCaseFirstLetterPipe } from './pipes/upper-case-first-letter.pipe';
     MatSelectModule,
     ReactiveFormsModule,
     MatCardModule,
+    SafePipeModule,
   ],
   providers: [
     {

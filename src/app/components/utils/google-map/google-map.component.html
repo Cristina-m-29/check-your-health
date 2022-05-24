@@ -4,7 +4,7 @@
       width="600"
       height="400"
       id="gmap_canvas"
-      src="https://maps.google.com/maps?q=Bulevardul%20%C8%98tefan%20cel%20Mare%20si%20Sfant,%20Iasi,%20Iasi&t=&z=13&ie=UTF8&iwloc=&output=embed"
+      [src]="'https://maps.google.com/maps?q=' + address + '&output=embed' | safe: 'resourceUrl'"
       frameborder="0"
       scrolling="no"
       marginheight="0"
