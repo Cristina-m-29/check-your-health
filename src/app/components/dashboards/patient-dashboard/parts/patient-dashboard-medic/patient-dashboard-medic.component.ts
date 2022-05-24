@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { BaseUser } from 'src/app/models/base-user';
-import { Medic } from 'src/app/models/medic';
+import { Medic, Specialist } from 'src/app/models/medic';
 import { Patient } from 'src/app/models/patient';
 import { UsersService } from 'src/app/services/users.service';
 
@@ -11,6 +11,7 @@ import { UsersService } from 'src/app/services/users.service';
 })
 export class PatientDashboardMedicComponent implements OnInit {
   @Input() isDynamicView = false;
+  @Input() isSpecialist = false;
   @Input() medic = new Medic();
 
   @Output() gotMedic = new EventEmitter<boolean>();
@@ -23,12 +24,16 @@ export class PatientDashboardMedicComponent implements OnInit {
     }
   }
 
+  public getSpecialistDomain(): string {
+    return (<Specialist>this.medic).domain;
+  }
+
   public getMedic(): void {
     this.usersService.getUserInfo().subscribe((user: BaseUser) => {
       const patient = <Patient>user;
 
       this.usersService.getUserInfo(patient.medic).subscribe((user: BaseUser) => {
-        this.medic = <Medic>user;
+        this.medic = <Specialist>user;
         this.gotMedic.emit(true);
       });
     });

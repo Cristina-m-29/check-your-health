@@ -7,8 +7,8 @@ export interface Menu {
 export const menus: Menu[] = [
   {
     userType: 'patient',
-    menuList: ['home', 'prescriptii', 'cont'],
-    translateMenuList: [ 'acasă', 'prescripții', 'profil']
+    menuList: ['home', 'references', 'prescriptions', 'profile'],
+    translateMenuList: [ 'acasă', 'trimiteri', 'prescripții', 'profil']
   },
   {
     userType: 'medic',

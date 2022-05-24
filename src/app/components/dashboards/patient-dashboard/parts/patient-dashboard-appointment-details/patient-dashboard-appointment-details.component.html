@@ -15,12 +15,17 @@
           <span class="subtitle block margin_bottom">Selecteaza ziua</span>
 
           <mat-card class="calendar-card block margin_bottom">
-            <mat-calendar [contentEditable]="false" [(selected)]="date" ></mat-calendar>
+            <mat-calendar 
+              [contentEditable]="false" 
+              [(selected)]="date" 
+              (selectedChange)="manageDateChange($event)"
+              [dateFilter]="dateFilterForCalendar"
+            ></mat-calendar>
           </mat-card>
 
           <span class="subtitle block margin_bottom">Selecteaza intervalul orar</span>
 
-          <mat-form-field appearance="fill" class="select-interval">
+          <mat-form-field appearance="fill" class="width-full">
             <mat-label>Interval orar</mat-label>
             <mat-select [(value)]="hoursInterval">
               <mat-option
@@ -36,9 +41,9 @@
 
         <span class="subtitle block margin_bottom">Motivul programarii</span>
 
-        <mat-form-field appearance="fill" class="select-interval">
+        <mat-form-field appearance="fill" class="width-full">
           <mat-label>Motiv</mat-label>
-          <textarea matInput [formControl]="reason"></textarea>
+          <textarea matInput [formControl]="reason" class="min-height-m"></textarea>
         </mat-form-field>
 
         <button
@@ -82,7 +87,7 @@
     </div>
 
     <div class="width-medium">
-      <cyh-patient-dashboard-medic [isDynamicView]="true" [medic]="appointment.medic"></cyh-patient-dashboard-medic>
+      <cyh-patient-dashboard-medic [isDynamicView]="true" [medic]="medic"></cyh-patient-dashboard-medic>
     </div>
   </div>
 </ng-template>

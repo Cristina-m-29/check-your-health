@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { userTypes } from './../../../models/userType';
+import { Component, OnInit } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
+import { filter } from 'rxjs';
 import { Menu, menus, options } from 'src/app/models/menu';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -8,13 +10,17 @@ import { AuthService } from 'src/app/services/auth.service';
   templateUrl: './side-navbar.component.html',
   styleUrls: ['./side-navbar.component.sass']
 })
-export class SideNavbarComponent {
+export class SideNavbarComponent implements OnInit {
   public userType: string | null = this.authService.getUserType();
   public menus = menus;
   public options = options;
   public selectedMenuItem: string = this.menus.find(menu => menu.userType === this.userType)?.menuList[0] || '';
 
   constructor(private authService: AuthService, private router: Router) {}
+
+  public ngOnInit(): void {
+    this.initSideNav();
+  }
 
   public goHome(): void {
     this.authService.setUserType(null);
@@ -23,6 +29,7 @@ export class SideNavbarComponent {
 
   public goTo(menu: Menu, selectedMenuItem: string): void {
     this.selectedMenuItem = this.getUrlItemOfMenuList(menu, selectedMenuItem);
+    console.log(this.selectedMenuItem);
 
     if (this.selectedMenuItem === 'iesire') {
       // to do
@@ -35,10 +42,18 @@ export class SideNavbarComponent {
       return;
     }
 
-    this.router.navigateByUrl(`dashboard/${this.userType}/${this.selectedMenuItem}`);
+    this.router.navigateByUrl(`${this.userType}/${this.selectedMenuItem}`);
   }
 
   private getUrlItemOfMenuList(menu: Menu, item: string): string {
     return menu.menuList[menu.translateMenuList.indexOf(item)]
+  }
+
+  private initSideNav(): void {
+    const splittedUrl = this.router.url.split('/');
+    const userType = splittedUrl[1];
+    const selectedMenuItem = splittedUrl[2];
+    const menu = menus.find((menu: Menu) => menu.userType === userType) || menus[0];
+    this.selectedMenuItem = menu.menuList.find((item: string) => item === selectedMenuItem) || menu.menuList[0];
   }
 }

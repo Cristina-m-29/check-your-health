@@ -10,3 +10,5 @@ export class HoursInterval {
   start: number = 0;
   end: number = 0;
 }
+
+export const weekday = ["monday","tuesday","wednesday","thursday","friday"];

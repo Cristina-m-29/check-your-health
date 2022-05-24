@@ -23,6 +23,7 @@ html, body
 p
   width: auto
 
+/* auth */
 .login, .register
   width: 30rem
   padding: 3rem
@@ -60,16 +61,16 @@ p
   input[type=number]
     -moz-appearance: textfield
 
+/* card */
 .card
   box-sizing: border-box
-  // margin: 2rem
   padding: 2rem
   border-radius: 0.5rem
   background-color: #fff
   box-shadow: 0 2px 4px #97949433,0 3px 4px 1px #beb8b824
 
   .title
-    font-size: 1rem
+    font-size: 1.15rem
     font-weight: 500
     color: $dark_purple
     display: block
@@ -77,30 +78,44 @@ p
 
   .subtitle
     display: block
-    font-size: 0.8rem
 
   .small-subtitle
-    font-size: 0.7rem
+    font-size: 0.9rem
     color: #a6a6a6
     font-weight: 500
 
-  .small-subtitle-purple
-    font-size: 0.8rem
+  .subtitle-purple
     color: $dark_purple
-    font-weight: 500
 
-.card-height
-  min-height: 100%
+  &-not-selected
+    background-color: rgba(63, 81, 181, 0.015)
 
-.card-height-auto
-  height: max-content
-  min-height: max-content
+  &-selected
+    border-left: 0.5rem solid $dark_purple
 
-.card-width
-  min-width: 100%
+  &-height
+    min-height: 100%
 
-.card-width-auto
-  min-width: max-content
+  &-height-auto
+    height: max-content
+    min-height: max-content
 
-.hide
-  display: none
+  &-width
+    min-width: 100%
+
+  &-width-auto
+    min-width: max-content
+
+  &-hide
+    display: none
+
+.card-hover-effect
+  &:active
+    background-color: white
+
+  &:hover
+    background-color: rgba(63, 81, 181, 0.08)
+
+/* btns */
+.button
+  font-size: 1rem

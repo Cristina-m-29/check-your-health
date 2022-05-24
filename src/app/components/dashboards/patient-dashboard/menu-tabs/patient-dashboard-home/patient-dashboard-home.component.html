@@ -2,7 +2,7 @@
   <cyh-loading-screen></cyh-loading-screen>
 </ng-container>
 
-<div class="flex height-full" [ngClass]="{'hide': loading}">
+<div class="flex height-full" [ngClass]="{'card-hide': loading}">
   <div class="width-medium margin_right-xl">
     <cyh-patient-dashboard-appointments (gotAppointments)="doneWithGettingAppointments($event)"></cyh-patient-dashboard-appointments>
   </div>

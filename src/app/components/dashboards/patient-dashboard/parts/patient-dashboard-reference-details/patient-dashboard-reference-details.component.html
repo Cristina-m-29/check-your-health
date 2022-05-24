@@ -1,0 +1,6 @@
+<div 
+  class="card card-hover-effect appointments-card flex_column flex_column-justify margin_bottom-xl"
+  [ngClass]="{'card-not-selected': !selected, 'card-selected': selected}"
+>
+  <span class="title card-title">Trimiterea nr. {{reference.id.slice(0, 5)}}</span>
+</div>

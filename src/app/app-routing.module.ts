@@ -1,3 +1,4 @@
+import { PatientDashboardReferencesComponent } from './components/dashboards/patient-dashboard/menu-tabs/patient-dashboard-references/patient-dashboard-references.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
@@ -60,15 +61,18 @@ const routes: Routes = [
     ]
   },
   {
-    path: 'dashboard/patient',
-    // to add menu items
+    path: 'patient',
     children: [
       {
         path: 'home',
         component: PatientDashboardHomeComponent,
       },
       {
-        path: 'prescriptii',
+        path: 'references',
+        component: PatientDashboardReferencesComponent,
+      },
+      {
+        path: 'prescriptions',
         component: PatientDashboardPrescriptionsComponent
       },
       {
@@ -101,7 +105,7 @@ const routes: Routes = [
     component: NotificationsComponent
   },
   {
-    path: 'cont',
+    path: 'profile',
     component: UserComponent
   }
 ];

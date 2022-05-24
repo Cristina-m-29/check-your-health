@@ -30,7 +30,7 @@ export class AuthService {
 
   public navigateToDashboard(): void {
     const tab = menus.find(menu => menu.userType === this.userType)?.menuList[0];
-    this.router.navigateByUrl(`dashboard/${this.userType}/${tab}`);
+    this.router.navigateByUrl(`${this.userType}/${tab}`);
   }
 
   public login(loginRequest: LoginRequest): Observable<LoginResponse> {

@@ -31,10 +31,10 @@ export class PatientDashboardAppointmentsComponent {
 
   public openAppointmentDetails(appointment: Appointment): void {
     localStorage.setItem('cyhSelectedAppointment', JSON.stringify(appointment));
-    this.router.navigateByUrl('dashboard/patient/appointment?id=' + appointment.id);
+    this.router.navigateByUrl('patient/appointment?id=' + appointment.id);
   }
 
   public openCreateNewAppointment(): void {
-    this.router.navigateByUrl('dashboard/patient/appointment/create');
+    this.router.navigateByUrl('patient/appointment/create');
   }
 }

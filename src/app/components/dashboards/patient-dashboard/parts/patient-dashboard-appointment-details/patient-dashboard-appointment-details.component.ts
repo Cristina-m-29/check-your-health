@@ -1,8 +1,13 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
+import * as moment from 'moment';
 import { Appointment } from 'src/app/models/appointment';
+import { BaseUser } from 'src/app/models/base-user';
+import { Medic } from 'src/app/models/medic';
+import { weekday } from 'src/app/models/workingHours';
 import { AppointmentsService } from 'src/app/services/appointments.service';
+import { UsersService } from 'src/app/services/users.service';
 
 @Component({
   selector: 'cyh-patient-dashboard-appointment-details',
@@ -12,6 +17,7 @@ import { AppointmentsService } from 'src/app/services/appointments.service';
 export class PatientDashboardAppointmentDetailsComponent implements OnInit {
   public addAppointment = false;
   public appointment = new Appointment();
+  public medic = new Medic();
   public loading = true;
 
   public hoursInterval_options = [
@@ -24,42 +30,79 @@ export class PatientDashboardAppointmentDetailsComponent implements OnInit {
     { start: 16, end: 17, state: 'available' },
   ];
 
+  // input fields
   public date = new Date();
-  public hoursInterval = {
-    start: 0,
-    end: 0,
-  };
+  public hoursInterval = { start: 0, end: 0 };
   public reason = new FormControl('');
 
-  constructor(private router: Router, private cd: ChangeDetectorRef, private appointmentsService: AppointmentsService) { }
-
-  public ngOnInit() {
-    if (this.router.url.includes('create')) {
-      this.addAppointment = true;
-      this.loading = false;
+  // filer dates on calendar
+  // previous and weekend days are not allowed
+  public dateFilterForCalendar = (date: any): boolean => {
+    if (moment(date) >= moment().hour(0).minute(0).second(0).millisecond(0) && weekday[date.getDay()]) {
+      return true;
     }
-    else {
-      this.appointment = <Appointment>JSON.parse(localStorage.getItem('cyhSelectedAppointment') || '{}');
-      this.loading = false;
-    }
-    this.reason.setValue('test');
+    return false;
   }
 
+  constructor(
+    private router: Router, 
+    private appointmentsService: AppointmentsService,
+    private usersService: UsersService,
+  ) {}
+
+  public ngOnInit() {
+    // create appointment init
+    if (this.router.url.includes('create')) {
+      this.addAppointment = true;
+      this.getMedic();
+    }
+    // view appointment init
+    else {
+      this.appointment = <Appointment>JSON.parse(localStorage.getItem('cyhSelectedAppointment') || '{}');
+      this.medic = this.appointment.medic;
+      this.setHoursInterval(this.medic);
+    }
+  }
+
+
+  // manage date change on calendar
+  public manageDateChange(ev: any): void {
+    // to do
+    // this.setHoursInterval();
+  }
+
+  public setHoursInterval(medic: Medic): void {
+    // to do
+
+    this.loading = false;
+  }
+
+  // check if form is completed
   public isCreateBtnDisabled(): boolean {
     return this.hoursInterval.start === 0 || this.reason.value === '';
   }
 
+  // create appointment
   public createAppointment(): void {
     // this.appointmentsService.addAppointment(this.appointment.medic.id, this.date, this.hoursInterval)
     //   .subscribe((app: Appointment) => {
     //     console.log(app);
-    //     this.router.navigateByUrl('dashboard/patient/home');
+    //     this.router.navigateByUrl('patient/home');
     //   });
   }
 
+  // go to privious page
   public goBack(): void {
     sessionStorage.removeItem('cyhSelectedAppointment');
-    this.router.navigateByUrl('dashboard/patient/home');
+    this.router.navigateByUrl('patient/home');
+  }
+
+  // get medic of current pacient
+  private getMedic(): void {
+    this.usersService.getMedicOfUser().subscribe((medic: BaseUser) => {
+      this.medic = <Medic>medic;
+      this.setHoursInterval(this.medic);
+    });
   }
 
 }

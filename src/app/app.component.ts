@@ -1,3 +1,4 @@
+import { userTypes } from './models/userType';
 import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
@@ -17,7 +18,8 @@ export class AppComponent implements OnInit {
     this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))
       .subscribe((event: any) => {
-        this.showMainNavbar = event.url.includes('dashboard') || event.url.includes('cont') || options.menuList.find(option => event.url.includes(option));
+        const userType = event.url.split('/')[1];
+        this.showMainNavbar = userTypes.includes(userType) || userType === 'profile' || !!options.menuList.find(option => event.url.includes(option));
       });
   }
 }
