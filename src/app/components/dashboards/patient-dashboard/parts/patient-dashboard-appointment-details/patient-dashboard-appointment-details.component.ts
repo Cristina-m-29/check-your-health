@@ -18,6 +18,7 @@ export class PatientDashboardAppointmentDetailsComponent implements OnInit {
   public addAppointment = false;
   public appointment = new Appointment();
   public medic = new Medic();
+  public referenceId = '';
   public loading = true;
 
   public hoursInterval_options = [
@@ -54,13 +55,23 @@ export class PatientDashboardAppointmentDetailsComponent implements OnInit {
     // create appointment init
     if (this.router.url.includes('create')) {
       this.addAppointment = true;
-      this.getMedic();
+
+      // for family medic
+      if (!this.router.url.includes('medicId')) {
+        this.getFamilyMedic();
+      }
+      // for specialist
+      else {
+        const medicId = this.router.url.split('medicId=')[1];
+        this.referenceId = this.router.url.split('referenceId=')[1].split('medicId')[0];
+        this.getMedic(medicId);
+      }
     }
     // view appointment init
     else {
+      this.addAppointment = false;
       this.appointment = <Appointment>JSON.parse(localStorage.getItem('cyhSelectedAppointment') || '{}');
-      this.medic = this.appointment.medic;
-      this.setHoursInterval(this.medic);
+      this.getMedic(this.appointment.medic);
     }
   }
 
@@ -84,6 +95,7 @@ export class PatientDashboardAppointmentDetailsComponent implements OnInit {
 
   // create appointment
   public createAppointment(): void {
+    
     // this.appointmentsService.addAppointment(this.appointment.medic.id, this.date, this.hoursInterval)
     //   .subscribe((app: Appointment) => {
     //     console.log(app);
@@ -97,9 +109,15 @@ export class PatientDashboardAppointmentDetailsComponent implements OnInit {
     this.router.navigateByUrl('patient/home');
   }
 
-  // get medic of current pacient
-  private getMedic(): void {
+  private getFamilyMedic(): void {
     this.usersService.getMedicOfUser().subscribe((medic: BaseUser) => {
+      this.medic = <Medic>medic;
+      this.setHoursInterval(this.medic);
+    });
+  }
+
+  private getMedic(medicId?: string): void {
+    this.usersService.getUserInfo(medicId).subscribe((medic: BaseUser) => {
       this.medic = <Medic>medic;
       this.setHoursInterval(this.medic);
     });

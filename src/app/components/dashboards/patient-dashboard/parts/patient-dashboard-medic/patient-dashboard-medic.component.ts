@@ -11,8 +11,8 @@ import { UsersService } from 'src/app/services/users.service';
 })
 export class PatientDashboardMedicComponent implements OnInit {
   @Input() isDynamicView = false;
-  @Input() isSpecialist = false;
   @Input() medic = new Medic();
+  @Input() type = '';
 
   @Output() gotMedic = new EventEmitter<boolean>();
 
@@ -22,6 +22,10 @@ export class PatientDashboardMedicComponent implements OnInit {
     if (!this.isDynamicView) {
       this.getMedic();
     }
+  }
+
+  public isSpecialist(): boolean {
+    return !!(<Specialist>this.medic).domain;
   }
 
   public getSpecialistDomain(): string {

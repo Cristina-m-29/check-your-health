@@ -3,10 +3,11 @@ import { Patient } from "./patient";
 
 export class Recommendation {
   id: string = '';
-  patient: Patient = new Patient();
-  medic: Medic = new Medic();
-  specialist: Specialist = new Specialist();
+  patient: string = '';
+  medic: string = '';
+  specialist: string = '';
   date: Date = new Date();
   details: string = '';
   feedback: string = '';
+  canCreateAppointment: boolean = true;
 }

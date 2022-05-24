@@ -1,13 +1,16 @@
 <div class="card medic-card">
   <span *ngIf="!isDynamicView" class="title">Medicul meu</span>
-  <span *ngIf="isDynamicView" class="title">Medic</span>
+  <span *ngIf="isDynamicView" class="title">Medic 
+    <span *ngIf="type === 'appointment'">programare</span>
+    <span *ngIf="type === 'reference'">trimitere</span>
+  </span>
 
   <span class="small-subtitle">Nume</span>
   <span class="subtitle margin_bottom-s">{{medic.name}}</span>
 
-  <ng-container *ngIf="isSpecialist">
+  <ng-container *ngIf="isSpecialist()">
     <span class="small-subtitle">Domeniu</span>
-    <span class="subtitle margin_bottom-s">{{getSpecialistDomain}}</span>
+    <span class="subtitle margin_bottom-s">{{getSpecialistDomain() | upperCaseFirstLetter}}</span>
   </ng-container>
 
   <span class="small-subtitle">Email</span>

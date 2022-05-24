@@ -19,8 +19,8 @@ export class UsersService {
     return this.base.get<BaseUser>("users/" + userId);
   }
 
-  public getMedicOfUser(userId?: string): Observable<BaseUser> {
-    return this.getUserInfo(userId).pipe(concatMap((user: BaseUser) => {
+  public getMedicOfUser(): Observable<BaseUser> {
+    return this.getUserInfo().pipe(concatMap((user: BaseUser) => {
       const patient = <Patient>user;
       return this.getUserInfo(patient.medic);
 
