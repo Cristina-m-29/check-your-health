@@ -2,7 +2,10 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { map, Observable } from 'rxjs';
 import { Appointment } from 'src/app/models/appointment';
+import { BaseUser } from 'src/app/models/base-user';
+import { Specialist } from 'src/app/models/medic';
 import { AppointmentsService } from 'src/app/services/appointments.service';
+import { UsersService } from 'src/app/services/users.service';
 
 @Component({
   selector: 'cyh-patient-dashboard-appointments',
@@ -25,8 +28,14 @@ export class PatientDashboardAppointmentsComponent {
     })
   );
 
-  constructor(private router: Router, private appointmentsService: AppointmentsService) {
+  constructor(private router: Router, private appointmentsService: AppointmentsService, private usersService: UsersService) {
     this.appointmentsService.getAppointments();
+  }
+
+  public getMedic(medicId:string): Observable<Specialist> {
+    return this.usersService.getUserInfo(medicId).pipe(map((specialist: BaseUser) => {
+      return <Specialist>specialist;
+    }))
   }
 
   public openAppointmentDetails(appointment: Appointment): void {

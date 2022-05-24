@@ -40,6 +40,7 @@ import { LoadingScreenComponent } from './components/utils/loading-screen/loadin
 import { NotificationsComponent } from './components/utils/notifications/notifications.component';
 import { InterceptorInterceptor } from './interceptors/interceptor.interceptor';
 import { UpperCaseFirstLetterPipe } from './pipes/upper-case-first-letter.pipe';
+import { FormatTimePipe } from './pipes/format-time.pipe';
 
 @NgModule({
   declarations: [
@@ -68,6 +69,7 @@ import { UpperCaseFirstLetterPipe } from './pipes/upper-case-first-letter.pipe';
     SpecialistRegisterComponent,
     UpperCaseFirstLetterPipe,
     UserComponent,
+    FormatTimePipe,
   ],
   imports: [
     AppRoutingModule,

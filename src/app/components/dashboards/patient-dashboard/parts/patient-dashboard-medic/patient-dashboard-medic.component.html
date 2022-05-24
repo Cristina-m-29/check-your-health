@@ -29,11 +29,11 @@
       <span class="subtitle margin_bottom-s">Vineri:</span>
     </div>
     <div>
-      <span class="subtitle">{{medic.workingHours?.monday?.start}}:00 - {{medic.workingHours?.monday?.end}}:00</span>
-      <span class="subtitle">{{medic.workingHours?.tuesday?.start}}:00 - {{medic.workingHours?.tuesday?.end}}:00</span>
-      <span class="subtitle">{{medic.workingHours?.wednesday?.start}}:00 - {{medic.workingHours?.wednesday?.end}}:00</span>
-      <span class="subtitle">{{medic.workingHours?.thursday?.start}}:00 - {{medic.workingHours?.thursday?.end}}:00</span>
-      <span class="subtitle margin_bottom-s">{{medic.workingHours?.friday?.start}}:00 - {{medic.workingHours?.friday?.end}}:00</span>
+      <span class="subtitle">{{medic.workingHours.monday.start | formatTime}} - {{medic.workingHours.monday.end | formatTime}}</span>
+      <span class="subtitle">{{medic.workingHours.tuesday.start | formatTime}} - {{medic.workingHours.tuesday.end | formatTime}}</span>
+      <span class="subtitle">{{medic.workingHours.wednesday.start | formatTime}} - {{medic.workingHours.wednesday.end | formatTime}}</span>
+      <span class="subtitle">{{medic.workingHours.thursday.start | formatTime}} - {{medic.workingHours.thursday.end | formatTime}}</span>
+      <span class="subtitle margin_bottom-s">{{medic.workingHours.friday.start | formatTime}} - {{medic.workingHours.friday.end | formatTime}}</span>
     </div>
   </div>
 

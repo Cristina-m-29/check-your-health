@@ -6,9 +6,9 @@
       <div class="appointment" *ngFor="let appointment of a" (click)="openAppointmentDetails(appointment)">
         <span class="subtitle margin_bottom-s">
           {{appointment.date * 1000 | date: 'dd MMM yyyy'}}
-          {{appointment.hoursInterval.start}}:00 - {{appointment.hoursInterval.end}}:00
+          {{appointment.hoursInterval.start | formatTime}} - {{appointment.hoursInterval.end | formatTime}}
           <span class="subtitle-purple">
-            <!-- - {{appointment.medic.name}} -->
+            - {{appointment.fullMedic.name}}
           </span>
         </span>
 
@@ -36,9 +36,9 @@
     <div class="old-appointment" *ngFor="let appointment of a" (click)="openAppointmentDetails(appointment)">
       <span class="subtitle">
         {{appointment.date * 1000 | date: 'dd MMM yyyy'}}
-        {{appointment.hoursInterval.start}}:00 - {{appointment.hoursInterval.end}}:00
+        {{appointment.hoursInterval.start | formatTime}} - {{appointment.hoursInterval.end | formatTime}}
         <span class="subtitle-purple">
-          <!-- - {{appointment.medic.name}} -->
+          - {{appointment.fullMedic.name}}
         </span>
       </span>
     </div>

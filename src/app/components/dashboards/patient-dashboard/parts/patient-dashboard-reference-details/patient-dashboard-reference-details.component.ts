@@ -14,8 +14,6 @@ export class PatientDashboardReferenceDetailsComponent implements OnInit {
   @Input() reference = new Recommendation();;
   @Input() selected = false;
 
-  @Output() referenceInitIsDone = new EventEmitter<boolean>();
-
   public medic = new Medic();
   public specialist = new Specialist();
 
@@ -39,7 +37,6 @@ export class PatientDashboardReferenceDetailsComponent implements OnInit {
   private getSpecialist(reference: Recommendation): void {
     this.usersService.getUserInfo(reference.specialist).subscribe((user: BaseUser) => {
       this.specialist = <Specialist>user;
-      this.referenceInitIsDone.emit(true);
     });
   }
 }
