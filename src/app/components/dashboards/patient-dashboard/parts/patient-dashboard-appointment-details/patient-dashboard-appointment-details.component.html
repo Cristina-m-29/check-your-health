@@ -15,10 +15,10 @@
           <span class="subtitle block margin_bottom">Selecteaza ziua</span>
 
           <mat-card class="calendar-card block margin_bottom">
-            <mat-calendar 
+            <mat-calendar
               [contentEditable]="false" 
               [(selected)]="date" 
-              (selectedChange)="manageDateChange($event)"
+              (selectedChange)="manageDateChange()"
               [dateFilter]="dateFilterForCalendar"
             ></mat-calendar>
           </mat-card>
@@ -27,13 +27,12 @@
 
           <mat-form-field appearance="fill" class="width-full">
             <mat-label>Interval orar</mat-label>
-            <mat-select [(value)]="hoursInterval">
+            <mat-select [(value)]="startTime">
               <mat-option
-                *ngFor="let interval of hoursInterval_options"
-                [value]="interval"
-                [disabled]="interval.state === 'not available'"
+                *ngFor="let interval of hoursIntervalOptions"
+                [value]="interval.value"
               >
-                {{interval.start}}:00 - {{interval.end}}:00
+                {{interval.start}} - {{interval.end}}
               </mat-option>
             </mat-select>
           </mat-form-field>
@@ -43,7 +42,7 @@
 
         <mat-form-field appearance="fill" class="width-full">
           <mat-label>Motiv</mat-label>
-          <textarea matInput [formControl]="reason" class="min-height-m"></textarea>
+          <textarea matInput [formControl]="reasonField" class="min-height-m"></textarea>
         </mat-form-field>
 
         <button
@@ -81,7 +80,7 @@
 
           <span class="small-subtitle">Motiv</span>
 
-          <span class="subtitle block margin_bottom">Motiv to add here</span>
+          <span class="subtitle block margin_bottom">{{appointment.reason}}</span>
         </div>
       </ng-container>
     </div>

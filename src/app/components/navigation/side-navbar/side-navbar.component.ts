@@ -29,7 +29,6 @@ export class SideNavbarComponent implements OnInit {
 
   public goTo(menu: Menu, selectedMenuItem: string): void {
     this.selectedMenuItem = this.getUrlItemOfMenuList(menu, selectedMenuItem);
-    console.log(this.selectedMenuItem);
 
     if (this.selectedMenuItem === 'iesire') {
       // to do

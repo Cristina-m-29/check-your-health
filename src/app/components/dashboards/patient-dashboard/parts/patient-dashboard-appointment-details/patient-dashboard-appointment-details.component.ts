@@ -1,13 +1,20 @@
+import { Specialist } from './../../../../../models/medic';
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
 import { Appointment } from 'src/app/models/appointment';
 import { BaseUser } from 'src/app/models/base-user';
-import { Medic } from 'src/app/models/medic';
-import { weekday } from 'src/app/models/workingHours';
+import { HoursInterval, weekday } from 'src/app/models/workingHours';
 import { AppointmentsService } from 'src/app/services/appointments.service';
 import { UsersService } from 'src/app/services/users.service';
+import { UtilsService } from 'src/app/services/utils.service';
+
+interface HoursIntervalOption {
+  start: string;
+  end: string;
+  value: number;
+}
 
 @Component({
   selector: 'cyh-patient-dashboard-appointment-details',
@@ -17,29 +24,24 @@ import { UsersService } from 'src/app/services/users.service';
 export class PatientDashboardAppointmentDetailsComponent implements OnInit {
   public addAppointment = false;
   public appointment = new Appointment();
-  public medic = new Medic();
+  public medic = new Specialist();
   public referenceId = '';
   public loading = true;
 
-  public hoursInterval_options = [
-    { start: 9, end: 10, state: 'available' },
-    { start: 10, end: 11, state: 'available' },
-    { start: 11, end: 12, state: 'not available' },
-    { start: 12, end: 13, state: 'available' },
-    { start: 14, end: 15, state: 'available' },
-    { start: 15, end: 16, state: 'available' },
-    { start: 16, end: 17, state: 'available' },
-  ];
+  public hoursIntervalOptions: HoursIntervalOption[] = [];
 
   // input fields
   public date = new Date();
-  public hoursInterval = { start: 0, end: 0 };
-  public reason = new FormControl('');
+  public startTime = 0;
+  public reason = '';
+  public reasonField = new FormControl('');
 
   // filer dates on calendar
   // previous and weekend days are not allowed
-  public dateFilterForCalendar = (date: any): boolean => {
-    if (moment(date) >= moment().hour(0).minute(0).second(0).millisecond(0) && weekday[date.getDay()]) {
+  public dateFilterForCalendar = (d: any): boolean => {
+    const date = this.utilsService.formatDateToUtc(d);
+    const currentDate = moment().hour(0).minute(0).second(0).millisecond(0);
+    if (date >= currentDate && !['sunday', 'saturday'].includes(weekday[date.day()])) {
       return true;
     }
     return false;
@@ -49,7 +51,12 @@ export class PatientDashboardAppointmentDetailsComponent implements OnInit {
     private router: Router, 
     private appointmentsService: AppointmentsService,
     private usersService: UsersService,
-  ) {}
+    private utilsService: UtilsService,
+  ) {
+    this.reasonField.valueChanges.subscribe((value: string) => {
+      this.reason = value;
+    });
+  }
 
   public ngOnInit() {
     // create appointment init
@@ -63,7 +70,7 @@ export class PatientDashboardAppointmentDetailsComponent implements OnInit {
       // for specialist
       else {
         const medicId = this.router.url.split('medicId=')[1];
-        this.referenceId = this.router.url.split('referenceId=')[1].split('medicId')[0];
+        this.referenceId = this.router.url.split('referenceId=')[1].split('&medicId')[0];
         this.getMedic(medicId);
       }
     }
@@ -75,32 +82,44 @@ export class PatientDashboardAppointmentDetailsComponent implements OnInit {
     }
   }
 
-
   // manage date change on calendar
-  public manageDateChange(ev: any): void {
-    // to do
-    // this.setHoursInterval();
+  // update free time intervals
+  public manageDateChange(): void {
+    this.setFreeHoursInterval(this.date, this.medic);
   }
 
-  public setHoursInterval(medic: Medic): void {
-    // to do
-
-    this.loading = false;
+  // create free time intervals for ui
+  public setFreeHoursInterval(date: Date, medic: Specialist): void {
+    const timestamp = this.utilsService.getTimestampOfDate(date);
+    this.hoursIntervalOptions = [];
+    this.appointmentsService.getMedicFreeIntervals(medic.id, timestamp).subscribe((freeIntervals: number[]) => {
+      freeIntervals.forEach((startTime: number) => {
+        this.hoursIntervalOptions.push({
+          start: this.formatTimeForInterval(startTime),
+          end: this.formatTimeForInterval(this.getEndTimeOfInterval(startTime)),
+          value: startTime
+        });
+      });
+      this.loading = false;
+    });
   }
 
   // check if form is completed
   public isCreateBtnDisabled(): boolean {
-    return this.hoursInterval.start === 0 || this.reason.value === '';
+    return this.startTime === 0 || this.reason === '';
   }
 
   // create appointment
   public createAppointment(): void {
-    
-    // this.appointmentsService.addAppointment(this.appointment.medic.id, this.date, this.hoursInterval)
-    //   .subscribe((app: Appointment) => {
-    //     console.log(app);
-    //     this.router.navigateByUrl('patient/home');
-    //   });
+    const timestamp: number = this.utilsService.getTimestampOfDate(this.date);
+    const hoursInterval: HoursInterval = {
+      start: this.startTime,
+      end: this.getEndTimeOfInterval(this.startTime)
+    };
+    this.appointmentsService.addAppointment(this.medic.id, timestamp, hoursInterval, this.reason, this.referenceId)
+      .subscribe(() => {
+        this.router.navigateByUrl('patient/home');
+      });
   }
 
   // go to privious page
@@ -109,18 +128,32 @@ export class PatientDashboardAppointmentDetailsComponent implements OnInit {
     this.router.navigateByUrl('patient/home');
   }
 
+  // get family medic
   private getFamilyMedic(): void {
     this.usersService.getMedicOfUser().subscribe((medic: BaseUser) => {
-      this.medic = <Medic>medic;
-      this.setHoursInterval(this.medic);
+      this.medic = <Specialist>medic;
+      this.setFreeHoursInterval(this.date, this.medic);
     });
   }
 
   private getMedic(medicId?: string): void {
     this.usersService.getUserInfo(medicId).subscribe((medic: BaseUser) => {
-      this.medic = <Medic>medic;
-      this.setHoursInterval(this.medic);
+      this.medic = <Specialist>medic;
+      this.setFreeHoursInterval(this.date, this.medic);
     });
+  }
+
+  private getEndTimeOfInterval(startTime: number): number {
+    let endTime = startTime + 30;
+    if (startTime % 100 !== 0) {
+      endTime += 40;
+    }
+    return endTime;
+  }
+
+  private formatTimeForInterval(time: number): string {
+    const end = time % 100;
+    return (time / 100).toFixed().toString() + ':' + (end === 0 ? '00' : end.toString());
   }
 
 }

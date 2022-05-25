@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import { MatNativeDateModule } from '@angular/material/core';
+import { DateAdapter, MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
@@ -41,6 +41,7 @@ import { NotificationsComponent } from './components/utils/notifications/notific
 import { InterceptorInterceptor } from './interceptors/interceptor.interceptor';
 import { UpperCaseFirstLetterPipe } from './pipes/upper-case-first-letter.pipe';
 import { FormatTimePipe } from './pipes/format-time.pipe';
+import { CustomDateAdapter } from './components/utils/custom-date-adapter.component';
 
 @NgModule({
   declarations: [
@@ -94,6 +95,7 @@ import { FormatTimePipe } from './pipes/format-time.pipe';
       useClass: InterceptorInterceptor,
       multi: true
     },
+    { provide: DateAdapter, useClass: CustomDateAdapter },
   ],
   bootstrap: [AppComponent]
 })

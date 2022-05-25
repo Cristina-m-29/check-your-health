@@ -20,9 +20,9 @@ export class AppointmentsService {
 
   public getAppointments(): void {
     this.base
-      .get<Appointment[]>("users/appointments")
+      .get<Appointment[]>('users/appointments')
       .pipe(catchError((error: HttpErrorResponse) => {
-        console.error("Error getting appointments: " + error);
+        console.error('Error getting appointments: ' + error);
         return [];
       }), map((appointments: Appointment[]) => {
         const pastValues: Appointment[] = [];
@@ -33,7 +33,7 @@ export class AppointmentsService {
             app.fullMedic = <Specialist>user;
 
             const currentDate: moment.Moment = moment().minutes(0).seconds(0).milliseconds(0);
-            const appointmentDate: moment.Moment = moment.unix(app.date).hours(app.hoursInterval.start);
+            const appointmentDate: moment.Moment = moment.unix(app.date).hours(app.hoursInterval.start / 100).minutes(app.hoursInterval.start % 100);
 
             if (appointmentDate <= currentDate) {
               pastValues.push(app);
@@ -49,16 +49,26 @@ export class AppointmentsService {
       })).subscribe();
   }
 
-  public addAppointment(medicId: string, date: Date, hoursInterval: HoursInterval): Observable<Appointment> {
-    const parsedDate = moment(date).utcOffset(0, true).unix();
-    return this.base.post<any, Appointment>("users/appointments", {
+  public addAppointment(
+    medicId: string, 
+    timestamp: number, 
+    hoursInterval: HoursInterval, 
+    reason: string, 
+    recommendationId?: string
+  ): Observable<Appointment> {
+    return this.base.post<any, Appointment>('users/appointments', {
       medic: medicId,
-      date: parsedDate,
-      hoursInterval: hoursInterval
+      date: timestamp,
+      hoursInterval: hoursInterval,
+      reason: reason,
+      recommendation: recommendationId
     }).pipe(catchError((err: HttpErrorResponse) => {
-      console.log(err);
       return EMPTY;
     }));
+  }
+
+  public getMedicFreeIntervals(medicId: string, timestamp: number): Observable<number[]> {
+    return this.base.get<number[]>('medic/' + medicId + '/free/' + timestamp);
   }
 
 }

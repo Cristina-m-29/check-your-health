@@ -15,7 +15,6 @@ export class FormatTimePipe implements PipeTransform {
 
   private getEndOfNumber(nr: number): string {
     const end = nr % 100;
-    console.log(end, typeof end);
     return end === 0 ? '00' : end.toString();
   }
 
