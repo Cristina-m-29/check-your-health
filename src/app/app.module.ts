@@ -41,6 +41,7 @@ import { NotificationsComponent } from './components/utils/notifications/notific
 import { InterceptorInterceptor } from './interceptors/interceptor.interceptor';
 import { FormatTimePipe } from './pipes/format-time.pipe';
 import { UpperCaseFirstLetterPipe } from './pipes/upper-case-first-letter.pipe';
+import { PatientPrescriptionDetailsComponent } from './components/user-type-components/patient/prescriptions/patient-prescription-details/patient-prescription-details.component';
 
 @NgModule({
   declarations: [
@@ -69,6 +70,7 @@ import { UpperCaseFirstLetterPipe } from './pipes/upper-case-first-letter.pipe';
     SpecialistRegisterComponent,
     UpperCaseFirstLetterPipe,
     UserComponent,
+    PatientPrescriptionDetailsComponent,
   ],
   imports: [
     AppRoutingModule,
