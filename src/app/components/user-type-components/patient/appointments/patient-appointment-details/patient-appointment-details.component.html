@@ -1,0 +1,92 @@
+<ng-container *ngIf="loading; else notLoading">
+  <cyh-loading-screen></cyh-loading-screen>
+</ng-container>
+
+<ng-template #notLoading>
+  <div class="flex">
+    <div class="card card-height-auto width-medium margin_right-xl margin_bottom-xl">
+      <ng-container *ngIf="addAppointment">
+        <div class="flex flex-align-center">
+          <mat-icon (click)="goBack()" class="back-btn">keyboard_arrow_left</mat-icon>
+          <span class="title card-title">Creaza o programare noua</span>
+        </div>
+
+        <form class="width-full margin_top">
+          <span class="subtitle block margin_bottom">Selecteaza ziua</span>
+
+          <mat-card class="calendar-card block margin_bottom">
+            <mat-calendar
+              [contentEditable]="false" 
+              [(selected)]="date" 
+              (selectedChange)="manageDateChange()"
+              [dateFilter]="dateFilterForCalendar"
+            ></mat-calendar>
+          </mat-card>
+
+          <span class="subtitle block margin_bottom">Selecteaza intervalul orar</span>
+
+          <mat-form-field appearance="fill" class="width-full">
+            <mat-label>Interval orar</mat-label>
+            <mat-select [(value)]="startTime">
+              <mat-option
+                *ngFor="let interval of hoursIntervalOptions"
+                [value]="interval.value"
+              >
+                {{interval.start}} - {{interval.end}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </form>
+
+        <span class="subtitle block margin_bottom">Motivul programarii</span>
+
+        <mat-form-field appearance="fill" class="width-full">
+          <mat-label>Motiv</mat-label>
+          <textarea matInput [formControl]="reasonField" class="min-height-m"></textarea>
+        </mat-form-field>
+
+        <button
+          *ngIf="addAppointment"
+          mat-raised-button
+          color="primary"
+          class="width-full height-small button"
+          [disabled]="isCreateBtnDisabled()"
+          (click)="createAppointment()"
+        >
+          Creaza
+        </button>
+      </ng-container>
+
+      <ng-container *ngIf="!addAppointment">
+        <div class="flex flex-align-center margin_bottom">
+          <mat-icon (click)="goBack()" class="back-btn">keyboard_arrow_left</mat-icon>
+          <span class="title card-title">Programarea nr. {{appointment.id.slice(0, 5)}}</span>
+        </div>
+
+        <div class="padding_left-s">
+          <span class="small-subtitle">Ziua programarii</span>
+
+          <span class="subtitle block margin_bottom">{{appointment.date * 1000 | date: 'dd MMM yyyy'}}</span>
+
+          <span class="small-subtitle">Intervalul orar</span>
+
+          <span class="subtitle block margin_bottom">{{appointment.hoursInterval.start | formatTime}} - {{appointment.hoursInterval.end | formatTime}}</span>
+
+          <span class="small-subtitle">Status</span>
+
+          <span class="subtitle pending block margin_bottom" *ngIf="appointment.status === 'pending'">Așteaptă confirmare</span>
+          <span class="subtitle accepted block margin_bottom" *ngIf="appointment.status === 'accepted'">Confirmată</span>
+          <span class="subtitle refused block margin_bottom" *ngIf="appointment.status === 'refused'">Respinsă</span>
+
+          <span class="small-subtitle">Motiv</span>
+
+          <span class="subtitle block margin_bottom">{{appointment.reason}}</span>
+        </div>
+      </ng-container>
+    </div>
+
+    <div class="width-medium">
+      <cyh-medic-details-card [isDynamicView]="true" [medic]="medic" [type]="'appointment'"></cyh-medic-details-card>
+    </div>
+  </div>
+</ng-template>

@@ -1,0 +1,13 @@
+<ng-container *ngIf="loading">
+  <cyh-loading-screen></cyh-loading-screen>
+</ng-container>
+
+<div class="flex height-full" [ngClass]="{'card-hide': loading}">
+  <div class="width-medium margin_right-xl">
+    <cyh-patient-appointments (gotAppointments)="doneWithGettingAppointments($event)"></cyh-patient-appointments>
+  </div>
+
+  <div class="width-medium">
+    <cyh-medic-details-card (gotMedic)="doneWithGettingMedic()"></cyh-medic-details-card>
+  </div>
+</div>

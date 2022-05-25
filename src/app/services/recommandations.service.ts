@@ -21,7 +21,6 @@ export class RecommendationsService {
       specialist: specialistId,
       details: details
     }).pipe(catchError((err: HttpErrorResponse) => {
-      console.log(err);
       return EMPTY;
     }));
   }

@@ -1,28 +1,22 @@
-import { PatientDashboardReferencesComponent } from './components/dashboards/patient-dashboard/menu-tabs/patient-dashboard-references/patient-dashboard-references.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-
 import { ChooseLoginTypeComponent } from './components/auth/login/choose-login-type/choose-login-type.component';
 import { LoginComponent } from './components/auth/login/login/login.component';
 import { BaseRegisterComponent } from './components/auth/register/base-register/base-register.component';
+import { UserComponent } from './components/user-profile/user.component';
+import { PatientAppointmentDetailsComponent } from './components/user-type-components/patient/appointments/patient-appointment-details/patient-appointment-details.component';
 import {
-  MedicDashboardHomeComponent,
-} from './components/dashboards/medic-dashboard/menu-tabs/medic-dashboard-home/medic-dashboard-home.component';
+  PatientHomeComponent
+} from './components/user-type-components/patient/patient-home/patient-home.component';
 import {
-  PatientDashboardHomeComponent,
-} from './components/dashboards/patient-dashboard/menu-tabs/patient-dashboard-home/patient-dashboard-home.component';
+  PatientPrescriptionsComponent
+} from './components/user-type-components/patient/prescriptions/patient-prescriptions/patient-prescriptions.component';
 import {
-  PatientDashboardPrescriptionsComponent,
-} from './components/dashboards/patient-dashboard/menu-tabs/patient-dashboard-prescriptions/patient-dashboard-prescriptions.component';
-import { PatientDashboardAppointmentDetailsComponent } from './components/dashboards/patient-dashboard/parts/patient-dashboard-appointment-details/patient-dashboard-appointment-details.component';
-import {
-  PharmacyDashboardHomeComponent,
-} from './components/dashboards/pharmacy-dashboard/menu-tabs/pharmacy-dashboard-home/pharmacy-dashboard-home.component';
-import {
-  SpecialistDashboardHomeComponent,
-} from './components/dashboards/specialist-dashboard/menu-tabs/specialist-dashboard-home/specialist-dashboard-home.component';
-import { UserComponent } from './components/dashboards/user/user.component';
+  PatientReferencesComponent
+} from './components/user-type-components/patient/references/patient-references/patient-references.component';
 import { NotificationsComponent } from './components/utils/notifications/notifications.component';
+
+
 
 const routes: Routes = [
   // login
@@ -40,65 +34,65 @@ const routes: Routes = [
     component: BaseRegisterComponent
   },
   // dashboards
-  {
-    path: 'dashboard/medic',
-    // to add menu items
-    children: [
-      {
-        path: '**',
-        component: MedicDashboardHomeComponent
-      }
-    ]
-  },
-  {
-    path: 'dashboard/specialist',
-    // to add menu items
-    children: [
-      {
-        path: '**',
-        component: SpecialistDashboardHomeComponent
-      }
-    ]
-  },
+  // {
+  //   path: 'medic',
+  //   // to add menu items
+  //   children: [
+  //     {
+  //       path: '**',
+  //       component: 
+  //     }
+  //   ]
+  // },
+  // {
+  //   path: 'specialist',
+  //   // to add menu items
+  //   children: [
+  //     {
+  //       path: '**',
+  //       component: 
+  //     }
+  //   ]
+  // },
   {
     path: 'patient',
     children: [
       {
         path: 'home',
-        component: PatientDashboardHomeComponent,
+        component: PatientHomeComponent,
       },
       {
         path: 'references',
-        component: PatientDashboardReferencesComponent,
+        component: PatientReferencesComponent,
       },
       {
         path: 'prescriptions',
-        component: PatientDashboardPrescriptionsComponent
+        component: PatientPrescriptionsComponent
       },
       {
         path: 'appointment',
-        component: PatientDashboardAppointmentDetailsComponent
+        component: PatientAppointmentDetailsComponent
       },
       {
         path: 'appointment/create',
-        component: PatientDashboardAppointmentDetailsComponent
+        component: PatientAppointmentDetailsComponent
       },
       {
         path: '**',
-        redirectTo: '/dashboard/pacient/home'
+        redirectTo: '/pacient/home'
       }
     ]
   },
-  {
-    path: 'dashboard/pharmacy',
-    // to add menu items
-    children: [
-      {
-        path: '**',
-        component: PharmacyDashboardHomeComponent
-      }
-    ]
-  },
+  // {
+  //   path: 'pharmacy',
+  //   // to add menu items
+  //   children: [
+  //     {
+  //       path: '**',
+  //       component: 
+  //     }
+  //   ]
+  // },
   // other
   {
     path: 'notificari',

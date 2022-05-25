@@ -26,7 +26,6 @@ export class PrescriptionsService {
       date: parsedDate,
       medicines: medicines
     }).pipe(catchError((err: HttpErrorResponse) => {
-      console.log(err);
       return EMPTY;
     }));
   }
