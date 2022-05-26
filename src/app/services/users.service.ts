@@ -23,13 +23,6 @@ export class UsersService {
     return this.getUserInfo().pipe(concatMap((user: BaseUser) => {
       const patient = <Patient>user;
       return this.getUserInfo(patient.medic);
-
-      // return <Specialist>{};
-
-      // return this.getUserInfo(patient.medic).pipe((user: BaseUser) => {
-      //   this.medic = <Specialist>user;
-      //   this.gotMedic.emit(true);
-      // });
     }));
   }
 }
