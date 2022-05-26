@@ -1,1 +1,31 @@
-<p>patient-prescription-details works!</p>
+<div 
+  class="card card-hover-effect appointments-card flex_column flex_column-justify margin_bottom-xl"
+  [ngClass]="{'card-not-selected': !selected, 'card-selected': selected}"
+>
+    <span class="title card-title">Reteta nr. {{prescription.id.slice(0, 5)}}</span>
+    
+    <span class="small-subtitle">Creata de medicul</span>
+
+    <span class="subtitle block margin_bottom">{{medic.name}}</span>
+
+    <span class="medicines-grid">
+        <span class="small-subtitle">Nume medicament</span>
+        <span class="small-subtitle">Cantitate</span>
+
+        <ng-container *ngFor="let medicine of prescription.medicines">
+            <span class="subtitle">{{medicine.medicine.name}}</span>
+
+            <span class="subtitle">{{medicine.quantity + 'g'}}</span>
+        </ng-container>
+    </span>
+
+    <span class="small-subtitle margin_top">Farmacie asignata</span>
+
+    <span class="subtitle block margin_bottom">{{pharmacy.name}}</span>
+
+    <span class="small-subtitle">Status</span>
+
+    <span class="subtitle pending block margin_bottom" *ngIf="prescription.status === 'pending'">Așteaptă confirmare</span>
+    <span class="subtitle accepted block margin_bottom" *ngIf="prescription.status === 'ready for pickup'">Poate fi ridicata</span>
+    <span class="subtitle refused block margin_bottom" *ngIf="prescription.status === 'refused'">Respinsă</span>
+</div>

@@ -2,17 +2,23 @@
   <cyh-loading-screen></cyh-loading-screen>
 </ng-container>
 
-<div class="flex height-full" [ngClass]="{'card-hide': loading}">
-  <div class="width-medium margin_right-xl">
-    <cyh-patient-prescription-details
-      *ngFor="let prescription of prescriptions"
-      [prescription]="prescription"
-      [selected]="prescription === selectedPrescription"
-      (click)="selectPrescription(prescription)"
-    ></cyh-patient-prescription-details>
-  </div>
+<div class="flex height-full" [ngClass]="{'card-hide': loading, 'no-data': prescriptions.length === 0}">
+  <span *ngIf="prescriptions.length === 0">Nu au fost gasite retete : (</span>
 
-  <div class="width-medium">
-    <!-- <cyh-medic-details-card [isDynamicView]="true" [medic]="medicForSelectedReference" [type]="'reference'"></cyh-medic-details-card> -->
-  </div>
+  <ng-container *ngIf="prescriptions.length > 0">
+    <div class="width-medium margin_right-xl">
+      <cyh-patient-prescription-details
+        *ngFor="let prescription of prescriptions"
+        [prescription]="prescription"
+        [selected]="prescription === selectedPrescription"
+        (click)="selectPrescription(prescription)"
+      ></cyh-patient-prescription-details>
+    </div>
+
+    <div class="width-medium">
+      <cyh-pharmacy-details-card
+        [pharmacy]="pharmacyForSelectedPrescription"
+      ></cyh-pharmacy-details-card>
+    </div>
+  </ng-container>
 </div>

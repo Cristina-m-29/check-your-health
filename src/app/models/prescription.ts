@@ -1,14 +1,11 @@
-import { Medic } from "./medic";
-import { Medicine } from "./medicine";
-import { Patient } from "./patient";
-import { Pharmacy } from "./pharmacy";
+import { PrescribedMedicine } from "./medicine";
 
 export class Prescription {
   id: string = '';
-  patient: Patient = new Patient();
-  pharmacy: Pharmacy = new Pharmacy();
-  medic: Medic = new Medic();
-  medicines: Medicine[] = [];
+  patient = '';
+  pharmacy = '';
+  medic = '';
+  medicines: PrescribedMedicine[] = [];
   status: PrescriptionStatus = 'pending';
 }
 

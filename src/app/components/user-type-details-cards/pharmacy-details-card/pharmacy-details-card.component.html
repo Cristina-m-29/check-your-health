@@ -1,1 +1,36 @@
-<p>pharmacy-details-card works!</p>
+<div class="card pharmacy-card">
+    <span class="title">Farmacia de pe reteta</span>
+  
+    <span class="small-subtitle">Nume</span>
+    <span class="subtitle margin_bottom-s">{{pharmacy.name}}</span>
+  
+    <span class="small-subtitle">Email</span>
+    <a class="subtitle margin_bottom-s email" [href]="'mailto:' + 'popescuvaleria@mail.com'">{{pharmacy.email}}</a>
+  
+    <span class="small-subtitle">Numar de telefon</span>
+    <span class="subtitle margin_bottom-s">{{pharmacy.phoneNumber}}</span>
+  
+    <span class="small-subtitle margin_top block">Program de lucru</span>
+    <div class="flex margin_top-s">
+      <div class="margin_right-l">
+        <span class="subtitle">Luni-Vineri:</span>
+        <span class="subtitle">Marti:</span>
+        <span class="subtitle">Miercuri:</span>
+        <span class="subtitle">Joi:</span>
+        <span class="subtitle margin_bottom-s">Vineri:</span>
+      </div>
+      <div>
+        <span class="subtitle">{{pharmacy.workingHours.monday.start | formatTime}} - {{pharmacy.workingHours.monday.end | formatTime}}</span>
+        <span class="subtitle">{{pharmacy.workingHours.tuesday.start | formatTime}} - {{pharmacy.workingHours.tuesday.end | formatTime}}</span>
+        <span class="subtitle">{{pharmacy.workingHours.wednesday.start | formatTime}} - {{pharmacy.workingHours.wednesday.end | formatTime}}</span>
+        <span class="subtitle">{{pharmacy.workingHours.thursday.start | formatTime}} - {{pharmacy.workingHours.thursday.end | formatTime}}</span>
+        <span class="subtitle margin_bottom-s">{{pharmacy.workingHours.friday.start | formatTime}} - {{pharmacy.workingHours.friday.end | formatTime}}</span>
+      </div>
+    </div>
+  
+    <span class="small-subtitle">Locatie cabinet</span>
+    <span class="subtitle block margin_bottom">{{pharmacy.address}}</span>
+  
+    <cyh-google-map [address]="pharmacy.address"></cyh-google-map>
+  </div>
+  

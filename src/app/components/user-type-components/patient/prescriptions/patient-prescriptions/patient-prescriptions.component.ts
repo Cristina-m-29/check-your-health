@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { BaseUser } from 'src/app/models/base-user';
 import { Pharmacy } from 'src/app/models/pharmacy';
 import { Prescription } from 'src/app/models/prescription';
 import { PrescriptionsService } from 'src/app/services/prescriptions.service';
+import { UsersService } from 'src/app/services/users.service';
 
 @Component({
   selector: 'cyh-patient-prescriptions',
@@ -14,7 +16,7 @@ export class PatientPrescriptionsComponent implements OnInit {
   public selectedPrescription = new Prescription();
   public pharmacyForSelectedPrescription = new Pharmacy();
 
-  constructor(private prescriptionsService: PrescriptionsService) { }
+  constructor(private prescriptionsService: PrescriptionsService, private usersService: UsersService) { }
 
   public ngOnInit() {
     this.getPrescriptions();
@@ -29,13 +31,21 @@ export class PatientPrescriptionsComponent implements OnInit {
   private getPrescriptions(): void {
     this.prescriptionsService.getPrescriptions().subscribe((prescriptions: Prescription[]) => {
       this.prescriptions = prescriptions;
-      this.selectPrescription(this.prescriptions[0]);
+      
+      if (prescriptions.length > 0) {
+        this.selectPrescription(this.prescriptions[0]);
+      }
+      else {
+        this.loading = false;
+      }
     });
   }
 
   private getPharmacyForSelectedPrescription(prescription: Prescription): void {
-    // to do
-    this.loading = false;
+    this.usersService.getUserInfo(prescription.pharmacy).subscribe((pharmacy: BaseUser) => {
+      this.pharmacyForSelectedPrescription = <Pharmacy>pharmacy;
+      this.loading = false;
+    });
   }
 
 }

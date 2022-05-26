@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Pharmacy } from 'src/app/models/pharmacy';
 
 @Component({
   selector: 'cyh-pharmacy-details-card',
@@ -6,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./pharmacy-details-card.component.sass']
 })
 export class PharmacyDetailsCardComponent implements OnInit {
+  @Input() pharmacy = new Pharmacy();
 
   constructor() { }
 

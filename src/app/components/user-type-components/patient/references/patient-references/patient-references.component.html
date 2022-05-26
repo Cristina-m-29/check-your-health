@@ -2,17 +2,21 @@
   <cyh-loading-screen></cyh-loading-screen>
 </ng-container>
 
-<div class="flex height-full" [ngClass]="{'card-hide': loading}">
-  <div class="width-medium margin_right-xl">
-    <cyh-patient-reference-details
-      *ngFor="let reference of references"
-      [reference]="reference"
-      [selected]="reference === selectedReference"
-      (click)="selectReference(reference)"
-    ></cyh-patient-reference-details>
-  </div>
+<div class="flex height-full" [ngClass]="{'card-hide': loading, 'no-data': references.length === 0}">
+  <span *ngIf="references.length === 0">Nu au fost gasite trimiteri : (</span>
 
-  <div class="width-medium">
-    <cyh-medic-details-card [isDynamicView]="true" [medic]="medicForSelectedReference" [type]="'reference'"></cyh-medic-details-card>
-  </div>
+  <ng-container *ngIf="references.length > 0">
+    <div class="width-medium margin_right-xl">
+      <cyh-patient-reference-details
+        *ngFor="let reference of references"
+        [reference]="reference"
+        [selected]="reference === selectedReference"
+        (click)="selectReference(reference)"
+      ></cyh-patient-reference-details>
+    </div>
+
+    <div class="width-medium">
+      <cyh-medic-details-card [isDynamicView]="true" [medic]="medicForSelectedReference" [type]="'reference'"></cyh-medic-details-card>
+    </div>
+  </ng-container>
 </div>

@@ -1,8 +1,7 @@
-import { RecommendationsService } from '../../../../../services/recommandations.service';
+import { RecommendationsService } from 'src/app/services/recommandations.service';
 import { Component, OnInit } from '@angular/core';
 import { BaseUser } from 'src/app/models/base-user';
 import { Medic, Specialist } from 'src/app/models/medic';
-import { Patient } from 'src/app/models/patient';
 import { Recommendation } from 'src/app/models/recommendation';
 import { UsersService } from 'src/app/services/users.service';
 
@@ -20,7 +19,7 @@ export class PatientReferencesComponent implements OnInit {
   constructor(
     private usersService: UsersService, 
     private RecommendationsService: RecommendationsService
-  ) { }
+  ) {}
 
   public ngOnInit() {
     this.getReferences();
@@ -35,7 +34,13 @@ export class PatientReferencesComponent implements OnInit {
   private getReferences(): void {
     this.RecommendationsService.getRecommendations().subscribe((references: Recommendation[]) => {
       this.references = references;
-      this.selectReference(this.references[0]);
+      
+      if (references.length > 0) {
+        this.selectReference(this.references[0]);
+      }
+      else {
+        this.loading = false;
+      }
     });
   }
 
