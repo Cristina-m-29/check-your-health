@@ -18,35 +18,20 @@ export class AppointmentsService {
 
   constructor(private base: BaseService, private usersService: UsersService) {}
 
-  public getAppointments(): void {
+  public getAppointments(forWho: string): void {
     this.base
       .get<Appointment[]>('users/appointments')
       .pipe(catchError((error: HttpErrorResponse) => {
-        console.error('Error getting appointments: ' + error);
         return [];
-      }), map((appointments: Appointment[]) => {
-        const pastValues: Appointment[] = [];
-        const futureValues: Appointment[] = [];
-        
-        appointments.forEach((app: Appointment) => {
-          this.usersService.getUserInfo(app.medic).subscribe((user: BaseUser) => {
-            app.fullMedic = <Specialist>user;
-
-            const currentDate: moment.Moment = moment().minutes(0).seconds(0).milliseconds(0);
-            const appointmentDate: moment.Moment = moment.unix(app.date).hours(app.hoursInterval.start / 100).minutes(app.hoursInterval.start % 100);
-
-            if (appointmentDate <= currentDate) {
-              pastValues.push(app);
-            }
-            else {
-              futureValues.push(app);            
-            }
-          });
-        });
-
-        this.pastAppointmentsObservable.next(pastValues);
-        this.futureAppointmentsObservable.next(futureValues);
-      })).subscribe();
+      }))
+      .subscribe((appointments: Appointment[]) => {
+        if (forWho === 'patient') {
+          this.getFullMedicOfAppointments(appointments);
+        }
+        if (forWho === 'medic') {
+          this.getFullPatientOfAppointments(appointments);
+        }
+      });
   }
 
   public addAppointment(
@@ -69,6 +54,55 @@ export class AppointmentsService {
 
   public getMedicFreeIntervals(medicId: string, timestamp: number): Observable<number[]> {
     return this.base.get<number[]>('medic/' + medicId + '/free/' + timestamp);
+  }
+
+  private getFullMedicOfAppointments(appointments: Appointment[]): void {
+    appointments.forEach((app: Appointment) => {
+      this.usersService.getUserInfo(app.medic).subscribe((user: BaseUser) => {
+        app.fullMedic = <Specialist>user;
+      });
+    });
+
+    this.filterOldAndNewAppointments(appointments);
+  }
+
+  private getFullPatientOfAppointments(appointments: Appointment[]): void {
+    appointments.forEach((app: Appointment) => {
+      this.usersService.getUserInfo(app.patient).subscribe((user: BaseUser) => {
+        app.fullPacient = <Specialist>user;
+      });
+    });
+
+    this.filterOldAndNewAppointments(appointments);
+  }
+
+  private filterOldAndNewAppointments(appointments: Appointment[]): void {
+    const pastValues: Appointment[] = [];
+    const futureValues: Appointment[] = [];
+
+    const currentDate = this.getCurrentMomentDate();
+
+    appointments.forEach((app: Appointment) => {
+      const appointmentDate = this.getMomentDateFromTimespamp(app);
+
+      if (appointmentDate <= currentDate) {
+        pastValues.push(app);
+      }
+      else {
+        futureValues.push(app);            
+      }
+    });
+
+    this.pastAppointmentsObservable.next(pastValues);
+    this.futureAppointmentsObservable.next(futureValues);
+  }
+
+  private getCurrentMomentDate(): moment.Moment {
+    return moment().minutes(0).seconds(0).milliseconds(0);
+  }
+
+  private getMomentDateFromTimespamp(app: Appointment): moment.Moment {
+    return moment.unix(app.date).hours(app.hoursInterval.start / 100).minutes(app.hoursInterval.start % 100);
   }
 
 }

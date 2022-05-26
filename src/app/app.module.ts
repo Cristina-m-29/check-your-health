@@ -42,6 +42,10 @@ import { InterceptorInterceptor } from './interceptors/interceptor.interceptor';
 import { FormatTimePipe } from './pipes/format-time.pipe';
 import { UpperCaseFirstLetterPipe } from './pipes/upper-case-first-letter.pipe';
 import { PatientPrescriptionDetailsComponent } from './components/user-type-components/patient/prescriptions/patient-prescription-details/patient-prescription-details.component';
+import { MedicHomeComponent } from './components/user-type-components/medic/medic-home/medic-home.component';
+import { MedicPatientsComponent } from './components/user-type-components/medic/medic-patients/medic-patients.component';
+import { MedicAppointmentDetailsComponent } from './components/user-type-components/medic/appointments/medic-appointment-details/medic-appointment-details.component';
+import { MedicAppointmentsComponent } from './components/user-type-components/medic/appointments/medic-appointments/medic-appointments.component';
 
 @NgModule({
   declarations: [
@@ -71,6 +75,10 @@ import { PatientPrescriptionDetailsComponent } from './components/user-type-comp
     UpperCaseFirstLetterPipe,
     UserComponent,
     PatientPrescriptionDetailsComponent,
+    MedicHomeComponent,
+    MedicPatientsComponent,
+    MedicAppointmentsComponent,
+    MedicAppointmentDetailsComponent,
   ],
   imports: [
     AppRoutingModule,

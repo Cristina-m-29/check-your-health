@@ -2,7 +2,7 @@
   <cyh-loading-screen></cyh-loading-screen>
 </ng-container>
 
-<div class="flex height-full" [ngClass]="{'card-hide': loading, 'no-data': references.length === 0}">
+<div class="flex" [ngClass]="{'card-hide': loading, 'no-data': references.length === 0}">
   <span *ngIf="references.length === 0">Nu au fost gasite trimiteri : (</span>
 
   <ng-container *ngIf="references.length > 0">

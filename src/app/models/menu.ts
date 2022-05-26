@@ -12,8 +12,8 @@ export const menus: Menu[] = [
   },
   {
     userType: 'medic',
-    menuList: [''],
-    translateMenuList: ['']
+    menuList: ['home', 'patients', 'profile'],
+    translateMenuList: ['acasă', 'pacienti', 'profil']
   },
   {
     userType: 'pharmacy',

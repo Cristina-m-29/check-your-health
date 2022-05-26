@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { concatMap, map, Observable } from 'rxjs';
+import { concatMap, Observable } from 'rxjs';
 import { BaseUser } from '../models/base-user';
-import { Specialist } from '../models/medic';
 import { Patient } from '../models/patient';
 import { BaseService } from './base.service';
 

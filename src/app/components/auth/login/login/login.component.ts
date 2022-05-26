@@ -31,7 +31,6 @@ export class LoginComponent {
       const loginRequest: LoginRequest = new LoginRequest(this.loginForm.value.identity, this.loginForm.value.password, this.userType);
       this.authService.login(loginRequest).subscribe((loginResponse: LoginResponse) => {
         if (loginResponse.err) {
-          console.error("Failed to login with error: " + loginResponse.err);
           return;
         }
         this.authService.navigateToDashboard();

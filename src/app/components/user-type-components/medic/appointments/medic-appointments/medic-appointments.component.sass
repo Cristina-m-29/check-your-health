@@ -1,0 +1,48 @@
+:host
+  position: relative
+
+  .appointments-card
+    max-height: 35rem
+    overflow: scroll
+
+    .button
+      margin-top: 1rem
+
+    .appointments-list
+      display: block
+      max-height: 25rem
+      overflow: scroll
+      margin-top: 0.5rem
+
+      .appointment
+        cursor: pointer
+        padding: 0.5rem 0
+        border-bottom: 1.5px solid #BFD7FF
+
+        .pending
+          color: #dfb569
+
+        .accepted
+          color: #5ce286
+
+        .refused
+          color: #e47777
+
+        &:hover
+          padding: 0.5rem 0.5rem
+          background-color: #efeef1
+
+
+  .old-appointments-card
+    .old-appointments-container
+      max-height: 95%
+      overflow: scroll
+
+      .old-appointment
+        cursor: pointer
+        padding: 1rem 0
+        border-bottom: 1.5px solid #BFD7FF
+
+        &:hover
+          padding: 1rem 0.5rem
+          background-color: #efeef1

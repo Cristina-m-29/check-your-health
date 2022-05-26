@@ -4,6 +4,8 @@ import { ChooseLoginTypeComponent } from './components/auth/login/choose-login-t
 import { LoginComponent } from './components/auth/login/login/login.component';
 import { BaseRegisterComponent } from './components/auth/register/base-register/base-register.component';
 import { UserComponent } from './components/user-profile/user.component';
+import { MedicHomeComponent } from './components/user-type-components/medic/medic-home/medic-home.component';
+import { MedicPatientsComponent } from './components/user-type-components/medic/medic-patients/medic-patients.component';
 import { PatientAppointmentDetailsComponent } from './components/user-type-components/patient/appointments/patient-appointment-details/patient-appointment-details.component';
 import {
   PatientHomeComponent
@@ -15,8 +17,6 @@ import {
   PatientReferencesComponent
 } from './components/user-type-components/patient/references/patient-references/patient-references.component';
 import { NotificationsComponent } from './components/utils/notifications/notifications.component';
-
-
 
 const routes: Routes = [
   // login
@@ -34,16 +34,23 @@ const routes: Routes = [
     component: BaseRegisterComponent
   },
   // dashboards
-  // {
-  //   path: 'medic',
-  //   // to add menu items
-  //   children: [
-  //     {
-  //       path: '**',
-  //       component: 
-  //     }
-  //   ]
-  // },
+  {
+    path: 'medic',
+    children: [
+      {
+        path: 'home',
+        component: MedicHomeComponent
+      },
+      {
+        path: 'patients',
+        component: MedicPatientsComponent
+      },
+      {
+        path: '**',
+        redirectTo: '/medic/home'
+      }
+    ]
+  },
   // {
   //   path: 'specialist',
   //   // to add menu items

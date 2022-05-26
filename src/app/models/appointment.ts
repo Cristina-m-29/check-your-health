@@ -4,7 +4,8 @@ import { HoursInterval } from "./workingHours";
 
 export class Appointment {
   id: string = '';
-  patient: Patient = new Patient();
+  patient = '';
+  fullPacient: Patient = new Patient();
   medic: string = '';
   fullMedic: Specialist = new Specialist();
   date: number = 0;
