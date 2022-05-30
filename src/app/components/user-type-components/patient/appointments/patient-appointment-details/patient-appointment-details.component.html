@@ -16,8 +16,8 @@
 
           <mat-card class="calendar-card block margin_bottom">
             <mat-calendar
-              [contentEditable]="false" 
-              [(selected)]="date" 
+              [contentEditable]="false"
+              [(selected)]="date"
               (selectedChange)="manageDateChange()"
               [dateFilter]="dateFilterForCalendar"
             ></mat-calendar>
@@ -72,15 +72,21 @@
 
           <span class="subtitle block margin_bottom">{{appointment.hoursInterval.start | formatTime}} - {{appointment.hoursInterval.end | formatTime}}</span>
 
+          <span class="small-subtitle">Motiv</span>
+
+          <span class="subtitle block margin_bottom">{{appointment.reason}}</span>
+
           <span class="small-subtitle">Status</span>
 
           <span class="subtitle pending block margin_bottom" *ngIf="appointment.status === 'pending'">Așteaptă confirmare</span>
           <span class="subtitle accepted block margin_bottom" *ngIf="appointment.status === 'accepted'">Confirmată</span>
           <span class="subtitle refused block margin_bottom" *ngIf="appointment.status === 'refused'">Respinsă</span>
 
-          <span class="small-subtitle">Motiv</span>
+          <ng-container *ngIf="appointment.refuseReason">
+            <span class="small-subtitle">Motiv refuz</span>
 
-          <span class="subtitle block margin_bottom">{{appointment.reason}}</span>
+            <span class="subtitle block margin_bottom">{{appointment.refuseReason}}</span>
+          </ng-container>
         </div>
       </ng-container>
     </div>

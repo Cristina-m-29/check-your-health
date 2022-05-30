@@ -1,1 +1,19 @@
-<p>patient-details-card works!</p>
+<div class="card patient-card">
+  <span class="title">Pacient</span>
+
+  <span class="small-subtitle">Nume</span>
+  <span class="subtitle margin_bottom-s">{{patient.name}}</span>
+
+  <span class="small-subtitle">Email</span>
+  <a class="subtitle margin_bottom-s email" [href]="'mailto:' + 'popescuvaleria@mail.com'">{{patient.email}}</a>
+
+  <span class="small-subtitle">Numar de telefon</span>
+  <span class="subtitle margin_bottom-s">{{patient.phoneNumber}}</span>
+
+  <span class="small-subtitle">Conditii</span>
+  <span class="subtitle margin_bottom-s" *ngIf="patient.conditions.length === 0">Pacientul nu are momentan conditii cunoscute</span>
+  <ng-container *ngIf="patient.conditions.length !== 0">
+    <span class="subtitle" *ngFor="let condition of patient.conditions">{{condition}}</span>
+  </ng-container>
+
+</div>

@@ -11,4 +11,10 @@ export class HoursInterval {
   end: number = 0;
 }
 
+export interface HoursIntervalOption {
+  start: string;
+  end: string;
+  value: number;
+}
+
 export const weekday = ["sunday","monday","tuesday","wednesday","thursday","friday","saturday"];

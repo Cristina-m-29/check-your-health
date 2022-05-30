@@ -13,4 +13,17 @@ export class UtilsService {
   public getTimestampOfDate(date: Date): number {
     return this.formatDateToUtc(date).unix();
   }
+
+  public getEndTimeOfInterval(startTime: number): number {
+    let endTime = startTime + 30;
+    if (startTime % 100 !== 0) {
+      endTime += 40;
+    }
+    return endTime;
+  }
+
+  public formatTimeForInterval(time: number): string {
+    const end = time % 100;
+    return (time / 100).toFixed().toString() + ':' + (end === 0 ? '00' : end.toString());
+  }
 }

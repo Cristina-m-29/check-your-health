@@ -10,8 +10,10 @@ export class Appointment {
   fullMedic: Specialist = new Specialist();
   date: number = 0;
   reason: string = '';
+  refuseReason: string = '';
   hoursInterval: HoursInterval = new HoursInterval();
   status: AppointmentStatus = 'pending';
+  medicalLetter: string = '';
 }
 
-declare type AppointmentStatus = 'pending' | 'accepted' | 'refused';
+export declare type AppointmentStatus = 'pending' | 'accepted' | 'refused';

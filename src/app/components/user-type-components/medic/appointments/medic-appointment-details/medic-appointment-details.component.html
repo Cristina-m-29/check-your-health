@@ -1,1 +1,151 @@
-<p>medic-appointment-details works!</p>
+<ng-container *ngIf="loading">
+  <cyh-loading-screen></cyh-loading-screen>
+</ng-container>
+
+<!-- <ng-template> -->
+  <div class="flex" [ngClass]="{'card-hide': loading}">
+    <div class="card card-height-auto width-medium margin_right-xl margin_bottom-xl">
+      <ng-container *ngIf="addAppointment">
+        <div class="flex flex-align-center">
+          <mat-icon (click)="goBack()" class="back-btn">keyboard_arrow_left</mat-icon>
+          <span class="title card-title">Adauga o programare</span>
+        </div>
+
+        <form class="width-full margin_top">
+          <span class="subtitle block margin_bottom">Selecteaza ziua</span>
+
+          <mat-card class="calendar-card block margin_bottom">
+            <mat-calendar
+              [contentEditable]="false"
+              [(selected)]="date"
+              (selectedChange)="manageDateChange()"
+              [dateFilter]="dateFilterForCalendar"
+            ></mat-calendar>
+          </mat-card>
+
+          <span class="subtitle block margin_bottom">Selecteaza intervalul orar</span>
+
+          <mat-form-field appearance="fill" class="width-full">
+            <mat-label>Interval orar</mat-label>
+            <mat-select [(value)]="startTime">
+              <mat-option
+                *ngFor="let interval of hoursIntervalOptions"
+                [value]="interval.value"
+              >
+                {{interval.start}} - {{interval.end}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <span class="subtitle block margin_bottom">Motivul programarii</span>
+
+          <mat-form-field appearance="fill" class="width-full">
+            <mat-label>Motiv</mat-label>
+            <textarea matInput [formControl]="reasonField" class="min-height-m"></textarea>
+          </mat-form-field>
+        </form>
+
+        <button
+          *ngIf="addAppointment"
+          mat-raised-button
+          color="primary"
+          class="width-full height-small button"
+          [disabled]="isCreateBtnDisabled()"
+          (click)="createAppointment()"
+        >
+          Creaza
+        </button>
+      </ng-container>
+
+      <ng-container *ngIf="!addAppointment">
+        <div class="flex flex-align-center margin_bottom">
+          <mat-icon (click)="goBack()" class="back-btn">keyboard_arrow_left</mat-icon>
+          <span class="title card-title">Programarea nr. {{appointment.id.slice(0, 5)}}</span>
+        </div>
+
+        <div class="padding_left-s">
+          <span class="small-subtitle">Ziua programarii</span>
+
+          <span class="subtitle block margin_bottom">{{appointment.date * 1000 | date: 'dd MMM yyyy'}}</span>
+
+          <span class="small-subtitle">Intervalul orar</span>
+
+          <span class="subtitle block margin_bottom">{{appointment.hoursInterval.start | formatTime}} - {{appointment.hoursInterval.end | formatTime}}</span>
+
+          <span class="small-subtitle">Motiv</span>
+
+          <span class="subtitle block margin_bottom">{{appointment.reason}}</span>
+
+          <span class="small-subtitle">Status</span>
+
+          <span class="subtitle pending block margin_bottom" *ngIf="appointment.status === 'pending'">Așteaptă confirmare</span>
+          <span class="subtitle accepted block margin_bottom" *ngIf="appointment.status === 'accepted'">Confirmată</span>
+          <span class="subtitle refused block margin_bottom" *ngIf="appointment.status === 'refused'">Respinsă</span>
+
+          <div class="flex" *ngIf="appointmentType === 'new'">
+            <button
+              mat-button
+              color="primary"
+              class="width-medium height-small button secondary-button"
+              (click)="setAppointmentStatus('refused')"
+            >
+              Refuza
+            </button>
+
+            <span class="margin_right"></span>
+
+            <button
+              mat-raised-button
+              color="primary"
+              class="width-medium height-small button"
+              (click)="setAppointmentStatus('accepted')"
+            >
+              Accepta
+            </button>
+          </div>
+
+          <ng-container *ngIf="appointmentType !== 'new'">
+            <span class="small-subtitle block margin_bottom-s">Scrisoare medicala</span>
+
+            <ng-container *ngIf="appointment.medicalLetter">
+              <button
+                mat-raised-button
+                color="primary"
+                class="width-full height-small button"
+              >
+                Descarca
+              </button>
+            </ng-container>
+
+            <ng-container *ngIf="!appointment.medicalLetter">
+              <button
+                mat-raised-button
+                color="primary"
+                class="width-full height-small button"
+              >
+                Adauga
+              </button>
+            </ng-container>
+          </ng-container>
+        </div>
+
+      </ng-container>
+    </div>
+
+    <div class="width-medium">
+      <div
+        *ngIf="addAppointment && !patientSelected"
+        class="card card-height-auto width-full margin_right-xl margin_bottom-xl"
+      >
+        test
+      </div>
+
+      <cyh-patient-details-card
+        *ngIf="!addAppointment || patientSelected"
+        [isDynamicView]="patientSelected"
+        [patient]="patient"
+        (changePatient)="changePatient()"
+        (viewLoaded)="finishPatientViewLoading()"
+      ></cyh-patient-details-card>
+    </div>
+  </div>

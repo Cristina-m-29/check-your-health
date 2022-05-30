@@ -35,10 +35,10 @@ export class AppointmentsService {
   }
 
   public addAppointment(
-    medicId: string, 
-    timestamp: number, 
-    hoursInterval: HoursInterval, 
-    reason: string, 
+    medicId: string,
+    timestamp: number,
+    hoursInterval: HoursInterval,
+    reason: string,
     recommendationId?: string
   ): Observable<Appointment> {
     return this.base.post<any, Appointment>('users/appointments', {
@@ -50,6 +50,10 @@ export class AppointmentsService {
     }).pipe(catchError((err: HttpErrorResponse) => {
       return EMPTY;
     }));
+  }
+
+  public updateAppointment(appointment: Appointment): void {
+    // to do
   }
 
   public getMedicFreeIntervals(medicId: string, timestamp: number): Observable<number[]> {
@@ -89,7 +93,7 @@ export class AppointmentsService {
         pastValues.push(app);
       }
       else {
-        futureValues.push(app);            
+        futureValues.push(app);
       }
     });
 

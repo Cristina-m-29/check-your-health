@@ -6,16 +6,10 @@ import * as moment from 'moment';
 import { Appointment } from 'src/app/models/appointment';
 import { BaseUser } from 'src/app/models/base-user';
 import { Specialist } from 'src/app/models/medic';
-import { HoursInterval, weekday } from 'src/app/models/workingHours';
+import { HoursInterval, HoursIntervalOption, weekday } from 'src/app/models/workingHours';
 import { AppointmentsService } from 'src/app/services/appointments.service';
 import { UsersService } from 'src/app/services/users.service';
 import { UtilsService } from 'src/app/services/utils.service';
-
-interface HoursIntervalOption {
-  start: string;
-  end: string;
-  value: number;
-}
 
 @Component({
   selector: 'cyh-patient-appointment-details',
@@ -49,7 +43,7 @@ export class PatientAppointmentDetailsComponent implements OnInit {
   }
 
   constructor(
-    private router: Router, 
+    private router: Router,
     private appointmentsService: AppointmentsService,
     private usersService: UsersService,
     private utilsService: UtilsService,
@@ -78,8 +72,14 @@ export class PatientAppointmentDetailsComponent implements OnInit {
     // view appointment init
     else {
       this.addAppointment = false;
-      this.appointment = <Appointment>JSON.parse(localStorage.getItem('cyhSelectedAppointment') || '{}');
-      this.getMedic(this.appointment.medic);
+      const appointment = sessionStorage.getItem('cyhSelectedAppointment');
+      if(appointment) {
+        this.appointment = <Appointment>JSON.parse(appointment || '{}');
+        this.getMedic(this.appointment.medic);
+      }
+      else {
+        this.goBack();
+      }
     }
   }
 
@@ -96,8 +96,8 @@ export class PatientAppointmentDetailsComponent implements OnInit {
     this.appointmentsService.getMedicFreeIntervals(medic.id, timestamp).subscribe((freeIntervals: number[]) => {
       freeIntervals.forEach((startTime: number) => {
         this.hoursIntervalOptions.push({
-          start: this.formatTimeForInterval(startTime),
-          end: this.formatTimeForInterval(this.getEndTimeOfInterval(startTime)),
+          start: this.utilsService.formatTimeForInterval(startTime),
+          end: this.utilsService.formatTimeForInterval(this.utilsService.getEndTimeOfInterval(startTime)),
           value: startTime
         });
       });
@@ -115,7 +115,7 @@ export class PatientAppointmentDetailsComponent implements OnInit {
     const timestamp: number = this.utilsService.getTimestampOfDate(this.date);
     const hoursInterval: HoursInterval = {
       start: this.startTime,
-      end: this.getEndTimeOfInterval(this.startTime)
+      end: this.utilsService.getEndTimeOfInterval(this.startTime)
     };
     this.appointmentsService.addAppointment(this.medic.id, timestamp, hoursInterval, this.reason, this.referenceId)
       .subscribe(() => {
@@ -142,19 +142,6 @@ export class PatientAppointmentDetailsComponent implements OnInit {
       this.medic = <Specialist>medic;
       this.setFreeHoursInterval(this.date, this.medic);
     });
-  }
-
-  private getEndTimeOfInterval(startTime: number): number {
-    let endTime = startTime + 30;
-    if (startTime % 100 !== 0) {
-      endTime += 40;
-    }
-    return endTime;
-  }
-
-  private formatTimeForInterval(time: number): string {
-    const end = time % 100;
-    return (time / 100).toFixed().toString() + ':' + (end === 0 ? '00' : end.toString());
   }
 
 }

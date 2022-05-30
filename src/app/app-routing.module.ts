@@ -4,6 +4,7 @@ import { ChooseLoginTypeComponent } from './components/auth/login/choose-login-t
 import { LoginComponent } from './components/auth/login/login/login.component';
 import { BaseRegisterComponent } from './components/auth/register/base-register/base-register.component';
 import { UserComponent } from './components/user-profile/user.component';
+import { MedicAppointmentDetailsComponent } from './components/user-type-components/medic/appointments/medic-appointment-details/medic-appointment-details.component';
 import { MedicHomeComponent } from './components/user-type-components/medic/medic-home/medic-home.component';
 import { MedicPatientsComponent } from './components/user-type-components/medic/medic-patients/medic-patients.component';
 import { PatientAppointmentDetailsComponent } from './components/user-type-components/patient/appointments/patient-appointment-details/patient-appointment-details.component';
@@ -46,6 +47,14 @@ const routes: Routes = [
         component: MedicPatientsComponent
       },
       {
+        path: 'appointment',
+        component: MedicAppointmentDetailsComponent
+      },
+      {
+        path: 'appointment/create',
+        component: MedicAppointmentDetailsComponent
+      },
+      {
         path: '**',
         redirectTo: '/medic/home'
       }
@@ -57,7 +66,7 @@ const routes: Routes = [
   //   children: [
   //     {
   //       path: '**',
-  //       component: 
+  //       component:
   //     }
   //   ]
   // },
@@ -96,7 +105,7 @@ const routes: Routes = [
   //   children: [
   //     {
   //       path: '**',
-  //       component: 
+  //       component:
   //     }
   //   ]
   // },

@@ -1,6 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { JwtHelperService } from '@auth0/angular-jwt';
 import { catchError, map, Observable, Subject } from 'rxjs';
 import { LoginRequest } from '../models/login/loginRequest';
 import { LoginResponse } from '../models/login/loginResponse';
@@ -26,6 +27,13 @@ export class AuthService {
 
   public getUserType(): UserType | null {
     return this.userType;
+  }
+
+  public getUserId(): string {
+    const accessToken = this.getAccessToken();
+    const helper = new JwtHelperService();
+    const decodedToken = helper.decodeToken(accessToken);
+    return decodedToken.sub;
   }
 
   public navigateToDashboard(): void {

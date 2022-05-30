@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { map, Observable } from 'rxjs';
 import { Appointment } from 'src/app/models/appointment';
 import { AppointmentsService } from 'src/app/services/appointments.service';
-import { UsersService } from 'src/app/services/users.service';
 
 @Component({
   selector: 'cyh-patient-appointments',
@@ -26,12 +25,12 @@ export class PatientAppointmentsComponent {
     })
   );
 
-  constructor(private router: Router, private appointmentsService: AppointmentsService, private usersService: UsersService) {
+  constructor(private router: Router, private appointmentsService: AppointmentsService) {
     this.appointmentsService.getAppointments('patient');
   }
 
   public openAppointmentDetails(appointment: Appointment): void {
-    localStorage.setItem('cyhSelectedAppointment', JSON.stringify(appointment));
+    sessionStorage.setItem('cyhSelectedAppointment', JSON.stringify(appointment));
     this.router.navigateByUrl('patient/appointment?id=' + appointment.id);
   }
 
