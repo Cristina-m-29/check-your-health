@@ -52,8 +52,14 @@ export class AppointmentsService {
     }));
   }
 
-  public updateAppointment(appointment: Appointment): void {
-    // to do
+  public acceptAppointment(appointmentId: string): Observable<Appointment> {
+    return this.base.post<{}, Appointment>('users/appointments/' + appointmentId +'/accept', {});
+  }
+
+  public refuseAppointment(appointmentId: string, refuseReason: string): Observable<Appointment> {
+    return this.base.post<{}, Appointment>('users/appointments/' + appointmentId +'/refuse', {
+      reason: refuseReason
+    });
   }
 
   public getMedicFreeIntervals(medicId: string, timestamp: number): Observable<number[]> {

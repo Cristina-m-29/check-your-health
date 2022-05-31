@@ -1,5 +1,6 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as moment from 'moment';
 import { Appointment, AppointmentStatus } from 'src/app/models/appointment';
@@ -8,6 +9,7 @@ import { HoursIntervalOption, weekday } from 'src/app/models/workingHours';
 import { AppointmentsService } from 'src/app/services/appointments.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { UtilsService } from 'src/app/services/utils.service';
+import { MedicRefuseAppointmentDialogComponent } from '../medic-refuse-appointment-dialog/medic-refuse-appointment-dialog.component';
 
 @Component({
   selector: 'cyh-medic-appointment-details',
@@ -52,6 +54,7 @@ export class MedicAppointmentDetailsComponent implements OnInit {
     private router: Router,
     private utilsService: UtilsService,
     private cd: ChangeDetectorRef,
+    public dialog: MatDialog,
   ) {
     this.reasonField.valueChanges.subscribe((value: string) => {
       this.reason = value;
@@ -132,9 +135,26 @@ export class MedicAppointmentDetailsComponent implements OnInit {
   }
 
   public setAppointmentStatus(status: AppointmentStatus): void {
-    this.appointment.status = status;
-    this.appointmentsService.updateAppointment(this.appointment);
-    this.goBack();
+    if (status === 'accepted') {
+      this.appointmentsService.acceptAppointment(this.appointment.id).subscribe((app: Appointment) => {
+        this.appointment.status = app.status;
+        this.goBack();
+      });
+    }
+    else {
+      const refuseAppointmentDialog = this.dialog.open(MedicRefuseAppointmentDialogComponent, {
+        width: '32rem'
+      });
+      refuseAppointmentDialog.afterClosed().subscribe((responseReason: string) => {
+        console.log(responseReason);
+        if (responseReason) {
+          this.appointmentsService.refuseAppointment(this.appointment.id, responseReason).subscribe((app: Appointment) => {
+            this.appointment.status = app.status;
+            this.goBack();
+          });
+        }
+      });
+    }
   }
 
   public createAppointment(): void {
@@ -156,9 +176,6 @@ export class MedicAppointmentDetailsComponent implements OnInit {
       this.loading = false;
       this.cd.detectChanges();
     }
-    // else {
-    //   this.loading = true;
-    // }
   }
 
 }

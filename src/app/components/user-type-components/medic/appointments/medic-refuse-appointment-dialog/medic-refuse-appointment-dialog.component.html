@@ -1,0 +1,35 @@
+<h1 class="purple-title" mat-dialog-title>Refuza programarea</h1>
+
+<div mat-dialog-content>
+  <p>Introdu motivul refuzului</p>
+
+  <mat-form-field appearance="fill" class="width-full margin_top">
+    <mat-label>Motiv</mat-label>
+
+    <textarea matInput [formControl]="refuseReasonInput" class="min-height-m"></textarea>
+  </mat-form-field>
+</div>
+
+<div class="flex">
+  <button
+    mat-button
+    color="primary"
+    class="width-medium height-small button secondary-button"
+    (click)="onNoClick()"
+  >
+    Anuleaza
+  </button>
+
+  <span class="margin_right"></span>
+
+  <button 
+    mat-raised-button 
+    color="primary" 
+    [mat-dialog-close]="refuseReason" 
+    [disabled]="refuseReason === ''"
+    class="width-medium height-small button"
+    cdkFocusInitial
+  >
+    Refuza
+  </button>
+</div>

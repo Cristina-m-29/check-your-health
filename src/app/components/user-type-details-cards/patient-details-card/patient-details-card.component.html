@@ -1,5 +1,5 @@
 <div class="card patient-card">
-  <span class="title">Pacient</span>
+  <span class="title">Detalii pacient</span>
 
   <span class="small-subtitle">Nume</span>
   <span class="subtitle margin_bottom-s">{{patient.name}}</span>
@@ -11,9 +11,86 @@
   <span class="subtitle margin_bottom-s">{{patient.phoneNumber}}</span>
 
   <span class="small-subtitle">Conditii</span>
-  <span class="subtitle margin_bottom-s" *ngIf="patient.conditions.length === 0">Pacientul nu are momentan conditii cunoscute</span>
+  <span class="subtitle margin_bottom-l" *ngIf="patient.conditions.length === 0">Pacientul nu are momentan conditii cunoscute</span>
   <ng-container *ngIf="patient.conditions.length !== 0">
-    <span class="subtitle" *ngFor="let condition of patient.conditions">{{condition}}</span>
+    <span class="subtitle margin_bottom-l" *ngFor="let condition of patient.conditions">{{condition}}</span>
   </ng-container>
 
+  <span class="title">Istoric recent al pacientului</span>
+
+  <span class="block margin_bottom-s">Prescriptii</span>
+
+  <div 
+    class="width-full margin_bottom-l" 
+    [ngClass]="{'prescriptions-list-borders': patientPrescriptinsToShow.length > 0}"
+  >
+    <div 
+      *ngFor="let prescription of patientPrescriptinsToShow"
+      class="prescription padding_top-s padding_bottom" 
+      [ngClass]="{'border-bottom-prescription': !isLastInList(patientPrescriptinsToShow, prescription)}"
+    >
+      <span class="small-subtitle">Creata de medicul</span>
+      <span class="subtitle block margin_bottom-s">{{prescription.medic}}</span>
+
+      <span class="medicines-grid">
+        <span class="small-subtitle">Nume medicament</span>
+        <span class="small-subtitle">Cantitate</span>
+
+        <ng-container *ngFor="let medicine of prescription.medicines">
+            <span class="subtitle">{{medicine.medicine.name}}</span>
+
+            <span class="subtitle">{{medicine.quantity + 'g'}}</span>
+        </ng-container>
+      </span>
+    </div>
+
+    <button 
+      mat-button
+      color="primary"
+      class="width-full button secondary-button margin_bottom-s"
+      *ngIf="patientPrescriptins.length > 2"
+    >
+      Vezi toate prescriptiile
+    </button>
+
+    <span *ngIf="patientPrescriptins.length === 0" class="small-subtitle block margin_bottom-s margin_top-s">Pacientul nu are prescriptii asignate</span>
+  </div>
+
+  <span class="block margin_bottom-s">Trimiteri</span>
+
+  <div 
+    class="width-full" 
+    [ngClass]="{'recommendations-list-borders': patientRecommendationsToShow.length > 0}"
+  >
+    <div 
+      *ngFor="let rec of patientRecommendationsToShow"
+      class="recommendation padding_top-s padding_bottom-s" 
+      [ngClass]="{'border-bottom-prescription': !isLastInList(patientRecommendationsToShow, rec)}"
+    >
+      <span class="small-subtitle">Creata de medicul</span>
+      <span class="subtitle block margin_bottom-s">{{rec.medic}}</span>
+
+      <span class="small-subtitle">Catre medicul</span>
+      <span class="subtitle block margin_bottom-s">{{rec.specialist}}</span>
+
+      <span class="small-subtitle">Motiv</span>
+      <span class="subtitle block margin_bottom-s">{{rec.details}}</span>
+
+      <ng-container *ngIf="rec.feedback">
+        <span class="small-subtitle">Feedback</span>
+        <span class="subtitle block margin_bottom-s">{{rec.feedback}}</span>
+      </ng-container>
+    </div>
+
+    <button 
+      mat-button
+      color="primary"
+      class="width-full button secondary-button margin_bottom-s"
+      *ngIf="patientRecommendations.length > 2"
+    >
+      Vezi toate trimiterile
+    </button>
+
+    <span *ngIf="patientRecommendations.length === 0" class="small-subtitle block margin_bottom-s margin_top-s">Pacientul nu are trimiteri asignate</span>
+  </div>
 </div>

@@ -46,6 +46,8 @@ import { MedicHomeComponent } from './components/user-type-components/medic/medi
 import { MedicPatientsComponent } from './components/user-type-components/medic/medic-patients/medic-patients.component';
 import { MedicAppointmentDetailsComponent } from './components/user-type-components/medic/appointments/medic-appointment-details/medic-appointment-details.component';
 import { MedicAppointmentsComponent } from './components/user-type-components/medic/appointments/medic-appointments/medic-appointments.component';
+import { MedicRefuseAppointmentDialogComponent } from './components/user-type-components/medic/appointments/medic-refuse-appointment-dialog/medic-refuse-appointment-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -79,8 +81,10 @@ import { MedicAppointmentsComponent } from './components/user-type-components/me
     MedicPatientsComponent,
     MedicAppointmentsComponent,
     MedicAppointmentDetailsComponent,
+    MedicRefuseAppointmentDialogComponent,
   ],
   imports: [
+    MatDialogModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     BrowserModule,

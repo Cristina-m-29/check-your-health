@@ -72,9 +72,9 @@
 
           <span class="subtitle block margin_bottom">{{appointment.hoursInterval.start | formatTime}} - {{appointment.hoursInterval.end | formatTime}}</span>
 
-          <span class="small-subtitle">Motiv</span>
+          <span class="small-subtitle">Motiv programare</span>
 
-          <span class="subtitle block margin_bottom">{{appointment.reason}}</span>
+          <span class="subtitle block margin_bottom">{{appointment.reason || 'Nu este specificat' | upperCaseFirstLetter}}</span>
 
           <span class="small-subtitle">Status</span>
 
@@ -82,10 +82,10 @@
           <span class="subtitle accepted block margin_bottom" *ngIf="appointment.status === 'accepted'">Confirmată</span>
           <span class="subtitle refused block margin_bottom" *ngIf="appointment.status === 'refused'">Respinsă</span>
 
-          <ng-container *ngIf="appointment.refuseReason">
+          <ng-container *ngIf="appointment.refuseReason && appointment.status === 'refused'">
             <span class="small-subtitle">Motiv refuz</span>
 
-            <span class="subtitle block margin_bottom">{{appointment.refuseReason}}</span>
+            <span class="subtitle block margin_bottom">{{appointment.refuseReason || 'Nu este specificat' | upperCaseFirstLetter}}</span>
           </ng-container>
         </div>
       </ng-container>

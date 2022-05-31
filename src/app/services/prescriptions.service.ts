@@ -17,6 +17,10 @@ export class PrescriptionsService {
     return this.baseService.get<Prescription[]>('users/prescriptions');
   }
 
+  public getPrescriptionsForSpecificPatient(patientId: string): Observable<Prescription[]> {
+    return this.baseService.get<Prescription[]>('users/'+ patientId +'/prescriptions');
+  }
+
   public addPrescription(patientId: string, pharmacyId: string, date: Date, medicines: Medicine[]): Observable<Prescription> {
     const parsedDate = moment(date).utcOffset(0, true).unix();
     return this.baseService.post<any, Prescription>('users/prescriptions', {

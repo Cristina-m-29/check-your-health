@@ -5,10 +5,10 @@
     <div class="appointments-list" *ngIf="(appointments$ | async) as a">
       <div class="appointment" *ngFor="let appointment of a" (click)="openAppointmentDetails(appointment)">
         <span class="subtitle margin_bottom-s">
-          {{appointment.date * 1000 | date: 'dd MMM yyyy'}}
-          {{appointment.hoursInterval.start | formatTime}} - {{appointment.hoursInterval.end | formatTime}}
+          {{appointment.date * 1000 | date: 'dd MMM yyyy'}} -
+          {{appointment.hoursInterval.start | formatTime}} - {{appointment.hoursInterval.end | formatTime}} -
           <span class="subtitle-purple">
-            - {{appointment.fullMedic.name}}
+            {{appointment?.fullMedic?.name}}
           </span>
         </span>
 
@@ -35,10 +35,10 @@
   <div class="old-appointments-container" *ngIf="(oldAppointments$ | async) as a">
     <div class="old-appointment" *ngFor="let appointment of a" (click)="openAppointmentDetails(appointment)">
       <span class="subtitle">
-        {{appointment.date * 1000 | date: 'dd MMM yyyy'}}
+        {{appointment.date * 1000 | date: 'dd MMM yyyy'}} -
         {{appointment.hoursInterval.start | formatTime}} - {{appointment.hoursInterval.end | formatTime}}
         <span class="subtitle-purple">
-          - {{appointment.fullMedic.name}}
+          - {{appointment?.fullMedic?.name}}
         </span>
       </span>
     </div>
