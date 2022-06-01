@@ -31,8 +31,7 @@ export class SideNavbarComponent implements OnInit {
     this.selectedMenuItem = this.getUrlItemOfMenuList(menu, selectedMenuItem);
 
     if (this.selectedMenuItem === 'iesire') {
-      // to do
-      this.router.navigateByUrl('');
+      this.authService.logout();
       return;
     }
 

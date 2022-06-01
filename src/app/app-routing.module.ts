@@ -18,6 +18,7 @@ import {
   PatientReferencesComponent
 } from './components/user-type-components/patient/references/patient-references/patient-references.component';
 import { NotificationsComponent } from './components/utils/notifications/notifications.component';
+import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
   // login
@@ -37,6 +38,7 @@ const routes: Routes = [
   // dashboards
   {
     path: 'medic',
+    canActivate: [AuthGuard],
     children: [
       {
         path: 'home',
@@ -72,6 +74,7 @@ const routes: Routes = [
   // },
   {
     path: 'patient',
+    canActivate: [AuthGuard],
     children: [
       {
         path: 'home',
@@ -112,10 +115,12 @@ const routes: Routes = [
   // other
   {
     path: 'notificari',
+    canActivate: [AuthGuard],
     component: NotificationsComponent
   },
   {
     path: 'profile',
+    canActivate: [AuthGuard],
     component: UserComponent
   }
 ];

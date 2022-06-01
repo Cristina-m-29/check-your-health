@@ -41,6 +41,12 @@ export class AuthService {
     this.router.navigateByUrl(`${this.userType}/${tab}`);
   }
 
+  public isAuthenticated(): boolean {
+    const userType = this.getUserType();
+    const token = this.getAccessToken();
+    return !!userType && token !== '';
+  }
+
   public login(loginRequest: LoginRequest): Observable<LoginResponse> {
     return this.baseService.post<LoginRequest, LoginResponse>('auth/login', loginRequest)
       .pipe(map((response: LoginResponse) => {
@@ -50,6 +56,13 @@ export class AuthService {
         return response;
       })
     );
+  }
+
+  public logout(): void {
+    localStorage.clear();
+    sessionStorage.clear();
+    this.setUserType(null);
+    this.router.navigateByUrl('');
   }
 
   public getAccessToken(): string {
