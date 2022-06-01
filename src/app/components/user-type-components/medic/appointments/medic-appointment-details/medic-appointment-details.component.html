@@ -5,10 +5,12 @@
 <div class="flex" [ngClass]="{'card-hide': loading}">
   <div class="card card-height-auto width-medium margin_right-xl margin_bottom-xl">
     <ng-container *ngIf="addAppointment">
-      <div class="flex flex-align-center">
-        <mat-icon (click)="goBack()" class="back-btn">keyboard_arrow_left</mat-icon>
-        <span class="title card-title">Adauga o programare</span>
+      <div class="flex flex-align-center margin_bottom-s back-btn" (click)="goBack()">
+        <mat-icon>keyboard_arrow_left</mat-icon>
+        <span class="small-subtitle">Inapoi</span>
       </div>
+      
+      <span class="title block margin_bottom">Adauga o programare</span>
 
       <form class="width-full margin_top">
         <span class="subtitle block margin_bottom">Selecteaza ziua</span>
@@ -57,12 +59,14 @@
     </ng-container>
 
     <ng-container *ngIf="!addAppointment">
-      <div class="flex flex-align-center margin_bottom">
-        <mat-icon (click)="goBack()" class="back-btn">keyboard_arrow_left</mat-icon>
-        <span class="title card-title">Programarea nr. {{appointment.id.slice(0, 5)}}</span>
+      <div class="flex flex-align-center margin_bottom-s back-btn" (click)="goBack()">
+        <mat-icon>keyboard_arrow_left</mat-icon>
+        <span class="small-subtitle">Inapoi</span>
       </div>
 
       <div class="padding_left-s">
+        <span class="title block margin_bottom">Programarea nr. {{appointment.id.slice(0, 5)}}</span>
+
         <span class="small-subtitle">Ziua programarii</span>
 
         <span class="subtitle block margin_bottom">{{appointment.date * 1000 | date: 'dd MMM yyyy'}}</span>
@@ -141,7 +145,22 @@
       *ngIf="addAppointment && !patientSelected"
       class="card card-height-auto width-full margin_right-xl margin_bottom-xl"
     >
-      test
+      <span class="title block margin_bottom">Pacient</span>
+
+      <span class="subtitle block margin_bottom">Selecteaza pacientul</span>
+
+      <mat-form-field appearance="fill" class="width-full">
+        <mat-label>Pacient</mat-label>
+        <mat-select>
+          <mat-option
+            *ngFor="let patient of patientsForSelect"
+            [value]="patient.name"
+            (click)="selectPatient(patient)"
+          >
+            {{patient.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
     </div>
 
     <cyh-patient-details-card

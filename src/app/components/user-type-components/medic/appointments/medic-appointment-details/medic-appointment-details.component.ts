@@ -5,9 +5,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import * as moment from 'moment';
 import { Appointment, AppointmentStatus } from 'src/app/models/appointment';
 import { Patient } from 'src/app/models/patient';
-import { HoursIntervalOption, weekday } from 'src/app/models/workingHours';
+import { HoursInterval, HoursIntervalOption, weekday } from 'src/app/models/workingHours';
 import { AppointmentsService } from 'src/app/services/appointments.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { UsersService } from 'src/app/services/users.service';
 import { UtilsService } from 'src/app/services/utils.service';
 import { MedicRefuseAppointmentDialogComponent } from '../medic-refuse-appointment-dialog/medic-refuse-appointment-dialog.component';
 
@@ -23,6 +24,8 @@ export class MedicAppointmentDetailsComponent implements OnInit {
 
   public appointment = new Appointment();
   public hoursIntervalOptions: HoursIntervalOption[] = [];
+
+  public patientsForSelect: Patient[] = [];
   public patientSelected = false;
   public patient = new Patient();
 
@@ -50,10 +53,11 @@ export class MedicAppointmentDetailsComponent implements OnInit {
   constructor(
     private appointmentsService: AppointmentsService,
     private authService: AuthService,
+    private cd: ChangeDetectorRef,
     private route: ActivatedRoute,
     private router: Router,
+    private userService: UsersService,
     private utilsService: UtilsService,
-    private cd: ChangeDetectorRef,
     public dialog: MatDialog,
   ) {
     this.reasonField.valueChanges.subscribe((value: string) => {
@@ -123,7 +127,6 @@ export class MedicAppointmentDetailsComponent implements OnInit {
   }
 
   public selectPatient(patient: Patient): void {
-    // to do
     this.patientViewLoaded = false;
     this.patient = patient;
     this.patientSelected = true;
@@ -146,7 +149,6 @@ export class MedicAppointmentDetailsComponent implements OnInit {
         width: '32rem'
       });
       refuseAppointmentDialog.afterClosed().subscribe((responseReason: string) => {
-        console.log(responseReason);
         if (responseReason) {
           this.appointmentsService.refuseAppointment(this.appointment.id, responseReason).subscribe((app: Appointment) => {
             this.appointment.status = app.status;
@@ -158,17 +160,25 @@ export class MedicAppointmentDetailsComponent implements OnInit {
   }
 
   public createAppointment(): void {
-    // to do
-    this.goBack();
+    const timestamp: number = this.utilsService.getTimestampOfDate(this.date);
+    const hoursInterval: HoursInterval = {
+      start: this.startTime,
+      end: this.utilsService.getEndTimeOfInterval(this.startTime)
+    };
+    this.appointmentsService.addAppointment(this.medicId, timestamp, hoursInterval, this.reason, undefined, this.patient.id)
+      .subscribe((app: Appointment) => {
+        this.appointmentsService.acceptAppointment(app.id).subscribe(() => {
+          this.goBack();
+        });
+      });
   }
 
   private getAllPacientsForMedic(): void {
-    // to do
-    this.patientViewLoaded = true;
-    // this.setFreeHoursInterval(this.date, this.medicId); // to do
-    // to remove the lines below
-    this.appointmentViewLoaded = true;
-    this.checkIfViewLoadingIsDone();
+    this.userService.getAllPatientsOfMedic().subscribe((patients: Patient[]) => {
+      this.patientsForSelect = patients;
+      this.patientViewLoaded = true;
+      this.setFreeHoursInterval(this.date, this.medicId);
+    });
   }
 
   private checkIfViewLoadingIsDone(): void {

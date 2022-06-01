@@ -39,17 +39,31 @@ export class AppointmentsService {
     timestamp: number,
     hoursInterval: HoursInterval,
     reason: string,
-    recommendationId?: string
+    recommendationId?: string,
+    patientId?: string
   ): Observable<Appointment> {
-    return this.base.post<any, Appointment>('users/appointments', {
-      medic: medicId,
-      date: timestamp,
-      hoursInterval: hoursInterval,
-      reason: reason,
-      recommendation: recommendationId
-    }).pipe(catchError((err: HttpErrorResponse) => {
-      return EMPTY;
-    }));
+    if (!patientId) {
+      return this.base.post<any, Appointment>('users/appointments', {
+        medic: medicId,
+        date: timestamp,
+        hoursInterval: hoursInterval,
+        reason: reason,
+        recommendation: recommendationId
+      }).pipe(catchError(() => {
+        return EMPTY;
+      }));
+    }
+    else {
+      return this.base.post<any, Appointment>('users/' + patientId + '/appointments', {
+        medic: medicId,
+        date: timestamp,
+        hoursInterval: hoursInterval,
+        reason: reason,
+        recommendation: recommendationId
+      }).pipe(catchError(() => {
+        return EMPTY;
+      }));
+    }
   }
 
   public acceptAppointment(appointmentId: string): Observable<Appointment> {

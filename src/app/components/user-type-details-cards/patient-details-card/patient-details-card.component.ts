@@ -19,10 +19,16 @@ export class PatientDetailsCardComponent implements OnInit{
   @Output() changePatient = new EventEmitter<boolean>();
   @Output() viewLoaded = new EventEmitter<boolean>();
 
-  public patientPrescriptins: Prescription[] = [];
+  public patientAllPrescriptins: Prescription[] = [];
+  public patientAllPrescriptinsToShow: Prescription[] = [];
   public patientPrescriptinsToShow: Prescription[] = [];
-  public patientRecommendations: Recommendation[] = [];
+  
+  public patientAllRecommendations: Recommendation[] = [];
+  public patientAllRecommendationsToShow: Recommendation[] = [];
   public patientRecommendationsToShow: Recommendation[] = [];
+
+  public showAllPrescriptions = false;
+  public showAllRecommendations = false;
 
   constructor(
     private prescriptionsService: PrescriptionsService,
@@ -38,6 +44,54 @@ export class PatientDetailsCardComponent implements OnInit{
     this.changePatient.emit(true);
   }
 
+  public seeAllPrescriptions(): void {
+    if (this.patientAllPrescriptinsToShow.length === 0) {
+      this.patientAllPrescriptinsToShow = this.patientAllPrescriptins.concat([]);
+      this.patientAllPrescriptinsToShow.forEach((pres: Prescription) => {
+        this.usersService.getUserInfo(pres.medic).subscribe((medic: BaseUser) => {
+          pres.medicName = medic.name;
+
+          if (this.patientAllPrescriptinsToShow.indexOf(pres) === this.patientAllPrescriptinsToShow.length - 1) {
+            this.showAllPrescriptions = true;
+          }
+        });
+      });
+    }
+    else {
+      this.showAllPrescriptions = true;
+    }
+  }
+
+  public seeLessPrescriptions(): void {
+    this.showAllPrescriptions = false;
+  }
+
+  public seeAllRecommendations(): void {
+    if (this.patientAllRecommendationsToShow.length === 0) {
+      this.patientAllRecommendationsToShow = this.patientAllRecommendations;
+      this.patientAllRecommendationsToShow.forEach((rec: Recommendation) => {
+        this.usersService.getUserInfo(rec.medic).subscribe((medic: BaseUser) => {
+          rec.medicName = medic.name;
+
+          this.usersService.getUserInfo(rec.specialist).subscribe((specialist: BaseUser) => {
+            rec.specialistName = specialist.name;
+
+            if (this.patientAllRecommendationsToShow.indexOf(rec) === this.patientAllRecommendationsToShow.length - 1) {
+              this.showAllRecommendations = true;
+            }
+          });
+        })
+      });
+    }
+    else {
+      this.showAllRecommendations = true;
+    }
+  }
+
+  public seeLessRecommendations(): void {
+    this.showAllRecommendations = false;
+  }
+
   public isLastInList(list: any[], item: any): boolean {
     return list.indexOf(item) === list.length - 1;
   }
@@ -45,12 +99,12 @@ export class PatientDetailsCardComponent implements OnInit{
   private getPrescriptions(): void {
     this.prescriptionsService.getPrescriptionsForSpecificPatient(this.patient.id)
       .subscribe((prescritions: Prescription[]) => {
-        this.patientPrescriptins = prescritions;
-        this.patientPrescriptinsToShow = this.patientPrescriptins.slice(0,2);
+        this.patientAllPrescriptins = prescritions;
+        this.patientPrescriptinsToShow = prescritions.concat([]).slice(0,2);
 
         this.patientPrescriptinsToShow.forEach((pres: Prescription) => {
           this.usersService.getUserInfo(pres.medic).subscribe((medic: BaseUser) => {
-            pres.medic = medic.name;
+            pres.medicName = medic.name;
 
             if (this.patientPrescriptinsToShow.indexOf(pres) === this.patientPrescriptinsToShow.length - 1) {
               this.getRecommendations();
@@ -63,15 +117,15 @@ export class PatientDetailsCardComponent implements OnInit{
   private getRecommendations(): void {
     this.recommendationsService.getRecommendationsForSpecificPatient(this.patient.id)
       .subscribe((recommendations: Recommendation[]) => {
-        this.patientRecommendations = recommendations;
-        this.patientRecommendationsToShow = this.patientRecommendations.slice(0,2);
+        this.patientAllRecommendations = recommendations;
+        this.patientRecommendationsToShow = this.patientAllRecommendations.slice(0,2);
 
         this.patientRecommendationsToShow.forEach((rec: Recommendation) => {
           this.usersService.getUserInfo(rec.medic).subscribe((medic: BaseUser) => {
-            rec.medic = medic.name;
+            rec.medicName = medic.name;
 
             this.usersService.getUserInfo(rec.specialist).subscribe((specialist: BaseUser) => {
-              rec.specialist = specialist.name;
+              rec.specialistName = specialist.name;
 
               if (this.patientRecommendationsToShow.indexOf(rec) === this.patientRecommendationsToShow.length - 1) {
                 this.viewLoaded.emit(true);

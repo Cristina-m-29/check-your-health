@@ -24,4 +24,8 @@ export class UsersService {
       return this.getUserInfo(patient.medic);
     }));
   }
+
+  public getAllPatientsOfMedic(): Observable<Patient[]> {
+    return this.base.get("medic/patients");
+  }
 }
