@@ -1,4 +1,7 @@
-<div class="card patient-card" *ngIf="!showAllPrescriptions && !showAllRecommendations">
+<div 
+  class="card patient-card" 
+  *ngIf="!showAllAppointments && !showAllPrescriptions && !showAllRecommendations"
+>
   <div class="flex flex-align-center margin_bottom back-btn" *ngIf="isDynamicView" (click)="goBackToPatientSelection()">
     <mat-icon>keyboard_arrow_left</mat-icon>
     <span class="small-subtitle">Selecteaza alt pacient</span>
@@ -18,12 +21,25 @@
   <span class="small-subtitle">Conditii</span>
   <span class="subtitle margin_bottom-l" *ngIf="patient.conditions.length === 0">Pacientul nu are momentan conditii cunoscute</span>
   <ng-container *ngIf="patient.conditions.length !== 0">
-    <span class="subtitle margin_bottom-l" *ngFor="let condition of patient.conditions">{{condition}}</span>
+      <span class="subtitle margin_bottom-l" *ngFor="let condition of patient.conditions">{{condition}}</span>
   </ng-container>
 
   <span class="title">Istoric recent al pacientului</span>
 
-  <span class="block margin_bottom-s">Prescriptii</span>
+  <div *ngIf="onAllPatientsPage" class="margin_bottom-l">
+    <span>Programari</span>
+
+    <button 
+      mat-raised-button
+      color="primary"
+      class="width-full button secondary-button margin_bottom-s"
+      (click)="seeAllAppointments()"
+    >
+      Vezi programari
+    </button>
+  </div>
+
+  <span class="block margin_bottom-s">Prescriptii recente</span>
 
   <div 
     class="width-full margin_bottom-l" 
@@ -31,8 +47,7 @@
   >
     <div 
       *ngFor="let prescription of patientPrescriptinsToShow"
-      class="prescription padding_top-s padding_bottom" 
-      [ngClass]="{'border-bottom-prescription': !isLastInList(patientPrescriptinsToShow, prescription)}"
+      class="prescription padding_top-s padding_bottom border-bottom-prescription" 
     >
       <span class="small-subtitle">Creata de medicul</span>
       <span class="subtitle block margin_bottom-s">{{prescription?.medicName}}</span>
@@ -49,20 +64,20 @@
       </span>
     </div>
 
+    <span *ngIf="patientAllPrescriptins.length === 0" class="small-subtitle block margin_bottom-s margin_top-s">Pacientul nu are prescriptii asignate</span>
+
     <button 
+      *ngIf="patientAllPrescriptins.length > 0"
       mat-button
       color="primary"
       class="width-full button secondary-button margin_bottom-s"
       (click)="seeAllPrescriptions()"
-      *ngIf="patientAllPrescriptins.length > 2"
     >
       Vezi toate prescriptiile
     </button>
-
-    <span *ngIf="patientAllPrescriptins.length === 0" class="small-subtitle block margin_bottom-s margin_top-s">Pacientul nu are prescriptii asignate</span>
   </div>
 
-  <span class="block margin_bottom-s">Trimiteri</span>
+  <span class="block margin_bottom-s">Trimiteri recente</span>
 
   <div 
     class="width-full" 
@@ -70,8 +85,7 @@
   >
     <div 
       *ngFor="let rec of patientRecommendationsToShow"
-      class="recommendation padding_top-s padding_bottom-s" 
-      [ngClass]="{'border-bottom-prescription': !isLastInList(patientRecommendationsToShow, rec)}"
+      class="recommendation padding_top-s padding_bottom-s border-bottom-prescription"
     >
       <span class="small-subtitle">Creata de medicul</span>
       <span class="subtitle block margin_bottom-s">{{rec?.medicName}}</span>
@@ -88,19 +102,21 @@
       </ng-container>
     </div>
 
-    <button 
+    <span *ngIf="patientAllRecommendations.length === 0" class="small-subtitle block margin_bottom-s margin_top-s">Pacientul nu are trimiteri asignate</span>
+
+    <button
+      *ngIf="patientAllRecommendations.length > 0"
       mat-button
       color="primary"
       class="width-full button secondary-button margin_bottom-s"
       (click)="seeAllRecommendations()"
-      *ngIf="patientAllRecommendations.length > 2"
     >
       Vezi toate trimiterile
     </button>
-
-    <span *ngIf="patientAllRecommendations.length === 0" class="small-subtitle block margin_bottom-s margin_top-s">Pacientul nu are trimiteri asignate</span>
   </div>
 </div>
+
+<cyh-patient-details-appointments *ngIf="showAllAppointments" (finish)="seeLessAppointments()"></cyh-patient-details-appointments>
 
 <div class="card patient-card show-all-card" *ngIf="showAllPrescriptions">
   <div class="flex flex-align-center margin_bottom back-btn" (click)="seeLessPrescriptions()">
@@ -113,8 +129,7 @@
   <div class="all-list-container">
     <div 
       *ngFor="let prescription of patientAllPrescriptinsToShow"
-      class="prescription padding_top-s padding_bottom" 
-      [ngClass]="{'border-bottom-prescription': !isLastInList(patientAllPrescriptinsToShow, prescription)}"
+      class="prescription padding_top-s padding_bottom border-bottom-prescription"
     >
       <span class="small-subtitle">Creata de medicul</span>
       <span class="subtitle block margin_bottom-s">{{prescription.medicName}}</span>
@@ -144,8 +159,7 @@
   <div class="all-list-container">
     <div 
       *ngFor="let rec of patientRecommendationsToShow"
-      class="recommendation padding_top-s padding_bottom-s" 
-      [ngClass]="{'border-bottom-prescription': !isLastInList(patientRecommendationsToShow, rec)}"
+      class="recommendation padding_top-s padding_bottom-s border-bottom-prescription"
     >
       <span class="small-subtitle">Creata de medicul</span>
       <span class="subtitle block margin_bottom-s">{{rec?.medicName}}</span>

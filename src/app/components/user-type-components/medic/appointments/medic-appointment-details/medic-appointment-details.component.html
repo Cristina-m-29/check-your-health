@@ -113,7 +113,7 @@
           </button>
         </div>
 
-        <ng-container *ngIf="appointmentType !== 'new' && appointment.status === 'accepted'">
+        <!-- <ng-container *ngIf="appointmentType !== 'new' && appointment.status === 'accepted'">
           <span class="small-subtitle block margin_bottom-s">Scrisoare medicala</span>
 
           <ng-container *ngIf="appointment.medicalLetter">
@@ -134,10 +134,18 @@
             >
               Adauga
             </button>
-          </ng-container>
-        </ng-container>
+          </ng-container> 
+        </ng-container>-->
       </div>
     </ng-container>
+
+    // adauga diagnostic btn (de specificat daca e final sau nu)
+
+    // genereaza raport doar daca exista diagnostic
+
+    // add trimitere pe baza programarii btn doar daca diagnosticul e intermediar
+
+    // add prescriptie btn
   </div>
 
   <div class="width-medium">

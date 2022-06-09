@@ -1,10 +1,12 @@
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { DateAdapter, MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -25,9 +27,16 @@ import { SpecialistRegisterComponent } from './components/auth/register/speciali
 import { NavbarComponent } from './components/navigation/navbar/navbar.component';
 import { SideNavbarComponent } from './components/navigation/side-navbar/side-navbar.component';
 import { UserComponent } from './components/user-profile/user.component';
+import { MedicAppointmentDetailsComponent } from './components/user-type-components/medic/appointments/medic-appointment-details/medic-appointment-details.component';
+import { MedicAppointmentsComponent } from './components/user-type-components/medic/appointments/medic-appointments/medic-appointments.component';
+import { MedicRefuseAppointmentDialogComponent } from './components/user-type-components/medic/appointments/medic-refuse-appointment-dialog/medic-refuse-appointment-dialog.component';
+import { MedicHomeComponent } from './components/user-type-components/medic/medic-home/medic-home.component';
+import { MedicPatientsComponent } from './components/user-type-components/medic/medic-patients/medic-patients.component';
+import { PreviewPacientCardComponent } from './components/user-type-components/medic/medic-patients/preview-pacient-card/preview-pacient-card.component';
 import { PatientAppointmentDetailsComponent } from './components/user-type-components/patient/appointments/patient-appointment-details/patient-appointment-details.component';
 import { PatientAppointmentsComponent } from './components/user-type-components/patient/appointments/patient-appointments/patient-appointments.component';
 import { PatientHomeComponent } from './components/user-type-components/patient/patient-home/patient-home.component';
+import { PatientPrescriptionDetailsComponent } from './components/user-type-components/patient/prescriptions/patient-prescription-details/patient-prescription-details.component';
 import { PatientPrescriptionsComponent } from './components/user-type-components/patient/prescriptions/patient-prescriptions/patient-prescriptions.component';
 import { PatientReferenceDetailsComponent } from './components/user-type-components/patient/references/patient-reference-details/patient-reference-details.component';
 import { PatientReferencesComponent } from './components/user-type-components/patient/references/patient-references/patient-references.component';
@@ -41,13 +50,7 @@ import { NotificationsComponent } from './components/utils/notifications/notific
 import { InterceptorInterceptor } from './interceptors/interceptor.interceptor';
 import { FormatTimePipe } from './pipes/format-time.pipe';
 import { UpperCaseFirstLetterPipe } from './pipes/upper-case-first-letter.pipe';
-import { PatientPrescriptionDetailsComponent } from './components/user-type-components/patient/prescriptions/patient-prescription-details/patient-prescription-details.component';
-import { MedicHomeComponent } from './components/user-type-components/medic/medic-home/medic-home.component';
-import { MedicPatientsComponent } from './components/user-type-components/medic/medic-patients/medic-patients.component';
-import { MedicAppointmentDetailsComponent } from './components/user-type-components/medic/appointments/medic-appointment-details/medic-appointment-details.component';
-import { MedicAppointmentsComponent } from './components/user-type-components/medic/appointments/medic-appointments/medic-appointments.component';
-import { MedicRefuseAppointmentDialogComponent } from './components/user-type-components/medic/appointments/medic-refuse-appointment-dialog/medic-refuse-appointment-dialog.component';
-import { MatDialogModule } from '@angular/material/dialog';
+import { PatientDetailsAppointmentsComponent } from './components/user-type-details-cards/patient-details-card/patient-details-appointments/patient-details-appointments.component';
 
 @NgModule({
   declarations: [
@@ -82,15 +85,19 @@ import { MatDialogModule } from '@angular/material/dialog';
     MedicAppointmentsComponent,
     MedicAppointmentDetailsComponent,
     MedicRefuseAppointmentDialogComponent,
+    PreviewPacientCardComponent,
+    PatientDetailsAppointmentsComponent,
   ],
   imports: [
-    MatDialogModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     BrowserModule,
     HttpClientModule,
+    MatAutocompleteModule,
     MatButtonModule,
+    MatCardModule,
     MatDatepickerModule,
+    MatDialogModule,
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,
@@ -98,7 +105,6 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatProgressSpinnerModule,
     MatSelectModule,
     ReactiveFormsModule,
-    MatCardModule,
     SafePipeModule,
   ],
   providers: [

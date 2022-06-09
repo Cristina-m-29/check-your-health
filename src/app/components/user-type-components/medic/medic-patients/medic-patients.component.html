@@ -1,1 +1,49 @@
-<p>medic-patients works!</p>
+<ng-container *ngIf="loading">
+    <cyh-loading-screen></cyh-loading-screen>
+</ng-container>
+
+<div class="flex" [ngClass]="{'card-hide': loading, 'no-data': patients.length === 0}">
+    <span *ngIf="patients.length === 0">Nu au fost gasiti pacienti : (</span>
+  
+    <ng-container *ngIf="patients.length > 0">
+        <div class="width-medium margin_right-xl">
+            <mat-form-field appearance="outline" class="width-full">
+                <mat-label>Cauta pacient</mat-label>
+
+                <input 
+                    type="text" 
+                    placeholder="Cauta pacient"
+                    matInput
+                    [formControl]="searchPatientInput"
+                    [matAutocomplete]="auto"
+                    (focus)="onFocus()"
+                >
+
+                <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                    <mat-option 
+                        *ngFor="let option of patientsForSearchInput | async" 
+                        [value]="option.name" 
+                        (click)="selectPacientViaSearch(option)"
+                    >
+                        {{option.name}}
+                    </mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+
+            <cyh-preview-pacient-card 
+                *ngFor="let patient of patients" 
+                [patient]="patient"
+                [selected]="patient === selectedPatient"
+                (click)="selectPatient(patient)"
+            ></cyh-preview-pacient-card>
+        </div>
+    
+        <div class="width-big-medium">
+            <cyh-patient-details-card
+                [onAllPatientsPage]="true"
+                [patient]="selectedPatient"
+                (viewLoaded)="finishLoading()"
+            ></cyh-patient-details-card>
+        </div>
+    </ng-container>
+</div>
