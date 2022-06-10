@@ -16,6 +16,8 @@ import { DiagnosticsService } from 'src/app/services/diagnostics.service';
 import { UsersService } from 'src/app/services/users.service';
 import { UtilsService } from 'src/app/services/utils.service';
 import { MedicAddDiagnosticDialogComponent } from '../medic-add-diagnostic-dialog/medic-add-diagnostic-dialog.component';
+import { MedicAddPrescriptionComponent } from '../medic-add-prescription/medic-add-prescription.component';
+import { MedicAddRecommendationComponent } from '../medic-add-recommendation/medic-add-recommendation.component';
 import { MedicRefuseAppointmentDialogComponent } from '../medic-refuse-appointment-dialog/medic-refuse-appointment-dialog.component';
 
 @Component({
@@ -229,6 +231,26 @@ export class MedicAppointmentDetailsComponent implements OnInit {
       }
     });
     viewDiagnosticDialog.afterClosed().subscribe();
+  }
+
+  public generateRaport(): void {
+    // to do
+  }
+
+  public openAddRecommendation(): void {
+    const addRecommendationDialog = this.dialog.open(MedicAddRecommendationComponent, {
+      width: '160rem'
+    });
+    addRecommendationDialog.afterClosed().subscribe();
+    // to do
+  }
+
+  public openAddPrescription(): void {
+    const addRecommendationDialog = this.dialog.open(MedicAddPrescriptionComponent, {
+      width: '160rem'
+    });
+    addRecommendationDialog.afterClosed().subscribe();
+    // to do
   }
 
   private getAllPacientsForMedic(): void {

@@ -53,6 +53,8 @@ import { UpperCaseFirstLetterPipe } from './pipes/upper-case-first-letter.pipe';
 import { PatientDetailsAppointmentsComponent } from './components/user-type-details-cards/patient-details-card/patient-details-appointments/patient-details-appointments.component';
 import { MedicAddDiagnosticDialogComponent } from './components/user-type-components/medic/appointments/medic-add-diagnostic-dialog/medic-add-diagnostic-dialog.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MedicAddRecommendationComponent } from './components/user-type-components/medic/appointments/medic-add-recommendation/medic-add-recommendation.component';
+import { MedicAddPrescriptionComponent } from './components/user-type-components/medic/appointments/medic-add-prescription/medic-add-prescription.component';
 
 @NgModule({
   declarations: [
@@ -90,6 +92,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     PreviewPacientCardComponent,
     PatientDetailsAppointmentsComponent,
     MedicAddDiagnosticDialogComponent,
+    MedicAddRecommendationComponent,
+    MedicAddPrescriptionComponent,
   ],
   imports: [
     AppRoutingModule,
