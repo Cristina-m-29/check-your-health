@@ -86,7 +86,7 @@ export class MedicAppointmentDetailsComponent implements OnInit {
     this.route.queryParams
       .subscribe(params => {
         const type = params['type'];
-        if (!type) {
+        if (!type && !this.router.url.includes('create')) {
           this.openedFromPatientsPage = true;
         }
         this.appointmentType = params['type'] || 'old';
