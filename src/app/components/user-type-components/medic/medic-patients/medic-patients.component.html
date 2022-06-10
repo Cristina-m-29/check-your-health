@@ -33,7 +33,7 @@
             <cyh-preview-pacient-card 
                 *ngFor="let patient of patients" 
                 [patient]="patient"
-                [selected]="patient === selectedPatient"
+                [selected]="isPatientSelected(patient)"
                 (click)="selectPatient(patient)"
             ></cyh-preview-pacient-card>
         </div>

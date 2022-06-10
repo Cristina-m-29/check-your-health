@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import * as moment from 'moment';
-import { catchError, EMPTY, map, Observable, of, Subject } from 'rxjs';
+import { catchError, EMPTY, filter, map, mapTo, Observable, of, Subject } from 'rxjs';
 import { Appointment } from '../models/appointment';
 import { BaseUser } from '../models/base-user';
 import { Specialist } from '../models/medic';
@@ -32,6 +32,16 @@ export class AppointmentsService {
           this.getFullPatientOfAppointments(appointments);
         }
       });
+  }
+
+  public getAppointmentsOfPatientForMedic(patientId: string): Observable<Appointment[]> {
+    return this.base.get<Appointment[]>('users/appointments')
+      .pipe(catchError(() => {
+        return [];
+      }))
+      .pipe(map((apps: Appointment[]) => {
+        return apps.filter((app: Appointment) => app.patient === patientId);
+      }));
   }
 
   public addAppointment(

@@ -116,7 +116,7 @@
   </div>
 </div>
 
-<cyh-patient-details-appointments *ngIf="showAllAppointments" (finish)="seeLessAppointments()"></cyh-patient-details-appointments>
+<cyh-patient-details-appointments *ngIf="showAllAppointments" [patient]="patient" (finish)="seeLessAppointments()"></cyh-patient-details-appointments>
 
 <div class="card patient-card show-all-card" *ngIf="showAllPrescriptions">
   <div class="flex flex-align-center margin_bottom back-btn" (click)="seeLessPrescriptions()">

@@ -38,6 +38,7 @@ export class MedicAppointmentDetailsComponent implements OnInit {
   private medicId = '';
   private appointmentViewLoaded = false;
   private patientViewLoaded = false;
+  private openedFromPatientsPage = false;
 
   // filer dates on calendar
   // previous and weekend days are not allowed
@@ -68,6 +69,10 @@ export class MedicAppointmentDetailsComponent implements OnInit {
   public ngOnInit(): void {
     this.route.queryParams
       .subscribe(params => {
+        const type = params['type'];
+        if (!type) {
+          this.openedFromPatientsPage = true;
+        }
         this.appointmentType = params['type'] || 'old';
       }
     );
@@ -132,9 +137,14 @@ export class MedicAppointmentDetailsComponent implements OnInit {
     this.patientSelected = true;
   }
 
-  public goBack(): void {
+  public goBack(): void { 
     sessionStorage.removeItem('cyhSelectedAppointment');
-    this.router.navigateByUrl('medic/home');
+    if (!this.openedFromPatientsPage) {
+      this.router.navigateByUrl('medic/home');
+    }
+    else {
+      this.router.navigateByUrl('medic/patients');
+    }
   }
 
   public setAppointmentStatus(status: AppointmentStatus): void {

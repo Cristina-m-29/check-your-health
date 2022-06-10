@@ -27,7 +27,16 @@ export class MedicPatientsComponent implements OnInit {
   }
 
   public ngOnInit(): void {
-    this.getAllPatientsForMedic();
+    const selectedPatient = sessionStorage.getItem('cyhSelectedPatient');
+    if (!selectedPatient) {
+      this.getAllPatientsForMedic();
+    }
+    else {
+      sessionStorage.removeItem('cyhSelectedPatient');
+      const patientToSelect = <Patient>JSON.parse(selectedPatient);
+      this.selectPatient(patientToSelect);
+      this.getAllPatientsForMedic();
+    }
   }
 
   public finishLoading(): void {
@@ -54,6 +63,10 @@ export class MedicPatientsComponent implements OnInit {
     }
   }
 
+  public isPatientSelected(patient: Patient): boolean {
+    return this.selectedPatient.id === patient.id;  
+  }
+
   public onFocus(): void {
     this.trigger._onChange(""); 
     this.trigger.openPanel();
@@ -64,7 +77,9 @@ export class MedicPatientsComponent implements OnInit {
     this.usersService.getAllPatientsOfMedic().subscribe((patients: Patient[]) => {
       this.patientsOriginalList = patients;
       this.patients = this.patientsOriginalList;
-      this.selectedPatient = this.patientsOriginalList[0];
+      if (this.selectedPatient.id === '') {
+        this.selectedPatient = this.patientsOriginalList[0];
+      }
       this.patientsForSearchInput = of(this.patients);
       this.cd.detectChanges();
     });

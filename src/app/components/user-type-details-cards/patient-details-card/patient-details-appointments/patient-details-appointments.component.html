@@ -3,5 +3,21 @@
       <mat-icon>keyboard_arrow_left</mat-icon>
       <span class="small-subtitle">Inapoi</span>
     </div>
-  
+
+    <span class="title">Istoric programări pentru pacinetul {{patient.name}}</span>
+
+    <div class="appointments-container">
+      <div class="appointment" *ngFor="let appointment of patientAppointmentsForMedic" (click)="goToAppointment(appointment)">
+        <span class="subtitle">
+          {{appointment.date * 1000 | date: 'dd MMM yyyy'}} -
+          {{appointment.hoursInterval.start | formatTime}} - {{appointment.hoursInterval.end | formatTime}}
+        </span>
+
+        <span class="small-subtitle pending" *ngIf="appointment.status === 'pending'">Așteaptă confirmare</span>
+        <span class="small-subtitle accepted" *ngIf="appointment.status === 'accepted'">Confirmată</span>
+        <span class="small-subtitle refused" *ngIf="appointment.status === 'refused'">Respinsă</span>
+      </div>
+
+      <span *ngIf="patientAppointmentsForMedic.length === 0" class="small-subtitle">Istoricul programărilor este gol</span>
+    </div>
 </div>
