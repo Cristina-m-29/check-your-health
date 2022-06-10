@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import { BaseUser } from 'src/app/models/base-user';
 import { Patient } from 'src/app/models/patient';
 import { Prescription } from 'src/app/models/prescription';
@@ -36,6 +37,7 @@ export class PatientDetailsCardComponent implements OnChanges {
     private prescriptionsService: PrescriptionsService,
     private recommendationsService: RecommendationsService,
     private usersService: UsersService,
+    private router: Router,
   ) {}
 
   public ngOnChanges(): void {
@@ -44,6 +46,11 @@ export class PatientDetailsCardComponent implements OnChanges {
 
   public goBackToPatientSelection(): void {
     this.changePatient.emit(true);
+  }
+
+  public goToPatient(patient: Patient): void {
+    sessionStorage.setItem('cyhSelectedPatient', JSON.stringify(patient));
+    this.router.navigateByUrl('medic/patients');
   }
 
   public seeAllAppointments(): void {

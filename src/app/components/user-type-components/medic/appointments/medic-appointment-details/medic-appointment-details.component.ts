@@ -1,8 +1,10 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { MatAutocompleteTrigger } from '@angular/material/autocomplete';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as moment from 'moment';
+import { Observable, of } from 'rxjs';
 import { Appointment, AppointmentStatus } from 'src/app/models/appointment';
 import { Patient } from 'src/app/models/patient';
 import { HoursInterval, HoursIntervalOption, weekday } from 'src/app/models/workingHours';
@@ -25,9 +27,12 @@ export class MedicAppointmentDetailsComponent implements OnInit {
   public appointment = new Appointment();
   public hoursIntervalOptions: HoursIntervalOption[] = [];
 
-  public patientsForSelect: Patient[] = [];
   public patientSelected = false;
   public patient = new Patient();
+
+  public patientsForSelect: Patient[] = [];
+  public patientsForSelectInput = new Observable<Patient[]>();
+  public searchPatientInput = new FormControl();
 
   // input fields
   public date = new Date();
@@ -51,6 +56,8 @@ export class MedicAppointmentDetailsComponent implements OnInit {
     return false;
   }
 
+  @ViewChild(MatAutocompleteTrigger) trigger!: MatAutocompleteTrigger;
+
   constructor(
     private appointmentsService: AppointmentsService,
     private authService: AuthService,
@@ -63,6 +70,10 @@ export class MedicAppointmentDetailsComponent implements OnInit {
   ) {
     this.reasonField.valueChanges.subscribe((value: string) => {
       this.reason = value;
+    });
+
+    this.searchPatientInput.valueChanges.subscribe((value: string) => {
+      this.patientsForSelectInput = of(this._filter(value));
     });
   }
 
@@ -96,6 +107,12 @@ export class MedicAppointmentDetailsComponent implements OnInit {
         this.goBack();
       }
     }
+  }
+
+  public onFocus(): void {
+    this.trigger._onChange(""); 
+    this.trigger.openPanel();
+    this.cd.detectChanges();
   }
 
   public finishPatientViewLoading(): void {
@@ -132,6 +149,7 @@ export class MedicAppointmentDetailsComponent implements OnInit {
   }
 
   public selectPatient(patient: Patient): void {
+    console.log(patient);
     this.patientViewLoaded = false;
     this.patient = patient;
     this.patientSelected = true;
@@ -196,6 +214,10 @@ export class MedicAppointmentDetailsComponent implements OnInit {
       this.loading = false;
       this.cd.detectChanges();
     }
+  }
+
+  private _filter(value: string): Patient[] {
+    return this.patientsForSelect.filter(option => option.name.startsWith(value));
   }
 
 }

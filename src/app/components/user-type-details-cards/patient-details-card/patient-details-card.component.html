@@ -10,7 +10,7 @@
   <span class="title">Detalii pacient</span>
 
   <span class="small-subtitle">Nume</span>
-  <span class="subtitle margin_bottom-s">{{patient.name}}</span>
+  <span class="subtitle margin_bottom-s patient_name" (click)="goToPatient(patient)">{{patient.name}}</span>
 
   <span class="small-subtitle">Email</span>
   <a class="subtitle margin_bottom-s email" [href]="'mailto:' + 'popescuvaleria@mail.com'">{{patient.email}}</a>

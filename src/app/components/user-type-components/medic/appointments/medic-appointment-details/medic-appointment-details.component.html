@@ -157,7 +157,30 @@
 
       <span class="subtitle block margin_bottom">Selecteaza pacientul</span>
 
-      <mat-form-field appearance="fill" class="width-full">
+      <mat-form-field appearance="outline" class="width-full">
+        <mat-label>Cauta pacient</mat-label>
+
+        <input 
+            type="text" 
+            placeholder="Cauta pacient"
+            matInput
+            [formControl]="searchPatientInput"
+            [matAutocomplete]="auto"
+            (focus)="onFocus()"
+        >
+
+        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+            <mat-option 
+              *ngFor="let patient of patientsForSelectInput | async" 
+              [value]="patient.name" 
+              (click)="selectPatient(patient)"
+            >
+              {{patient.name}}
+            </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+
+      <!-- <mat-form-field appearance="fill" class="width-full">
         <mat-label>Pacient</mat-label>
         <mat-select>
           <mat-option
@@ -168,7 +191,7 @@
             {{patient.name}}
           </mat-option>
         </mat-select>
-      </mat-form-field>
+      </mat-form-field> -->
     </div>
 
     <cyh-patient-details-card
