@@ -113,39 +113,62 @@
           </button>
         </div>
 
-        <!-- <ng-container *ngIf="appointmentType !== 'new' && appointment.status === 'accepted'">
-          <span class="small-subtitle block margin_bottom-s">Scrisoare medicala</span>
+        <ng-container *ngIf="appointmentType !== 'new' && appointment.status === 'accepted'">
+          <button
+            *ngIf="!appointment.diagnostic"
+            mat-raised-button
+            color="primary"
+            class="width-full height-small button"
+            (click)="openAddDiagnostic()"
+          >
+            Adauga diagnostic
+          </button>
 
-          <ng-container *ngIf="appointment.medicalLetter">
-            <button
-              mat-raised-button
-              color="primary"
-              class="width-full height-small button"
-            >
-              Descarca
-            </button>
+          <ng-container *ngIf="appointment.diagnostic">
+            <div class="flex">
+              <button
+                mat-raised-button
+                color="primary"
+                class="width-full height-small button"
+                (click)="openViewDiagnostic()"
+              >
+                Vezi diagnostic
+              </button>
+
+              <span class="block margin_right"></span>
+
+              <button
+                mat-raised-button
+                color="primary"
+                class="width-full height-small button"
+              >
+                Genereaza raport
+              </button>
+            </div>
+
+            <div class="flex margin_top" *ngIf="!appointment.diagnostic?.final">
+              <button
+                mat-button
+                color="primary"
+                class="width-full height-small button secondary-button"
+              >
+                Creaza trimitere
+              </button>
+          
+              <span class="block margin_right"></span>
+
+              <button
+                mat-button
+                color="primary"
+                class="width-full height-small button secondary-button"
+              >
+                Creaza prescriptie
+              </button>
+            </div>
           </ng-container>
-
-          <ng-container *ngIf="!appointment.medicalLetter">
-            <button
-              mat-raised-button
-              color="primary"
-              class="width-full height-small button"
-            >
-              Adauga
-            </button>
-          </ng-container> 
-        </ng-container>-->
+        </ng-container>
       </div>
-    </ng-container>
-
-    // adauga diagnostic btn (de specificat daca e final sau nu)
-
-    // genereaza raport doar daca exista diagnostic
-
-    // add trimitere pe baza programarii btn doar daca diagnosticul e intermediar
-
-    // add prescriptie btn
+    </ng-container>    
   </div>
 
   <div class="width-medium">

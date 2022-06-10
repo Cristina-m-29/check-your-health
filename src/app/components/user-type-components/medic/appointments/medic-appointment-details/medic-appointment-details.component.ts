@@ -1,3 +1,4 @@
+import { ThisReceiver } from '@angular/compiler';
 import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatAutocompleteTrigger } from '@angular/material/autocomplete';
@@ -6,12 +7,15 @@ import { ActivatedRoute, Router } from '@angular/router';
 import * as moment from 'moment';
 import { Observable, of } from 'rxjs';
 import { Appointment, AppointmentStatus } from 'src/app/models/appointment';
+import { Diagnostic } from 'src/app/models/diagnostic';
 import { Patient } from 'src/app/models/patient';
 import { HoursInterval, HoursIntervalOption, weekday } from 'src/app/models/workingHours';
 import { AppointmentsService } from 'src/app/services/appointments.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { DiagnosticsService } from 'src/app/services/diagnostics.service';
 import { UsersService } from 'src/app/services/users.service';
 import { UtilsService } from 'src/app/services/utils.service';
+import { MedicAddDiagnosticDialogComponent } from '../medic-add-diagnostic-dialog/medic-add-diagnostic-dialog.component';
 import { MedicRefuseAppointmentDialogComponent } from '../medic-refuse-appointment-dialog/medic-refuse-appointment-dialog.component';
 
 @Component({
@@ -62,6 +66,7 @@ export class MedicAppointmentDetailsComponent implements OnInit {
     private appointmentsService: AppointmentsService,
     private authService: AuthService,
     private cd: ChangeDetectorRef,
+    private diagnosticsService: DiagnosticsService,
     private route: ActivatedRoute,
     private router: Router,
     private userService: UsersService,
@@ -199,6 +204,31 @@ export class MedicAppointmentDetailsComponent implements OnInit {
           this.goBack();
         });
       });
+  }
+
+  public openAddDiagnostic(): void {
+    const addDiagnosticDialog = this.dialog.open(MedicAddDiagnosticDialogComponent, {
+      width: '160rem',
+      data: {
+        editable: true
+      }
+    });
+    addDiagnosticDialog.afterClosed().subscribe((diagnostic: Diagnostic) => {
+      if (diagnostic) {
+        this.diagnosticsService.addDiagnostic(this.appointment.id, diagnostic);
+      }
+    });
+  }
+
+  public openViewDiagnostic(): void {
+    const viewDiagnosticDialog = this.dialog.open(MedicAddDiagnosticDialogComponent, {
+      width: '160rem',
+      data: {
+        editable: false,
+        diagnostic: this.appointment.diagnostic,
+      }
+    });
+    viewDiagnosticDialog.afterClosed().subscribe();
   }
 
   private getAllPacientsForMedic(): void {

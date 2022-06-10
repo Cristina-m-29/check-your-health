@@ -1,9 +1,12 @@
-import { Medic } from "./medic";
-import { Patient } from "./patient";
-
 export class Diagnostic {
   id: string = '';
-  patient: Patient = new Patient();
-  medic: Medic = new Medic();
-  description: string = '';
+  final: boolean = false;
+  symptoms: string = '';
+  recommendations: string = '';
+  clinicalExam: string = '';
+  registryNumber: string = '';
+  servicesUsed: string = '';
+  diagnosticPlain: string = '';
+  diagnosticEncoded: string = '';
+  paraclinicalExaminationResults: string = '';
 }

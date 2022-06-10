@@ -1,0 +1,160 @@
+<h1 class="purple-title" mat-dialog-title *ngIf="editable">Adauga diagnostic</h1>
+<h1 class="purple-title" mat-dialog-title *ngIf="!editable">Diagnostic</h1>
+
+<div mat-dialog-content class="padding_bottom">
+    <form class="add-diagnostic-form width-full" [formGroup]="diagnosticForm">
+        <div class="flex width-full margin_top-s">
+            <div class="width-medium margin_right">
+                <p>Simptomele</p>
+
+                <mat-form-field appearance="fill" class="width-full margin_top">
+                    <mat-label>Simptome</mat-label>
+
+                    <textarea
+                        required
+                        matInput 
+                        class="min-height-m"
+                        formControlName="symptoms"
+                    ></textarea>
+                </mat-form-field>
+            </div>
+
+            <div class="width-medium margin_right">
+                <p>Recomandari</p>
+
+                <mat-form-field appearance="fill" class="width-full margin_top">
+                    <mat-label>Recomandari</mat-label>
+
+                    <textarea 
+                        matInput 
+                        class="min-height-m" 
+                        required 
+                        formControlName="recommendations"
+                    ></textarea>
+                </mat-form-field>
+            </div>
+
+            <div class="width-medium">
+                <p>Examen clinic</p>
+
+                <mat-form-field appearance="fill" class="width-full margin_top">
+                    <mat-label>Examen clinic</mat-label>
+
+                    <textarea 
+                        matInput 
+                        class="min-height-m" 
+                        required 
+                        formControlName="clinicalExam"
+                    ></textarea>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <div class="flex width-full margin_top-s">
+            <div class="width-medium margin_right">
+                <p>Numar de inregistrare</p>
+
+                <mat-form-field appearance="fill" class="width-full margin_top">
+                    <mat-label>Numar de inregistrare</mat-label>
+
+                    <textarea
+                        matInput 
+                        class="min-height-m" 
+                        required 
+                        formControlName="registryNumber"
+                    ></textarea>
+                </mat-form-field>
+            </div>
+
+            <div class="width-medium margin_right">
+                <p>Servicii</p>
+
+                <mat-form-field appearance="fill" class="width-full margin_top">
+                    <mat-label>Servicii</mat-label>
+
+                    <textarea 
+                        matInput 
+                        class="min-height-m" 
+                        required 
+                        formControlName="servicesUsed"
+                    ></textarea>
+                </mat-form-field>
+            </div>
+
+            <div class="width-medium">
+                <p>Diagnostic simplu</p>
+
+                <mat-form-field appearance="fill" class="width-full margin_top">
+                    <mat-label>Diagnostic simplu</mat-label>
+
+                    <textarea 
+                        matInput 
+                        class="min-height-m" 
+                        required 
+                        formControlName="diagnosticPlain"
+                    ></textarea>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <div class="flex width-full margin_top-s">
+            <div class="width-medium margin_right">
+                <p>Diagnostic encodat</p>
+
+                <mat-form-field appearance="fill" class="width-full margin_top">
+                    <mat-label>Diagnostic encodat</mat-label>
+
+                    <textarea 
+                        matInput class="min-height-m" 
+                        required 
+                        formControlName="diagnosticEncoded"
+                    ></textarea>
+                </mat-form-field>
+            </div>
+
+            <div class="width-medium margin_right">
+                <p>Rezultate examinare</p>
+
+                <mat-form-field appearance="fill" class="width-full margin_top">
+                    <mat-label>Rezultate examinare</mat-label>
+
+                    <textarea 
+                        matInput class="min-height-m" 
+                        required 
+                        formControlName="paraclinicalExaminationResults"
+                    ></textarea>
+                </mat-form-field>
+            </div>
+
+            <div class="width-medium flex_column flex_column-justify-center">
+                <mat-checkbox formControlName="final" color="primary">
+                    <p>Diagnostic final</p>
+                </mat-checkbox>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="flex width-full" *ngIf="editable">
+    <button
+        mat-button
+        color="primary"
+        class="width-medium height-small button secondary-button"
+        (click)="onNoClick()"
+    >
+        Anuleaza
+    </button>
+
+    <span class="margin_right"></span>
+
+    <button 
+        mat-raised-button 
+        color="primary" 
+        [mat-dialog-close]="diagnostic" 
+        [disabled]="!diagnosticForm.valid"
+        class="width-medium height-small button"
+        cdkFocusInitial
+    >
+        Adauga
+    </button>
+</div>

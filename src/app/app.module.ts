@@ -51,6 +51,8 @@ import { InterceptorInterceptor } from './interceptors/interceptor.interceptor';
 import { FormatTimePipe } from './pipes/format-time.pipe';
 import { UpperCaseFirstLetterPipe } from './pipes/upper-case-first-letter.pipe';
 import { PatientDetailsAppointmentsComponent } from './components/user-type-details-cards/patient-details-card/patient-details-appointments/patient-details-appointments.component';
+import { MedicAddDiagnosticDialogComponent } from './components/user-type-components/medic/appointments/medic-add-diagnostic-dialog/medic-add-diagnostic-dialog.component';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [
@@ -87,6 +89,7 @@ import { PatientDetailsAppointmentsComponent } from './components/user-type-deta
     MedicRefuseAppointmentDialogComponent,
     PreviewPacientCardComponent,
     PatientDetailsAppointmentsComponent,
+    MedicAddDiagnosticDialogComponent,
   ],
   imports: [
     AppRoutingModule,
@@ -96,6 +99,7 @@ import { PatientDetailsAppointmentsComponent } from './components/user-type-deta
     MatAutocompleteModule,
     MatButtonModule,
     MatCardModule,
+    MatCheckboxModule,
     MatDatepickerModule,
     MatDialogModule,
     MatFormFieldModule,
