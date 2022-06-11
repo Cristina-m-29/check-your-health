@@ -15,6 +15,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { DiagnosticsService } from 'src/app/services/diagnostics.service';
 import { UsersService } from 'src/app/services/users.service';
 import { UtilsService } from 'src/app/services/utils.service';
+import { environment } from 'src/environments/environment';
 import { MedicAddDiagnosticDialogComponent } from '../medic-add-diagnostic-dialog/medic-add-diagnostic-dialog.component';
 import { MedicAddPrescriptionComponent } from '../medic-add-prescription/medic-add-prescription.component';
 import { MedicAddRecommendationComponent } from '../medic-add-recommendation/medic-add-recommendation.component';
@@ -106,6 +107,7 @@ export class MedicAppointmentDetailsComponent implements OnInit {
       const appointment = sessionStorage.getItem('cyhSelectedAppointment');
       if (appointment) {
         this.appointment = <Appointment>JSON.parse(appointment || '{}');
+        console.log(this.appointment);
         this.patient = this.appointment.fullPacient;
         this.appointmentViewLoaded = true;
         this.checkIfViewLoadingIsDone();
@@ -114,6 +116,10 @@ export class MedicAppointmentDetailsComponent implements OnInit {
         this.goBack();
       }
     }
+  }
+
+  public generateRaportLink(): string {
+    return environment['baseUrl'] + '/appointments/' + this.appointment.id + '/download-report';
   }
 
   public onFocus(): void {
@@ -217,7 +223,10 @@ export class MedicAppointmentDetailsComponent implements OnInit {
     });
     addDiagnosticDialog.afterClosed().subscribe((diagnostic: Diagnostic) => {
       if (diagnostic) {
-        this.diagnosticsService.addDiagnostic(this.appointment.id, diagnostic);
+        this.diagnosticsService.addDiagnostic(this.appointment.id, diagnostic).subscribe((diagnostic: Diagnostic) => {
+          this.appointment.diagnostic = diagnostic;
+          this.cd.detectChanges();
+        });
       }
     });
   }
@@ -231,10 +240,6 @@ export class MedicAppointmentDetailsComponent implements OnInit {
       }
     });
     viewDiagnosticDialog.afterClosed().subscribe();
-  }
-
-  public generateRaport(): void {
-    // to do
   }
 
   public openAddRecommendation(): void {
