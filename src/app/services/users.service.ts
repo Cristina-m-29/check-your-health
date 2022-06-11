@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { concatMap, Observable } from 'rxjs';
 import { BaseUser } from '../models/base-user';
-import { Specialist } from '../models/medic';
+import { Medic, Specialist } from '../models/medic';
 import { Patient } from '../models/patient';
+import { Pharmacy } from '../models/pharmacy';
 import { BaseService } from './base.service';
 
 @Injectable({
@@ -16,7 +17,7 @@ export class UsersService {
     if (!userId) {
       userId = "current_user";
     }
-    return this.base.get<BaseUser>("users/" + userId);
+    return this.base.get<BaseUser>("users/id/" + userId);
   }
 
   public getMedicOfUser(): Observable<BaseUser> {
@@ -30,7 +31,19 @@ export class UsersService {
     return this.base.get("medic/patients");
   }
 
+  public getAllPatients(): Observable<Patient[]> {
+    return this.base.get("users/patients");
+  }
+
+  public getAllMedics(): Observable<Medic[]> {
+    return this.base.get("users/medics");
+  }
+
   public getAllSpecialists(): Observable<Specialist[]> {
-    return this.base.get("specialists");
+    return this.base.get("users/specialists");
+  }
+
+  public getAllPharmacies(): Observable<Pharmacy[]> {
+    return this.base.get("users/pharmacies");
   }
 }

@@ -21,12 +21,11 @@ export class PrescriptionsService {
     return this.baseService.get<Prescription[]>('users/'+ patientId +'/prescriptions');
   }
 
-  public addPrescription(patientId: string, pharmacyId: string, date: Date, medicines: Medicine[]): Observable<Prescription> {
-    const parsedDate = moment(date).utcOffset(0, true).unix();
+  public addPrescription(patientId: string, pharmacyId: string, medicId: string, medicines: Medicine[]): Observable<Prescription> {
     return this.baseService.post<any, Prescription>('users/prescriptions', {
       patient: patientId,
       pharmacy: pharmacyId,
-      date: parsedDate,
+      medic: medicId,
       medicines: medicines
     }).pipe(catchError((err: HttpErrorResponse) => {
       return EMPTY;

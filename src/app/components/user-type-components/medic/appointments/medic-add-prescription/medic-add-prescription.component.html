@@ -1,38 +1,52 @@
-<!-- <h1 class="purple-title" mat-dialog-title>Creaza trimitere</h1>
+<h1 class="purple-title" mat-dialog-title>Creaza prescriptie</h1>
 
 <div mat-dialog-content>
     <mat-form-field appearance="outline" class="width-full">
-        <mat-label>Medic specialist</mat-label>
+        <mat-label>Farmacie</mat-label>
 
-        <input 
+        <input
+            #specialistTrigger
             type="text" 
             placeholder="Specialist"
             matInput
-            [formControl]="recommendationSpecialistInput"
+            [formControl]="pharmacyInput"
             [matAutocomplete]="auto"
-            (focus)="onFocus()"
+            (focus)="onFocusSpecialist()"
         >
 
-        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+        <mat-autocomplete #pharmacyTrigger autoActiveFirstOption #auto="matAutocomplete">
             <mat-option 
-                *ngFor="let option of specialistListForInput | async" 
+                *ngFor="let option of pharmaciesListForInput | async" 
                 [value]="option.name" 
-                (click)="selectSpecialist(option)"
+                (click)="selectPharmacy(option)"
             >
-                {{option.domain}} - {{option.name}}
+                {{option.name}}
             </mat-option>
         </mat-autocomplete>
     </mat-form-field>
 
-    <mat-form-field appearance="fill" class="width-full">
-        <mat-label>Motiv</mat-label>
+    <mat-form-field appearance="outline" class="width-full">
+        <mat-label>Adauga medicamente</mat-label>
 
-        <textarea
-            required
-            matInput 
-            class="min-height-m"
-            [formControl]="recommendationReasonInput"
-        ></textarea>
+        <input 
+            #medicineTrigger
+            type="text" 
+            placeholder="Medicament"
+            matInput
+            [formControl]="medicineInput"
+            [matAutocomplete]="autoMedicine"
+            (focus)="onFocusMedicine()"
+        >
+
+        <mat-autocomplete autoActiveFirstOption #autoMedicine="matAutocomplete">
+            <mat-option 
+                *ngFor="let option of medicineListForInput | async" 
+                [value]="option.name" 
+                (click)="selectMedicine(option)"
+            >
+                {{option.name}}
+            </mat-option>
+        </mat-autocomplete>
     </mat-form-field>
 </div>
 
@@ -51,11 +65,11 @@
     <button 
         mat-raised-button 
         color="primary" 
-        [mat-dialog-close]="recommendation" 
-        [disabled]="!recommendationReasonInput.valid || !recommendation.specialist"
+        [mat-dialog-close]="prescription" 
+        [disabled]="!prescription.pharmacy || prescription.medicines.length === 0"
         class="width-medium height-small button"
         cdkFocusInitial
     >
         Creaza
     </button>
-</div> -->
+</div>

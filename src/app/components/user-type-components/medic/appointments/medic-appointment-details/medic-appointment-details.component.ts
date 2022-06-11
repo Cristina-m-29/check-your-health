@@ -263,7 +263,7 @@ export class MedicAppointmentDetailsComponent implements OnInit {
 
   public openAddPrescription(): void {
     const addRecommendationDialog = this.dialog.open(MedicAddPrescriptionComponent, {
-      width: '160rem'
+      width: '40rem'
     });
     addRecommendationDialog.afterClosed().subscribe();
     // to do
