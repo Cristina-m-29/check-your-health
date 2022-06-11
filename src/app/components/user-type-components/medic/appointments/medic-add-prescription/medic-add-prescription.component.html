@@ -1,1 +1,61 @@
-<p>medic-add-prescription works!</p>
+<!-- <h1 class="purple-title" mat-dialog-title>Creaza trimitere</h1>
+
+<div mat-dialog-content>
+    <mat-form-field appearance="outline" class="width-full">
+        <mat-label>Medic specialist</mat-label>
+
+        <input 
+            type="text" 
+            placeholder="Specialist"
+            matInput
+            [formControl]="recommendationSpecialistInput"
+            [matAutocomplete]="auto"
+            (focus)="onFocus()"
+        >
+
+        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+            <mat-option 
+                *ngFor="let option of specialistListForInput | async" 
+                [value]="option.name" 
+                (click)="selectSpecialist(option)"
+            >
+                {{option.domain}} - {{option.name}}
+            </mat-option>
+        </mat-autocomplete>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="width-full">
+        <mat-label>Motiv</mat-label>
+
+        <textarea
+            required
+            matInput 
+            class="min-height-m"
+            [formControl]="recommendationReasonInput"
+        ></textarea>
+    </mat-form-field>
+</div>
+
+<div class="flex width-full margin_top">
+    <button
+        mat-button
+        color="primary"
+        class="width-medium height-small button secondary-button"
+        (click)="onNoClick()"
+    >
+        Anuleaza
+    </button>
+
+    <span class="margin_right"></span>
+
+    <button 
+        mat-raised-button 
+        color="primary" 
+        [mat-dialog-close]="recommendation" 
+        [disabled]="!recommendationReasonInput.valid || !recommendation.specialist"
+        class="width-medium height-small button"
+        cdkFocusInitial
+    >
+        Creaza
+    </button>
+</div> -->

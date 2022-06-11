@@ -1,3 +1,4 @@
+import { Recommendation } from 'src/app/models/recommendation';
 import { ThisReceiver } from '@angular/compiler';
 import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
@@ -20,6 +21,8 @@ import { MedicAddDiagnosticDialogComponent } from '../medic-add-diagnostic-dialo
 import { MedicAddPrescriptionComponent } from '../medic-add-prescription/medic-add-prescription.component';
 import { MedicAddRecommendationComponent } from '../medic-add-recommendation/medic-add-recommendation.component';
 import { MedicRefuseAppointmentDialogComponent } from '../medic-refuse-appointment-dialog/medic-refuse-appointment-dialog.component';
+import { RecommendationsService } from 'src/app/services/recommandations.service';
+import { PrescriptionsService } from 'src/app/services/prescriptions.service';
 
 @Component({
   selector: 'cyh-medic-appointment-details',
@@ -67,6 +70,8 @@ export class MedicAppointmentDetailsComponent implements OnInit {
 
   constructor(
     private appointmentsService: AppointmentsService,
+    private recommendationsService: RecommendationsService,
+    private prescriptionsService: PrescriptionsService,
     private authService: AuthService,
     private cd: ChangeDetectorRef,
     private diagnosticsService: DiagnosticsService,
@@ -107,7 +112,6 @@ export class MedicAppointmentDetailsComponent implements OnInit {
       const appointment = sessionStorage.getItem('cyhSelectedAppointment');
       if (appointment) {
         this.appointment = <Appointment>JSON.parse(appointment || '{}');
-        console.log(this.appointment);
         this.patient = this.appointment.fullPacient;
         this.appointmentViewLoaded = true;
         this.checkIfViewLoadingIsDone();
@@ -244,10 +248,17 @@ export class MedicAppointmentDetailsComponent implements OnInit {
 
   public openAddRecommendation(): void {
     const addRecommendationDialog = this.dialog.open(MedicAddRecommendationComponent, {
-      width: '160rem'
+      width: '32rem',
     });
-    addRecommendationDialog.afterClosed().subscribe();
-    // to do
+    addRecommendationDialog.afterClosed().subscribe((rec: Recommendation) => {
+      if (rec) {
+        this.loading = true;
+        this.recommendationsService.addRecommendation(this.appointment.patient, rec.specialist, rec.details)
+          .subscribe(() => {
+            window.location.reload();
+          });
+      }
+    });
   }
 
   public openAddPrescription(): void {

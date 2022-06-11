@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { concatMap, Observable } from 'rxjs';
 import { BaseUser } from '../models/base-user';
+import { Specialist } from '../models/medic';
 import { Patient } from '../models/patient';
 import { BaseService } from './base.service';
 
@@ -27,5 +28,9 @@ export class UsersService {
 
   public getAllPatientsOfMedic(): Observable<Patient[]> {
     return this.base.get("medic/patients");
+  }
+
+  public getAllSpecialists(): Observable<Specialist[]> {
+    return this.base.get("specialists");
   }
 }

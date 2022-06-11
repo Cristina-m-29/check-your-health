@@ -15,7 +15,6 @@ export class Appointment {
   refuseReason: string = '';
   hoursInterval: HoursInterval = new HoursInterval();
   status: AppointmentStatus = 'pending';
-  medicalLetter: string = '';
 }
 
 export declare type AppointmentStatus = 'pending' | 'accepted' | 'refused';
