@@ -1,4 +1,5 @@
-import { FormControl } from '@angular/forms';
+import { PrescribedMedicine } from './../../../../../models/medicine';
+import { FormControl, FormGroup } from '@angular/forms';
 import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Prescription } from 'src/app/models/prescription';
@@ -23,8 +24,11 @@ export class MedicAddPrescriptionComponent implements OnInit {
   public medicineInput = new FormControl();
   public medicineListForInput = new Observable<Medicine[]>();
 
+  public medicineListInputs = new FormGroup({});
+
   private pharmaciesList: Pharmacy[] = [];
   private medicineList: Medicine[] = [];
+  private medicineToAdd = "";
 
   @ViewChild('specialistTrigger', { read: MatAutocompleteTrigger }) specialistTrigger!: MatAutocompleteTrigger;
   @ViewChild('medicineTrigger', { read: MatAutocompleteTrigger }) medicineTrigger!: MatAutocompleteTrigger;
@@ -38,10 +42,31 @@ export class MedicAddPrescriptionComponent implements OnInit {
     this.pharmacyInput.valueChanges.subscribe((value: string) => {
       this.pharmaciesListForInput = of(this._filterPharmaicies(value));
     });
+
     this.medicineInput.valueChanges.subscribe((value: string) => {
+      if (value !== "Creaza acest medicament") {
+        if (value !== 'Inchide') {
+          this.medicineToAdd = value;
+        }
+      }
+      else {
+        this.createMedicine(this.medicineToAdd);
+        this.medicineToAdd = "";
+      }
       this.medicineListForInput = of(
-        this._filterMedine(value).concat(value !== '' ? [{id: 'create', name: 'Creaza acest medicament'}] : [])
+        [{id: 'inchide', name: 'Inchide'}].concat(
+          this._filterMedine(value).concat(
+            value !== '' ? [{id: 'create', name: 'Creaza acest medicament'}] : []
+          )
+        )
       );
+    });
+
+    this.medicineListInputs.valueChanges.subscribe((value: any) => {
+      const keys = Object.keys(value);
+      keys.forEach((key: string) => {
+        this.prescription.medicines[keys.indexOf(key)].quantity = value[key];
+      });
     });
   }
 
@@ -54,8 +79,30 @@ export class MedicAddPrescriptionComponent implements OnInit {
     this.prescription.pharmacy = pharmacy.id;
   }
 
+  public createMedicine(name: string): void {
+    this.medicineService.addMedicine({id: '', name: name}).subscribe((m: Medicine) => {
+      this.medicineList.push(m);
+      this.medicineInput.setValue("");
+    });
+  }
+
+  public removeMedicine(medicine: PrescribedMedicine): void {
+    this.prescription.medicines = this.prescription.medicines
+      .filter((m: PrescribedMedicine) => m.medicine.id !== medicine.medicine.id);
+  }
+
   public selectMedicine(medicine: Medicine): void {
-    // to do
+    if (medicine.id !== 'create' && medicine.id !== 'inchide') {
+      this.prescription.medicines.push({
+        medicine: medicine,
+        quantity: 0
+      });
+      this.medicineListInputs.addControl(medicine.name, new FormControl(0));
+      this.medicineInput.setValue("");
+    }
+    else {
+      this.medicineInput.setValue("");
+    }
   }
 
   public onFocusSpecialist(): void {
@@ -72,6 +119,11 @@ export class MedicAddPrescriptionComponent implements OnInit {
 
   public onNoClick(): void {
     this.dialogRef.close();
+  }
+
+  public isCreateBtnDisabled(): boolean {
+    return !this.prescription.pharmacy || this.prescription.medicines.length === 0 || 
+      this.prescription.medicines.some((m: PrescribedMedicine) => m.quantity === 0 || (m.quantity.toString() || "") === "");
   }
 
   private getAllPharmacies(): void {

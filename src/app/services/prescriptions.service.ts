@@ -1,8 +1,7 @@
+import { PrescribedMedicine } from './../models/medicine';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import * as moment from 'moment';
 import { catchError, EMPTY, Observable } from 'rxjs';
-import { Medicine } from '../models/medicine';
 import { Prescription } from '../models/prescription';
 import { BaseService } from './base.service';
 
@@ -21,7 +20,7 @@ export class PrescriptionsService {
     return this.baseService.get<Prescription[]>('users/'+ patientId +'/prescriptions');
   }
 
-  public addPrescription(patientId: string, pharmacyId: string, medicId: string, medicines: Medicine[]): Observable<Prescription> {
+  public addPrescription(patientId: string, pharmacyId: string, medicId: string, medicines: PrescribedMedicine[]): Observable<Prescription> {
     return this.baseService.post<any, Prescription>('users/prescriptions', {
       patient: patientId,
       pharmacy: pharmacyId,

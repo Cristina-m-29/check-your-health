@@ -48,6 +48,26 @@
             </mat-option>
         </mat-autocomplete>
     </mat-form-field>
+
+    <form [formGroup]="medicineListInputs">
+        <span *ngIf="prescription.medicines.length > 0" class="block margin_bottom-s">Medicamente adaugate:</span>
+
+        <div *ngFor="let medicine of prescription.medicines" class="flex width-full">
+            <mat-form-field appearance="outline" class="width-medium margin_right">
+                <mat-label>Nume</mat-label>
+
+                <input matInput disabled required value="{{medicine.medicine.name}}">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="width-medium">
+                <mat-label>Cantitate in mg</mat-label>
+
+                <input matInput type="number" required formControlName="{{medicine.medicine.name}}">
+            </mat-form-field>
+
+            <mat-icon class="remove-medicine-icon" (click)="removeMedicine(medicine)">close</mat-icon>
+        </div>
+    </form>
 </div>
 
 <div class="flex width-full margin_top">
@@ -66,7 +86,7 @@
         mat-raised-button 
         color="primary" 
         [mat-dialog-close]="prescription" 
-        [disabled]="!prescription.pharmacy || prescription.medicines.length === 0"
+        [disabled]="isCreateBtnDisabled()"
         class="width-medium height-small button"
         cdkFocusInitial
     >

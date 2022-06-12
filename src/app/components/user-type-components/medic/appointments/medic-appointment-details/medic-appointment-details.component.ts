@@ -1,3 +1,4 @@
+import { Prescription } from 'src/app/models/prescription';
 import { Recommendation } from 'src/app/models/recommendation';
 import { ThisReceiver } from '@angular/compiler';
 import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
@@ -265,8 +266,15 @@ export class MedicAppointmentDetailsComponent implements OnInit {
     const addRecommendationDialog = this.dialog.open(MedicAddPrescriptionComponent, {
       width: '40rem'
     });
-    addRecommendationDialog.afterClosed().subscribe();
-    // to do
+    addRecommendationDialog.afterClosed().subscribe((prescription: Prescription) => {
+      if (prescription) {
+        this.loading = true;
+        this.prescriptionsService.addPrescription(this.appointment.patient, prescription.pharmacy, this.appointment.medic, prescription.medicines)
+          .subscribe((pres: Prescription) => {
+            window.location.reload();
+          });
+      }
+    });
   }
 
   private getAllPacientsForMedic(): void {
