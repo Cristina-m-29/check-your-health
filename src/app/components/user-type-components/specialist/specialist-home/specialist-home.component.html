@@ -1,0 +1,45 @@
+<ng-container *ngIf="loading">
+  <cyh-loading-screen></cyh-loading-screen>
+</ng-container>
+
+<div class="flex" [ngClass]="{'card-hide': loading}">
+  <ng-container>
+      <div class="flex width-full">
+        <div class="flex width-full search-input margin_right">
+          <mat-form-field appearance="outline" class="width-full">
+              <mat-label>Filtreaza</mat-label>
+
+              <input
+                type="text"
+                placeholder="Filtreaza dupa nume pacient"
+                matInput
+                [formControl]="searchRecommendationInput"
+                (keypress)="manageKeypress($event)"
+              >
+          </mat-form-field>
+
+          <button
+            mat-button
+            color="primary"
+            class="button search-icon search-icon-absolute"
+            [disabled]="!searchRecommendationInput.value"
+            (click)="filterRecommentations()"
+          >
+            <mat-icon>search</mat-icon>
+          </button>
+        </div>
+
+        <button
+          mat-button
+          color="primary"
+          class="button secondary-button search-icon-btn"
+          (click)="resetRecimmentations()"
+        >
+          Reseteaza
+        </button>
+      </div>
+  </ng-container>
+
+
+  <!-- <span class="small-subtitle">Nu există programări noi</span> -->
+</div>

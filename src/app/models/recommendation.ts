@@ -1,6 +1,9 @@
+import { Patient } from "./patient";
+
 export class Recommendation {
   id: string = '';
   patient: string = '';
+  fullPatient: Patient = new Patient();
   medic: string = '';
   medicName?: string = '';
   specialist: string = '';

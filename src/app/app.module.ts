@@ -55,6 +55,7 @@ import { MedicAddDiagnosticDialogComponent } from './components/user-type-compon
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MedicAddRecommendationComponent } from './components/user-type-components/medic/appointments/medic-add-recommendation/medic-add-recommendation.component';
 import { MedicAddPrescriptionComponent } from './components/user-type-components/medic/appointments/medic-add-prescription/medic-add-prescription.component';
+import { SpecialistHomeComponent } from './components/user-type-components/specialist/specialist-home/specialist-home.component';
 
 @NgModule({
   declarations: [
@@ -94,6 +95,7 @@ import { MedicAddPrescriptionComponent } from './components/user-type-components
     MedicAddDiagnosticDialogComponent,
     MedicAddRecommendationComponent,
     MedicAddPrescriptionComponent,
+    SpecialistHomeComponent,
   ],
   imports: [
     AppRoutingModule,

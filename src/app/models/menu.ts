@@ -22,8 +22,8 @@ export const menus: Menu[] = [
   },
   {
     userType: 'specialist',
-    menuList: [''],
-    translateMenuList: ['']
+    menuList: ['home', 'profile'],
+    translateMenuList: ['acasă', 'profil']
   }
 ];
 

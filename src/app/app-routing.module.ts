@@ -17,6 +17,7 @@ import {
 import {
   PatientReferencesComponent
 } from './components/user-type-components/patient/references/patient-references/patient-references.component';
+import { SpecialistHomeComponent } from './components/user-type-components/specialist/specialist-home/specialist-home.component';
 import { NotificationsComponent } from './components/utils/notifications/notifications.component';
 import { AuthGuard } from './guards/auth.guard';
 
@@ -62,16 +63,19 @@ const routes: Routes = [
       }
     ]
   },
-  // {
-  //   path: 'specialist',
-  //   // to add menu items
-  //   children: [
-  //     {
-  //       path: '**',
-  //       component:
-  //     }
-  //   ]
-  // },
+  {
+    path: 'specialist',
+    children: [
+      {
+        path: 'home',
+        component: SpecialistHomeComponent
+      },
+      {
+        path: '**',
+        redirectTo: 'specialist/home'
+      }
+    ]
+  },
   {
     path: 'patient',
     canActivate: [AuthGuard],

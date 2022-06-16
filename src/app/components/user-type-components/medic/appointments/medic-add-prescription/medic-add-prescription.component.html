@@ -6,7 +6,7 @@
 
         <input
             #specialistTrigger
-            type="text" 
+            type="text"
             placeholder="Specialist"
             matInput
             [formControl]="pharmacyInput"
@@ -15,9 +15,9 @@
         >
 
         <mat-autocomplete #pharmacyTrigger autoActiveFirstOption #auto="matAutocomplete">
-            <mat-option 
-                *ngFor="let option of pharmaciesListForInput | async" 
-                [value]="option.name" 
+            <mat-option
+                *ngFor="let option of pharmaciesListForInput | async"
+                [value]="option.name"
                 (click)="selectPharmacy(option)"
             >
                 {{option.name}}
@@ -28,9 +28,9 @@
     <mat-form-field appearance="outline" class="width-full">
         <mat-label>Adauga medicamente</mat-label>
 
-        <input 
+        <input
             #medicineTrigger
-            type="text" 
+            type="text"
             placeholder="Medicament"
             matInput
             [formControl]="medicineInput"
@@ -39,9 +39,9 @@
         >
 
         <mat-autocomplete autoActiveFirstOption #autoMedicine="matAutocomplete">
-            <mat-option 
-                *ngFor="let option of medicineListForInput | async" 
-                [value]="option.name" 
+            <mat-option
+                *ngFor="let option of medicineListForInput | async"
+                [value]="option.name"
                 (click)="selectMedicine(option)"
             >
                 {{option.name}}
@@ -82,10 +82,10 @@
 
     <span class="margin_right"></span>
 
-    <button 
-        mat-raised-button 
-        color="primary" 
-        [mat-dialog-close]="prescription" 
+    <button
+        mat-raised-button
+        color="primary"
+        [mat-dialog-close]="prescription"
         [disabled]="isCreateBtnDisabled()"
         class="width-medium height-small button"
         cdkFocusInitial
