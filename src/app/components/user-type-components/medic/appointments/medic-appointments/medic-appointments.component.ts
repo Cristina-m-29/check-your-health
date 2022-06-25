@@ -1,5 +1,5 @@
 import { AppointmentsService } from 'src/app/services/appointments.service';
-import { Component, EventEmitter, Output, OnInit } from '@angular/core';
+import { Component, EventEmitter, Output, OnInit, Input } from '@angular/core';
 import { map, Observable, Subject } from 'rxjs';
 import { Appointment } from 'src/app/models/appointment';
 import { Router } from '@angular/router';
@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./medic-appointments.component.sass']
 })
 export class MedicAppointmentsComponent implements OnInit{
+  @Input() forSpecialist = false;
   @Output() gotAppointments = new EventEmitter<string>();
 
   public futureMarkedAppointments$ = new Subject<Appointment[]>();
@@ -19,9 +20,9 @@ export class MedicAppointmentsComponent implements OnInit{
       this.gotAppointments.emit('old');
       return app;
     })
-  );
+  )
 
-  constructor(private appointmentsService: AppointmentsService, private router: Router ) {
+  constructor(private appointmentsService: AppointmentsService, private router: Router) {
     this.appointmentsService.getAppointments('medic');
   }
 
@@ -29,9 +30,13 @@ export class MedicAppointmentsComponent implements OnInit{
     this.filterFutureAppointments();
   }
 
+  public isOldAppointment(date: number): boolean {
+    return new Date() > new Date(date * 1000);
+  }
+
   public openAppointmentDetails(appointment: Appointment, type: string): void {
     sessionStorage.setItem('cyhSelectedAppointment', JSON.stringify(appointment));
-    this.router.navigateByUrl('medic/appointment?id=' + appointment.id + '&type=' + type);
+    this.router.navigateByUrl((!this.forSpecialist ? 'medic/appointment?id=' : 'specialist/appointment?id=') + appointment.id + '&type=' + type);
   }
 
   public addAppointment(): void {

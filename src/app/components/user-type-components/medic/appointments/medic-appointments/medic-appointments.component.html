@@ -1,53 +1,70 @@
 <div class="flex min-height-full">
     <div class="width-medium margin_right-xl">
-        <div class="card appointments-card margin_bottom-xl">
-            <span class="title">Programari noi</span>
+      <cyh-specialist-appointment-search class="flex width-full" *ngIf="forSpecialist"></cyh-specialist-appointment-search>
 
-            <div class="appointments-list new-appointments-list" *ngIf="(futureAppointments$ | async) as a">
-                <div class="appointment" *ngFor="let appointment of a" (click)="openAppointmentDetails(appointment, 'new')">
-                  <span class="subtitle">
-                    {{appointment.date * 1000 | date: 'dd MMM yyyy'}} -
-                    {{appointment.hoursInterval.start | formatTime}} - {{appointment.hoursInterval.end | formatTime}} -
-                    <span class="subtitle-purple">{{appointment?.fullPacient?.name}}</span>
-                  </span>
+      <div class="card appointments-card margin_bottom-xl">
+        <span class="title">Programari noi</span>
 
-                  <span class="small-subtitle pending" *ngIf="appointment.status === 'pending'">Așteaptă confirmare</span>
-                  <span class="small-subtitle accepted" *ngIf="appointment.status === 'accepted'">Confirmată</span>
-                  <span class="small-subtitle refused" *ngIf="appointment.status === 'refused'">Respinsă</span>
-                </div>
+        <div class="appointments-list new-appointments-list" *ngIf="(futureAppointments$ | async) as a">
+            <div class="appointment" *ngFor="let appointment of a" (click)="openAppointmentDetails(appointment, 'new')">
+              <span class="subtitle">
+                {{appointment.date * 1000 | date: 'dd MMM yyyy'}} -
+                {{appointment.hoursInterval.start | formatTime}} - {{appointment.hoursInterval.end | formatTime}} -
+                <span class="subtitle-purple">{{appointment?.fullPacient?.name}}</span>
+              </span>
 
-                <span *ngIf="a.length === 0" class="small-subtitle">Nu există programări noi</span>
+              <ng-container *ngIf="appointment.status === 'pending'">
+                <ng-container *ngIf="!isOldAppointment(appointment.date); else old">
+                  <span class="small-subtitle pending">Așteaptă confirmare</span>
+                </ng-container>
+                <ng-template #old>
+                  <span class="small-subtitle pending">Expirata</span>
+                </ng-template>
+              </ng-container>  
+              <span class="small-subtitle accepted" *ngIf="appointment.status === 'accepted'">Confirmată</span>
+              <span class="small-subtitle refused" *ngIf="appointment.status === 'refused'">Respinsă</span>
             </div>
 
-            <button
-              mat-raised-button
-              color="primary"
-              class="width-full height-small button"
-              (click)="addAppointment()"
-            >
-              Adauga programare
-            </button>
+            <span *ngIf="a.length === 0" class="small-subtitle">Nu există programări noi</span>
         </div>
 
-        <div class="card appointments-card flex_column flex_column-justify margin_bottom-xl">
-            <span class="title">Programări viitoare</span>
+        <button
+          *ngIf="!forSpecialist"
+          mat-raised-button
+          color="primary"
+          class="width-full height-small button"
+          (click)="addAppointment()"
+        >
+          Adauga programare
+        </button>
+      </div>
 
-            <div class="appointments-list" *ngIf="(futureMarkedAppointments$ | async) as a">
-                <div class="appointment" *ngFor="let appointment of a" (click)="openAppointmentDetails(appointment, 'marked')">
-                  <span class="subtitle">
-                    {{appointment.date * 1000 | date: 'dd MMM yyyy'}} -
-                    {{appointment.hoursInterval.start | formatTime}} - {{appointment.hoursInterval.end | formatTime}} -
-                    <span class="subtitle-purple">{{appointment?.fullPacient?.name}}</span>
-                  </span>
+      <div class="card appointments-card flex_column flex_column-justify margin_bottom-xl">
+        <span class="title">Programări viitoare</span>
 
-                  <span class="small-subtitle pending" *ngIf="appointment.status === 'pending'">Așteaptă confirmare</span>
-                  <span class="small-subtitle accepted" *ngIf="appointment.status === 'accepted'">Confirmată</span>
-                  <span class="small-subtitle refused" *ngIf="appointment.status === 'refused'">Respinsă</span>
-                </div>
+        <div class="appointments-list" *ngIf="(futureMarkedAppointments$ | async) as a">
+          <div class="appointment" *ngFor="let appointment of a" (click)="openAppointmentDetails(appointment, 'marked')">
+            <span class="subtitle">
+              {{appointment.date * 1000 | date: 'dd MMM yyyy'}} -
+              {{appointment.hoursInterval.start | formatTime}} - {{appointment.hoursInterval.end | formatTime}} -
+              <span class="subtitle-purple">{{appointment?.fullPacient?.name}}</span>
+            </span>
 
-                <span *ngIf="a.length === 0" class="small-subtitle">Nu există programări viitoare</span>
-            </div>
+            <ng-container *ngIf="appointment.status === 'pending'">
+              <ng-container *ngIf="!isOldAppointment(appointment.date); else old">
+                <span class="small-subtitle pending">Așteaptă confirmare</span>
+              </ng-container>
+              <ng-template #old>
+                <span class="small-subtitle pending">Expirata</span>
+              </ng-template>
+            </ng-container>  
+            <span class="small-subtitle accepted" *ngIf="appointment.status === 'accepted'">Confirmată</span>
+            <span class="small-subtitle refused" *ngIf="appointment.status === 'refused'">Respinsă</span>
+          </div>
+
+          <span *ngIf="a.length === 0" class="small-subtitle">Nu există programări viitoare</span>
         </div>
+      </div>
     </div>
 
     <div class="width-medium card old-appointments-card">
@@ -63,9 +80,16 @@
               </span>
               </span>
 
-              <span class="small-subtitle" *ngIf="appointment.status === 'pending'">Așteaptă confirmare</span>
-              <span class="small-subtitle" *ngIf="appointment.status === 'accepted'">Confirmată</span>
-              <span class="small-subtitle" *ngIf="appointment.status === 'refused'">Respinsă</span>
+              <ng-container *ngIf="appointment.status === 'pending'">
+                <ng-container *ngIf="!isOldAppointment(appointment.date); else old">
+                  <span class="small-subtitle pending">Așteaptă confirmare</span>
+                </ng-container>
+                <ng-template #old>
+                  <span class="small-subtitle pending">Expirata</span>
+                </ng-template>
+              </ng-container>  
+              <span class="small-subtitle accepted" *ngIf="appointment.status === 'accepted'">Confirmată</span>
+              <span class="small-subtitle refused" *ngIf="appointment.status === 'refused'">Respinsă</span>
             </div>
 
             <span *ngIf="a.length === 0" class="small-subtitle">Istoricul programărilor este gol</span>

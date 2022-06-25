@@ -67,8 +67,17 @@ const routes: Routes = [
     path: 'specialist',
     children: [
       {
+        path: '',
+        pathMatch: 'full',
+        redirectTo: '/specialist/home',
+      },
+      {
         path: 'home',
         component: SpecialistHomeComponent
+      },
+      {
+        path: 'appointment',
+        component: MedicAppointmentDetailsComponent
       },
       {
         path: '**',

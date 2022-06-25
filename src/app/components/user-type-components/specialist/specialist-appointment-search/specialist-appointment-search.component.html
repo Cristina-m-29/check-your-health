@@ -1,0 +1,36 @@
+<div class="flex width-full search-input">
+    <mat-form-field appearance="outline" class="width-full">
+        <mat-label>Cauta</mat-label>
+
+        <input
+            #searchTrigger
+            type="text"
+            placeholder="Cauta dupa nume pacient"
+            matInput
+            [formControl]="searchRecommendationInput"
+            [matAutocomplete]="auto"
+            (keypress)="manageKeypress($event)"
+            (focus)="onFocus()"
+        >
+
+        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+            <mat-option
+                *ngFor="let option of  usersListForInput | async"
+                [value]="option.name"
+                (click)="selectPatient(option)"
+            >
+                {{option.name}}
+            </mat-option>
+        </mat-autocomplete>
+    </mat-form-field>
+
+    <button
+        mat-button
+        color="primary"
+        class="button search-icon search-icon-absolute"
+        [disabled]="shouldSearchBeDisabled"
+        (click)="startSearch()"
+    >
+        <mat-icon>search</mat-icon>
+    </button> 
+</div>

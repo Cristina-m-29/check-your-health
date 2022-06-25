@@ -1,0 +1,37 @@
+
+<h1 class="purple-title" mat-dialog-title>Rezultatele cautarii pentru pacientul {{patient.name}}</h1>
+
+<div mat-dialog-content>
+    <div 
+      class="appointment" 
+      [ngClass]="{'old-appointment': isOldAppointment(appointment.date)}"
+      *ngFor="let appointment of appointments" 
+      (click)="openAppointmentDetails(appointment, appointment.status)"
+    >
+      <span class="subtitle">
+          {{appointment.date * 1000 | date: 'dd MMM yyyy'}} -
+          {{appointment.hoursInterval.start | formatTime}} - {{appointment.hoursInterval.end | formatTime}}
+          <span class="subtitle-purple">{{appointment?.fullPacient?.name}}</span>
+      </span>
+  
+      <ng-container *ngIf="!isOldAppointment(appointment.date)">
+        -
+        <span class="small-subtitle pending" *ngIf="appointment.status === 'pending'">Așteaptă confirmare</span>
+        <span class="small-subtitle accepted" *ngIf="appointment.status === 'accepted'">Confirmată</span>
+        <span class="small-subtitle refused" *ngIf="appointment.status === 'refused'">Respinsă</span>
+      </ng-container>
+    </div>
+    
+    <span *ngIf="appointments.length === 0" class="small-subtitle">Nu există programări</span>    
+</div>
+
+<div class="flex margin_top">
+  <button
+    mat-button
+    color="primary"
+    class="button secondary-button"
+    (click)="onNoClick()"
+  >
+    Inchide
+  </button>
+</div>

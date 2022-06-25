@@ -81,7 +81,14 @@
 
         <span class="small-subtitle">Status</span>
 
-        <span class="subtitle pending block margin_bottom" *ngIf="appointment.status === 'pending'">Așteaptă confirmare</span>
+        <ng-container *ngIf="appointment.status === 'pending'">
+          <ng-container *ngIf="!isOldAppointment(appointment.date); else old">
+            <span class="small-subtitle pending block">Așteaptă confirmare</span>
+          </ng-container>
+          <ng-template #old>
+            <span class="small-subtitle pending block">Expirata</span>
+          </ng-template>
+        </ng-container>
         <span class="subtitle accepted block margin_bottom" *ngIf="appointment.status === 'accepted'">Confirmată</span>
         <span class="subtitle refused block margin_bottom" *ngIf="appointment.status === 'refused'">Respinsă</span>
 
@@ -92,28 +99,30 @@
         </ng-container>
 
         <div class="flex" *ngIf="appointmentType === 'new'">
-          <button
-            mat-button
-            color="primary"
-            class="width-medium height-small button secondary-button"
-            (click)="setAppointmentStatus('refused')"
-          >
-            Refuza
-          </button>
+          <ng-container *ngIf="!isOldAppointment(appointment.date)">
+            <button
+              mat-button
+              color="primary"
+              class="width-medium height-small button secondary-button"
+              (click)="setAppointmentStatus('refused')"
+            >
+              Refuza
+            </button>
 
-          <span class="margin_right"></span>
+            <span class="margin_right"></span>
 
-          <button
-            mat-raised-button
-            color="primary"
-            class="width-medium height-small button"
-            (click)="setAppointmentStatus('accepted')"
-          >
-            Accepta
-          </button>
+            <button
+              mat-raised-button
+              color="primary"
+              class="width-medium height-small button"
+              (click)="setAppointmentStatus('accepted')"
+            >
+              Accepta
+            </button>
+          </ng-container>
         </div>
 
-        <ng-container *ngIf="appointmentType !== 'new' && appointment.status === 'accepted'">
+        <ng-container *ngIf="appointmentType !== 'new' && appointment.status === 'accepted' && !forSpecialist">
           <button
             *ngIf="!appointment.diagnostic"
             mat-raised-button
@@ -169,6 +178,10 @@
             </div>
           </ng-container>
         </ng-container>
+
+        <ng-container *ngIf="appointmentType !== 'new' && appointment.status === 'accepted' && forSpecialist">
+          // to do
+        </ng-container>
       </div>
     </ng-container>    
   </div>
@@ -204,19 +217,6 @@
             </mat-option>
         </mat-autocomplete>
       </mat-form-field>
-
-      <!-- <mat-form-field appearance="fill" class="width-full">
-        <mat-label>Pacient</mat-label>
-        <mat-select>
-          <mat-option
-            *ngFor="let patient of patientsForSelect"
-            [value]="patient.name"
-            (click)="selectPatient(patient)"
-          >
-            {{patient.name}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field> -->
     </div>
 
     <cyh-patient-details-card

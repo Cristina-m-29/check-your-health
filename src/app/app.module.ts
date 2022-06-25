@@ -56,6 +56,10 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MedicAddRecommendationComponent } from './components/user-type-components/medic/appointments/medic-add-recommendation/medic-add-recommendation.component';
 import { MedicAddPrescriptionComponent } from './components/user-type-components/medic/appointments/medic-add-prescription/medic-add-prescription.component';
 import { SpecialistHomeComponent } from './components/user-type-components/specialist/specialist-home/specialist-home.component';
+import { SpecialistAppointmentSuggestionComponent } from './components/user-type-components/specialist/specialist-appointment-suggestion/specialist-appointment-suggestion.component';
+import { SpecialistAppointmentSuggestionDialogComponent } from './components/user-type-components/specialist/specialist-appointment-suggestion-dialog/specialist-appointment-suggestion-dialog.component';
+import { SpecialistAppointmentSearchDialogComponent } from './components/user-type-components/specialist/specialist-appointment-search-dialog/specialist-appointment-search-dialog.component';
+import { SpecialistAppointmentSearchComponent } from './components/user-type-components/specialist/specialist-appointment-search/specialist-appointment-search.component';
 
 @NgModule({
   declarations: [
@@ -96,6 +100,10 @@ import { SpecialistHomeComponent } from './components/user-type-components/speci
     MedicAddRecommendationComponent,
     MedicAddPrescriptionComponent,
     SpecialistHomeComponent,
+    SpecialistAppointmentSuggestionComponent,
+    SpecialistAppointmentSuggestionDialogComponent,
+    SpecialistAppointmentSearchDialogComponent,
+    SpecialistAppointmentSearchComponent,
   ],
   imports: [
     AppRoutingModule,

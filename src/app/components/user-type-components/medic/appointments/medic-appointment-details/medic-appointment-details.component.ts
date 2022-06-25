@@ -56,6 +56,8 @@ export class MedicAppointmentDetailsComponent implements OnInit {
   private patientViewLoaded = false;
   private openedFromPatientsPage = false;
 
+  public forSpecialist = false;
+
   // filer dates on calendar
   // previous and weekend days are not allowed
   public dateFilterForCalendar = (d: any): boolean => {
@@ -101,6 +103,10 @@ export class MedicAppointmentDetailsComponent implements OnInit {
         this.appointmentType = params['type'] || 'old';
       }
     );
+
+    if(this.router.url.includes('specialist')) {
+      this.forSpecialist = true;
+    }
 
     this.medicId = this.authService.getUserId();
 
@@ -175,12 +181,21 @@ export class MedicAppointmentDetailsComponent implements OnInit {
 
   public goBack(): void { 
     sessionStorage.removeItem('cyhSelectedAppointment');
-    if (!this.openedFromPatientsPage) {
-      this.router.navigateByUrl('medic/home');
+    if (this.forSpecialist) {
+      this.router.navigateByUrl('specialist/home');
     }
     else {
-      this.router.navigateByUrl('medic/patients');
+      if (!this.openedFromPatientsPage) {
+        this.router.navigateByUrl('medic/home');
+      }
+      else {
+        this.router.navigateByUrl('medic/patients');
+      }
     }
+  }
+
+  public isOldAppointment(date: number): boolean {
+    return new Date() > new Date(date * 1000);
   }
 
   public setAppointmentStatus(status: AppointmentStatus): void {
