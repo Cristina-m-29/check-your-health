@@ -76,14 +76,40 @@ Farmacie: []
         - locatie
         - program
 
-// notificari
-    - de la farmacie:
-        - accept retata -> notif pacient
-        - reject reteta -> notif medic
-
 // de documentat:
   - trimitere sms uri
 
 
 // pt sergiu
     - notificari - realizate cu ajutorul websocket urilor
+
+
+// TO DO:
+    - add view programare pe pagina de trimiteri daca pacientul a creat deja o programare pt o trimitere
+    - adauga optiunea de reprogramare pe trimiteri, in cazul in care programarea initiala a fost respinsa sau a expirat
+
+    - adauga vezi trimitere btn pe pagine de detalii programare, daca aceasta a fost creata in urma unei trimiteri
+
+    - adauga rezultate trimitere pe detalii programare (medic)
+    - dezactiveaza btn de creaza prescriptie daca aceasta a fost aceptata de o farmacie
+    - retrimite prescriptie catre alta farmacie daca farmacia ulterioara a refuzat-o 
+
+
+// notificari
+    pt pacient: 
+        - cand o programare isi schimba statusul
+        - cand primeste o trimitere noua
+        - cand primeste o reteta noua
+        - cand statusul pentru o reteta se schimba
+        - cand farmacia pentru o reteta se schimba
+
+    pt medic:
+        - cand primeste o noua programare
+        - cand o programare primeste un feedback de la medicul specialist
+        - cand farmacia accepta sau refuza o prescriptie
+
+    pt specialist:
+        - cand primeste o noua programare
+
+    pt farmacie:
+        - cand primeste o reteta noua

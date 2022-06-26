@@ -38,10 +38,9 @@ export class MedicAddDiagnosticDialogComponent implements OnInit {
   }
 
   public ngOnInit(): void {
-    console.log(this.data);
     if (!this.data.editable) {
       this.editable = false;
-      console.log(this.data.diagnostic);
+      
       this.diagnosticForm.controls['final'].setValue(this.data.diagnostic?.final);
       this.diagnosticForm.controls['final'].disable();
 
