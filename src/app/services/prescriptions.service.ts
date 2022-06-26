@@ -2,7 +2,7 @@ import { PrescribedMedicine } from './../models/medicine';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, EMPTY, Observable } from 'rxjs';
-import { Prescription } from '../models/prescription';
+import { Prescription, PrescriptionStatus } from '../models/prescription';
 import { BaseService } from './base.service';
 import { AuthService } from './auth.service';
 import { JwtHelperService } from '@auth0/angular-jwt';
@@ -26,7 +26,6 @@ export class PrescriptionsService {
       const helper = new JwtHelperService();
       const id = helper.decodeToken<any>(accessToken).sub;
       this.websocketService.connect('prescriptions', id).subscribe((value) => {
-        console.log("Service:", value);
         if (!this.websocketIgnoreNextEvent) {
           subscriber.next(value);
         } else {
@@ -49,6 +48,12 @@ export class PrescriptionsService {
     }).pipe(catchError((err: HttpErrorResponse) => {
       return EMPTY;
     }));
+  }
+
+  public updatePrescriptionStatus(prescriptionId: string, status: PrescriptionStatus): Observable<Prescription> {
+    return this.baseService.patch<any, Prescription>('users/prescriptions/' + prescriptionId, {
+      status: status
+    });
   }
 
 }

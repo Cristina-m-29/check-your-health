@@ -60,6 +60,12 @@ import { SpecialistAppointmentSuggestionComponent } from './components/user-type
 import { SpecialistAppointmentSuggestionDialogComponent } from './components/user-type-components/specialist/specialist-appointment-suggestion-dialog/specialist-appointment-suggestion-dialog.component';
 import { SpecialistAppointmentSearchDialogComponent } from './components/user-type-components/specialist/specialist-appointment-search-dialog/specialist-appointment-search-dialog.component';
 import { SpecialistAppointmentSearchComponent } from './components/user-type-components/specialist/specialist-appointment-search/specialist-appointment-search.component';
+import { PharmacyHomeComponent } from './components/user-type-components/pharmacy/pharmacy-home/pharmacy-home.component';
+import { PharmacyPrescriptionsHistoryComponent } from './components/user-type-components/pharmacy/pharmacy-prescriptions-history/pharmacy-prescriptions-history.component';
+import { PharmacyPatientSearchComponent } from './components/user-type-components/pharmacy/pharmacy-patient-search/pharmacy-patient-search.component';
+import { PharmacyPatientSearchDialogComponent } from './components/user-type-components/pharmacy/pharmacy-patient-search-dialog/pharmacy-patient-search-dialog.component';
+import { PharmacyPrescriptionDetailsComponent } from './components/user-type-components/pharmacy/pharmacy-prescription-details/pharmacy-prescription-details.component';
+import { PatientMedicDetailsCardComponent } from './components/user-type-details-cards/patient-medic-details-card/patient-medic-details-card.component';
 
 @NgModule({
   declarations: [
@@ -104,6 +110,12 @@ import { SpecialistAppointmentSearchComponent } from './components/user-type-com
     SpecialistAppointmentSuggestionDialogComponent,
     SpecialistAppointmentSearchDialogComponent,
     SpecialistAppointmentSearchComponent,
+    PharmacyHomeComponent,
+    PharmacyPrescriptionsHistoryComponent,
+    PharmacyPatientSearchComponent,
+    PharmacyPatientSearchDialogComponent,
+    PharmacyPrescriptionDetailsComponent,
+    PatientMedicDetailsCardComponent,
   ],
   imports: [
     AppRoutingModule,

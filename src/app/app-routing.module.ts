@@ -17,6 +17,9 @@ import {
 import {
   PatientReferencesComponent
 } from './components/user-type-components/patient/references/patient-references/patient-references.component';
+import { PharmacyHomeComponent } from './components/user-type-components/pharmacy/pharmacy-home/pharmacy-home.component';
+import { PharmacyPrescriptionDetailsComponent } from './components/user-type-components/pharmacy/pharmacy-prescription-details/pharmacy-prescription-details.component';
+import { PharmacyPrescriptionsHistoryComponent } from './components/user-type-components/pharmacy/pharmacy-prescriptions-history/pharmacy-prescriptions-history.component';
 import { SpecialistHomeComponent } from './components/user-type-components/specialist/specialist-home/specialist-home.component';
 import { NotificationsComponent } from './components/utils/notifications/notifications.component';
 import { AuthGuard } from './guards/auth.guard';
@@ -115,16 +118,28 @@ const routes: Routes = [
       }
     ]
   },
-  // {
-  //   path: 'pharmacy',
-  //   // to add menu items
-  //   children: [
-  //     {
-  //       path: '**',
-  //       component:
-  //     }
-  //   ]
-  // },
+  {
+    path: 'pharmacy',
+    children: [
+      {
+        path: 'home',
+        component: PharmacyHomeComponent
+      },
+      {
+        path: 'prescription',
+        component: PharmacyPrescriptionDetailsComponent
+      },
+      {
+        path: 'prescriptions-history',
+        component: PharmacyPrescriptionsHistoryComponent
+      },
+      {
+        path: '**',
+        redirectTo: '/pharmacy/home',
+        pathMatch: 'full'
+      },
+    ]
+  },
   // other
   {
     path: 'notificari',

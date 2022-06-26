@@ -6,7 +6,7 @@
   <span *ngIf="prescriptions.length === 0">Nu au fost gasite retete : (</span>
 
   <ng-container *ngIf="prescriptions.length > 0">
-    <div class="width-medium margin_right-xl">
+    <div class="width-medium margin_right-xl prescriptions">
       <cyh-patient-prescription-details
         *ngFor="let prescription of prescriptions"
         [prescription]="prescription"

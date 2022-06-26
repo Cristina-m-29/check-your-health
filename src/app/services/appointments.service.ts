@@ -29,7 +29,6 @@ export class AppointmentsService {
       const helper = new JwtHelperService();
       const id = helper.decodeToken<any>(accessToken).sub;
       this.websocketService.connect('appointments', id).subscribe((value) => {
-        console.log("Service:", value);
         if (!this.websocketIgnoreNextEvent) {
           subscriber.next(value);
         } else {

@@ -15,7 +15,6 @@ export class MedicineService {
   public getMedicineEvents(): Observable<any> {
     return new Observable<any>(subscriber => {
       this.websocketService.connect('medicine').subscribe((value) => {
-        console.log("Service:", value);
         if (!this.websocketIgnoreNextEvent) {
           subscriber.next(value);
         } else {

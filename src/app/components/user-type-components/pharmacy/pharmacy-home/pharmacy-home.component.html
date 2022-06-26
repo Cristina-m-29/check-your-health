@@ -1,0 +1,56 @@
+<ng-container *ngIf="loading">
+    <cyh-loading-screen></cyh-loading-screen>
+</ng-container>
+  
+<div class="flex min-height-full" [ngClass]="{'card-hide': loading}">
+    <div class="width-medium margin_right-xl">
+        <cyh-pharmacy-patient-search class="flex width-full"></cyh-pharmacy-patient-search>
+
+        <div class="card pres-card margin_bottom-xl">
+            <span class="title">Rețete noi</span>
+    
+            <div class="pres-list new-pres-list">
+                <div class="pres" *ngFor="let pres of pendingPress" (click)="openPrescriptionDetails(pres)">
+                    <span class="subtitle">
+                        Pacient: {{pres.fullPatient?.name}}
+                    </span>
+    
+                    <span class="small-subtitle">Medic: {{pres.fullMedic?.name}}</span>
+                </div>
+    
+                <span *ngIf="pendingPress.length === 0" class="small-subtitle">Nu există rețete noi</span>
+            </div>
+        </div>
+
+        <div class="card pres-card flex_column flex_column-justify margin_bottom-xl">
+        <span class="title">Gata de ridicare</span>
+
+        <div class="pres-list">
+            <div class="pres" *ngFor="let pres of readyForPickupPress" (click)="openPrescriptionDetails(pres)">
+                <span class="subtitle">
+                    Pacient: {{pres.fullPatient?.name}}
+                </span>
+
+                <span class="small-subtitle">Medic: {{pres.fullMedic?.name}}</span> 
+            </div>
+
+            <span *ngIf="readyForPickupPress.length === 0" class="small-subtitle">Nu există rețete gata de ridicat</span>
+        </div>
+        </div>
+    </div>
+
+    <div class="width-medium card old-pres-card">
+        <span class="title">Istoric rețete</span>
+
+        <div class="old-pres-container">
+            <div class="old-pres" *ngFor="let pres of oldPress" (click)="openPrescriptionDetails(pres)">
+                <span class="subtitle">Pacient: {{pres.fullPatient?.name}} - Medic: {{pres.fullMedic?.name}}</span>
+                
+                <span *ngIf="pres.status === 'refused'" class="small-subtitle pending">Refuzată</span>
+                <span *ngIf="pres.status === 'delivered'" class="small-subtitle pending">Ridicată</span>
+            </div>
+
+            <span *ngIf="oldPress.length === 0" class="small-subtitle">Istoricul prescriptiilor este gol</span>
+        </div>
+    </div>
+</div>

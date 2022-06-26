@@ -24,6 +24,11 @@ export class BaseService {
     return this.http.post<U>(url, body);
   }
 
+  patch<T,U>(url: string, body: T): Observable<U> {
+    url = this.baseUrl + '/' + url;
+    return this.http.patch<U>(url, body);
+  }
+
   put<T,U>(url: string, body: T): Observable<U> {
     url = this.baseUrl + '/' + url;
     return this.http.put<U>(url, body);

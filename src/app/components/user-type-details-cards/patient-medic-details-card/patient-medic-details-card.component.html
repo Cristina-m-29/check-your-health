@@ -1,0 +1,58 @@
+<div class="card medic-patient-card">
+    <div class="patient-details margin_bottom">
+        <span class="title">Detalii pacient</span>
+  
+        <span class="small-subtitle">Nume</span>
+        <span class="subtitle margin_bottom-s">{{patient.name}}</span>
+
+        <span class="small-subtitle">Email</span>
+        <a class="subtitle margin_bottom-s email" [href]="'mailto:' + 'popescuvaleria@mail.com'">{{patient.email}}</a>
+
+        <span class="small-subtitle">Numar de telefon</span>
+        <span class="subtitle margin_bottom-s">{{patient.phoneNumber}}</span>
+
+        <span class="small-subtitle">Conditii</span>
+        <span class="subtitle margin_bottom-l" *ngIf="patient.conditions.length === 0">Pacientul nu are momentan conditii cunoscute</span>
+        <ng-container *ngIf="patient.conditions.length !== 0">
+            <span class="subtitle margin_bottom-l" *ngFor="let condition of patient.conditions">{{condition}}</span>
+        </ng-container>
+    </div>
+
+    <span class="title">Detalii medic</span>
+  
+    <span class="small-subtitle">Nume</span>
+    <span class="subtitle margin_bottom-s">{{medic.name}}</span>
+  
+    <ng-container *ngIf="isSpecialist()">
+      <span class="small-subtitle">Domeniu</span>
+      <span class="subtitle margin_bottom-s">{{getSpecialistDomain() | upperCaseFirstLetter}}</span>
+    </ng-container>
+  
+    <span class="small-subtitle">Email</span>
+    <a class="subtitle margin_bottom-s email" [href]="'mailto:' + 'popescuvaleria@mail.com'">{{medic.email}}</a>
+  
+    <span class="small-subtitle">Numar de telefon</span>
+    <span class="subtitle margin_bottom-s">{{medic.phoneNumber}}</span>
+
+    <span class="small-subtitle margin_top block">Program de lucru</span>
+    <div class="flex margin_top-s">
+        <div class="margin_right-l">
+        <span class="subtitle">Luni-Vineri:</span>
+        <span class="subtitle">Marti:</span>
+        <span class="subtitle">Miercuri:</span>
+        <span class="subtitle">Joi:</span>
+        <span class="subtitle margin_bottom-s">Vineri:</span>
+        </div>
+        <div>
+        <span class="subtitle">{{medic.workingHours.monday.start | formatTime}} - {{medic.workingHours.monday.end | formatTime}}</span>
+        <span class="subtitle">{{medic.workingHours.tuesday.start | formatTime}} - {{medic.workingHours.tuesday.end | formatTime}}</span>
+        <span class="subtitle">{{medic.workingHours.wednesday.start | formatTime}} - {{medic.workingHours.wednesday.end | formatTime}}</span>
+        <span class="subtitle">{{medic.workingHours.thursday.start | formatTime}} - {{medic.workingHours.thursday.end | formatTime}}</span>
+        <span class="subtitle margin_bottom-s">{{medic.workingHours.friday.start | formatTime}} - {{medic.workingHours.friday.end | formatTime}}</span>
+        </div>
+    </div>
+
+    <span class="small-subtitle">Locatie cabinet</span>
+    <span class="subtitle block margin_bottom">{{medic.address}}</span>
+</div>
+  

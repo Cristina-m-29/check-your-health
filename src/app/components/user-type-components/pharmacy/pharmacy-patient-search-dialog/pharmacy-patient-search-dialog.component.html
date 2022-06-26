@@ -1,0 +1,34 @@
+
+<h1 class="purple-title" mat-dialog-title>Rezultatele căutării pentru pacientul {{patient.name}}</h1>
+
+<div mat-dialog-content>
+    <div 
+      class="pres" 
+      *ngFor="let pres of prescriptions" 
+      [ngClass]="{'old-pres': isDeliveredOrRefused(pres)}"
+      (click)="openPrescriptionDetails(pres)"
+    >
+      <span class="subtitle">
+          Pacient: {{pres.fullPatient?.name}} - Medic: {{pres.fullMedic?.name}}
+      </span>
+  
+      <ng-container *ngIf="!isDeliveredOrRefused(pres)">
+        -
+        <span class="small-subtitle pending" *ngIf="pres.status === 'pending'">Așteaptă confirmare</span>
+        <span class="small-subtitle accepted" *ngIf="pres.status === 'ready for pickup'">Gata de ridicare</span>
+      </ng-container>
+    </div>
+    
+    <span *ngIf="prescriptions.length === 0" class="small-subtitle old-pres">Nu există rețete</span>    
+</div>
+
+<div class="flex margin_top">
+  <button
+    mat-button
+    color="primary"
+    class="button secondary-button"
+    (click)="onNoClick()"
+  >
+    Inchide
+  </button>
+</div>

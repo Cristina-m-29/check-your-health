@@ -17,8 +17,8 @@ export const menus: Menu[] = [
   },
   {
     userType: 'pharmacy',
-    menuList: [''],
-    translateMenuList: ['']
+    menuList: ['home', 'prescriptions-history', 'profile'],
+    translateMenuList: ['acasă', 'istoric rețete', 'profil']
   },
   {
     userType: 'specialist',

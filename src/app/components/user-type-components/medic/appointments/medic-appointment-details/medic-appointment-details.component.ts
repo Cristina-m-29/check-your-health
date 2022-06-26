@@ -173,7 +173,6 @@ export class MedicAppointmentDetailsComponent implements OnInit {
   }
 
   public selectPatient(patient: Patient): void {
-    console.log(patient);
     this.patientViewLoaded = false;
     this.patient = patient;
     this.patientSelected = true;

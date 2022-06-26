@@ -25,7 +25,6 @@ export class RecommendationsService {
       const helper = new JwtHelperService();
       const id = helper.decodeToken<any>(accessToken).sub;
       this.websocketService.connect('recommendations', id).subscribe((value) => {
-        console.log("Service:", value);
         if (!this.websocketIgnoreNextEvent) {
           subscriber.next(value);
         } else {

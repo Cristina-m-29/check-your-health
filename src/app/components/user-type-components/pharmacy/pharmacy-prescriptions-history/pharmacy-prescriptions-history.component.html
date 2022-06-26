@@ -1,0 +1,25 @@
+<ng-container *ngIf="loading">
+    <cyh-loading-screen></cyh-loading-screen>
+  </ng-container>
+  
+  <div class="flex height-full" [ngClass]="{'card-hide': loading, 'no-data': prescriptions.length === 0}">
+    <span *ngIf="prescriptions.length === 0">Nu au fost gasite retete : (</span>
+  
+    <ng-container *ngIf="prescriptions.length > 0">
+      <div class="width-medium margin_right-xl prescriptions">
+        <cyh-patient-prescription-details
+          *ngFor="let prescription of prescriptions"
+          [prescription]="prescription"
+          [selected]="prescription === selectedPrescription"
+          (click)="selectPrescription(prescription)"
+        ></cyh-patient-prescription-details>
+      </div>
+  
+      <div class="width-medium">
+        <cyh-patient-medic-details-card
+            [patient]="patientForSelectedPrescription"
+            [medic]="medicForSelectedPrescription"
+        ></cyh-patient-medic-details-card>
+      </div>
+    </ng-container>
+  </div>

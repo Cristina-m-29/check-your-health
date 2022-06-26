@@ -26,6 +26,7 @@
     <span class="small-subtitle">Status</span>
 
     <span class="subtitle pending block margin_bottom" *ngIf="prescription.status === 'pending'">Așteaptă confirmare</span>
-    <span class="subtitle accepted block margin_bottom" *ngIf="prescription.status === 'ready for pickup'">Poate fi ridicata</span>
+    <span class="subtitle pending block margin_bottom" *ngIf="prescription.status === 'ready for pickup'">Poate fi ridicată</span>
+    <span class="subtitle accepted block margin_bottom" *ngIf="prescription.status === 'delivered'">Ridicată</span>
     <span class="subtitle refused block margin_bottom" *ngIf="prescription.status === 'refused'">Respinsă</span>
 </div>
