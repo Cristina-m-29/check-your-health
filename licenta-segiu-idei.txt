@@ -95,21 +95,21 @@ Farmacie: []
     - retrimite prescriptie catre alta farmacie daca farmacia ulterioara a refuzat-o 
 
 
-// notificari
+// notificari - toate de verificat
     pt pacient: 
-        - cand o programare isi schimba statusul
-        - cand primeste o trimitere noua
-        - cand primeste o reteta noua
-        - cand statusul pentru o reteta se schimba
-        - cand farmacia pentru o reteta se schimba
+        - cand o programare isi schimba statusul (done)
+        - cand primeste o trimitere noua (done)
+        - cand primeste o reteta noua (done)
+        - cand statusul pentru o reteta se schimba (done)
+        - cand farmacia pentru o reteta se schimba 
 
     pt medic:
-        - cand primeste o noua programare
-        - cand o programare primeste un feedback de la medicul specialist
-        - cand farmacia accepta sau refuza o prescriptie
+        - cand primeste o noua programare (done)
+        - cand o programare primeste un feedback de la medicul specialist - to do (medic-home)
+        - cand farmacia accepta sau refuza o prescriptie -- to do (medic-home)
 
     pt specialist:
-        - cand primeste o noua programare
+        - cand primeste o noua programare (done)
 
     pt farmacie:
-        - cand primeste o reteta noua
+        - cand primeste o reteta noua (done)

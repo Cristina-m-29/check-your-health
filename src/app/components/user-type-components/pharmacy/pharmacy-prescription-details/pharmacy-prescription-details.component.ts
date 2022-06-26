@@ -42,6 +42,8 @@ export class PharmacyPrescriptionDetailsComponent implements OnInit {
     this.cd.detectChanges();
     this.prescriptionsService.updatePrescriptionStatus(this.prescription.id, status).subscribe((pres: Prescription) => {
       this.prescription.status = pres.status;
+      sessionStorage.removeItem('cyhSelectedPrescription');
+      sessionStorage.setItem('cyhSelectedPrescription', JSON.stringify(this.prescription));
       this.loading = false;
       this.cd.detectChanges();
     });

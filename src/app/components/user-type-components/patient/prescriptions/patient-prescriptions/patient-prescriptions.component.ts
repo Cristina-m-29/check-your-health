@@ -44,7 +44,7 @@ export class PatientPrescriptionsComponent implements OnInit {
 
   private getPrescriptionEvents(): void {
     this.prescriptionsService.getPrescriptionEvents().subscribe((value) => {
-      if(value.data === 'POST') {
+      if(value.data === 'POST' || value.data === 'PUT' || value.data === 'PATCH') {
         this.getPrescriptions();
       }
     });

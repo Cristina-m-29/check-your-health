@@ -25,7 +25,13 @@ export class PharmacyHomeComponent implements OnInit {
     private cd: ChangeDetectorRef,
     private usersService: UsersService,
     private router: Router,
-  ) {}
+  ) {
+    this.prescriptionsService.getPrescriptionEvents().subscribe((value) => {
+      if(value.data === 'POST' || value.data === 'PUT') {
+        this.getPrescriptions();
+      }
+    });
+  }
 
   public ngOnInit(): void {
     this.getPrescriptions();
@@ -67,6 +73,9 @@ export class PharmacyHomeComponent implements OnInit {
   }
 
   private filterPrescriptions(press: Prescription[]): void {
+    this.pendingPress = [];
+    this.readyForPickupPress = [];
+    this.oldPress = [];
     press.forEach((pres: Prescription) => {
       if (pres.status === 'pending') {
         this.pendingPress.push(pres);
