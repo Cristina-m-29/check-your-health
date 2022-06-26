@@ -72,7 +72,9 @@ export class MedicAddPrescriptionComponent implements OnInit {
 
   public ngOnInit(): void {
     this.getAllMedicine();
+    this.getAllMedicineEvents();
     this.getAllPharmacies();
+    this.getAllPharmacyEvents();
   }
 
   public selectPharmacy(pharmacy: Pharmacy): void {
@@ -132,10 +134,26 @@ export class MedicAddPrescriptionComponent implements OnInit {
     });
   }
 
+  private getAllPharmacyEvents(): void {
+    this.usersService.getPharmacyEvents().subscribe((value) => {
+      if(value.data === 'POST') {
+        this.getAllPharmacies();
+      }
+    });
+  }
+
   private getAllMedicine(): void {
     this.medicineService.getAllMedicine().subscribe((medicines: Medicine[]) => {
       this.medicineList = medicines;
-    }); 
+    });
+  }
+
+  private getAllMedicineEvents(): void {
+    this.medicineService.getMedicineEvents().subscribe((value) => {
+      if(value.data === 'POST') {
+        this.getAllMedicine();
+      }
+    });
   }
 
   private _filterPharmaicies(value: string): Pharmacy[] {

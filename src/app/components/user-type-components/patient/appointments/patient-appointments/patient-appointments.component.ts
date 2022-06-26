@@ -27,6 +27,11 @@ export class PatientAppointmentsComponent {
 
   constructor(private router: Router, private appointmentsService: AppointmentsService) {
     this.appointmentsService.getAppointments('patient');
+    this.appointmentsService.getAppointmentEvents().subscribe((value) => {
+      if(value.data === 'POST' || value.data === 'PUT') {
+        this.appointmentsService.getAppointments('patient');
+      }
+    });
   }
 
   public openAppointmentDetails(appointment: Appointment): void {

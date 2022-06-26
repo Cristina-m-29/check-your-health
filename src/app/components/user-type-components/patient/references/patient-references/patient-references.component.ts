@@ -18,7 +18,7 @@ export class PatientReferencesComponent implements OnInit {
 
   constructor(
     private usersService: UsersService, 
-    private RecommendationsService: RecommendationsService
+    private recommendationsService: RecommendationsService
   ) {}
 
   public ngOnInit() {
@@ -32,7 +32,7 @@ export class PatientReferencesComponent implements OnInit {
   }
 
   private getReferences(): void {
-    this.RecommendationsService.getRecommendations().subscribe((references: Recommendation[]) => {
+    this.recommendationsService.getRecommendations().subscribe((references: Recommendation[]) => {
       this.references = references;
       
       if (references.length > 0) {
@@ -40,6 +40,14 @@ export class PatientReferencesComponent implements OnInit {
       }
       else {
         this.loading = false;
+      }
+    });
+  }
+
+  private getReferencesEvents(): void {
+    this.recommendationsService.getRecommendationEvents().subscribe((value) => {
+      if(value.data === 'POST') {
+        this.getReferences();
       }
     });
   }

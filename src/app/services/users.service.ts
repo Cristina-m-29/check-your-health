@@ -5,13 +5,15 @@ import { Medic, Specialist } from '../models/medic';
 import { Patient } from '../models/patient';
 import { Pharmacy } from '../models/pharmacy';
 import { BaseService } from './base.service';
+import { WebsocketService } from './websocket.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UsersService {
+  public websocketIgnoreNextEvent: Boolean = false;
 
-  constructor(private base: BaseService) { }
+  constructor(private base: BaseService, private websocketService: WebsocketService) { }
 
   public getUserInfo(userId?: string): Observable<BaseUser> {
     if (!userId) {
@@ -45,5 +47,18 @@ export class UsersService {
 
   public getAllPharmacies(): Observable<Pharmacy[]> {
     return this.base.get("users/pharmacies");
+  }
+
+  public getPharmacyEvents(): Observable<any> {
+    return new Observable<any>(subscriber => {
+      this.websocketService.connect('pharmacies').subscribe((value) => {
+        console.log("Service:", value);
+        if (!this.websocketIgnoreNextEvent) {
+          subscriber.next(value);
+        } else {
+          this.websocketIgnoreNextEvent = false;
+        }
+      })
+    })
   }
 }

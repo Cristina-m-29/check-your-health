@@ -24,6 +24,11 @@ export class MedicAppointmentsComponent implements OnInit{
 
   constructor(private appointmentsService: AppointmentsService, private router: Router) {
     this.appointmentsService.getAppointments('medic');
+    this.appointmentsService.getAppointmentEvents().subscribe((value) => {
+      if(value.data === 'POST' || value.data === 'PUT') {
+        this.appointmentsService.getAppointments('medic');
+      }
+    });
   }
 
   public ngOnInit(): void {

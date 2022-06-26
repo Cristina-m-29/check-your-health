@@ -20,6 +20,7 @@ export class PatientPrescriptionsComponent implements OnInit {
 
   public ngOnInit() {
     this.getPrescriptions();
+    this.getPrescriptionEvents();
   }
 
   public selectPrescription(prescription: Prescription): void {
@@ -37,6 +38,14 @@ export class PatientPrescriptionsComponent implements OnInit {
       }
       else {
         this.loading = false;
+      }
+    });
+  }
+
+  private getPrescriptionEvents(): void {
+    this.prescriptionsService.getPrescriptionEvents().subscribe((value) => {
+      if(value.data === 'POST') {
+        this.getPrescriptions();
       }
     });
   }

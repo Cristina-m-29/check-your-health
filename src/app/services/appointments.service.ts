@@ -1,22 +1,43 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { JwtHelperService } from '@auth0/angular-jwt';
 import * as moment from 'moment';
 import { catchError, EMPTY, filter, map, mapTo, Observable, of, Subject } from 'rxjs';
 import { Appointment } from '../models/appointment';
 import { BaseUser } from '../models/base-user';
 import { Specialist } from '../models/medic';
 import { HoursInterval } from '../models/workingHours';
+import { AuthService } from './auth.service';
 import { BaseService } from './base.service';
 import { UsersService } from './users.service';
+import { WebsocketService } from './websocket.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AppointmentsService {
+  public websocketIgnoreNextEvent: Boolean = false;
   public pastAppointmentsObservable = new Subject<Appointment[]>();
   public futureAppointmentsObservable = new Subject<Appointment[]>();
 
-  constructor(private base: BaseService, private usersService: UsersService) {}
+  constructor(private base: BaseService, private usersService: UsersService, private websocketService: WebsocketService,
+    private authService: AuthService) {}
+
+  public getAppointmentEvents(): Observable<any> {
+    return new Observable<any>(subscriber => {
+      const accessToken = this.authService.getAccessToken()
+      const helper = new JwtHelperService();
+      const id = helper.decodeToken<any>(accessToken).sub;
+      this.websocketService.connect('appointments', id).subscribe((value) => {
+        console.log("Service:", value);
+        if (!this.websocketIgnoreNextEvent) {
+          subscriber.next(value);
+        } else {
+          this.websocketIgnoreNextEvent = false;
+        }
+      })
+    })
+  }
 
   public getAppointments(forWho: string): void {
     this.base
