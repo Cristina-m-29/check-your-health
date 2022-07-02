@@ -9,6 +9,7 @@ import { Specialist } from '../models/medic';
 import { HoursInterval } from '../models/workingHours';
 import { AuthService } from './auth.service';
 import { BaseService } from './base.service';
+import { ToastService } from './toast.service';
 import { UsersService } from './users.service';
 import { WebsocketService } from './websocket.service';
 
@@ -20,8 +21,13 @@ export class AppointmentsService {
   public pastAppointmentsObservable = new Subject<Appointment[]>();
   public futureAppointmentsObservable = new Subject<Appointment[]>();
 
-  constructor(private base: BaseService, private usersService: UsersService, private websocketService: WebsocketService,
-    private authService: AuthService) {}
+  constructor(
+    private base: BaseService, 
+    private usersService: UsersService, 
+    private websocketService: WebsocketService,
+    private authService: AuthService,
+    private toastService: ToastService,
+  ) {}
 
   public getAppointmentEvents(): Observable<any> {
     return new Observable<any>(subscriber => {
@@ -81,6 +87,9 @@ export class AppointmentsService {
         recommendation: recommendationId
       }).pipe(catchError(() => {
         return EMPTY;
+      })).pipe(map((app: Appointment) => {
+        this.toastService.showToast('Programare creată!');
+        return app;
       }));
     }
     else {
@@ -92,18 +101,27 @@ export class AppointmentsService {
         recommendation: recommendationId
       }).pipe(catchError(() => {
         return EMPTY;
+      })).pipe(map((app: Appointment) => {
+        this.toastService.showToast('Programare creată!');
+        return app;
       }));
     }
   }
 
   public acceptAppointment(appointmentId: string): Observable<Appointment> {
-    return this.base.post<{}, Appointment>('users/appointments/' + appointmentId +'/accept', {});
+    return this.base.post<{}, Appointment>('users/appointments/' + appointmentId +'/accept', {}).pipe(map((app: Appointment) => {
+      this.toastService.showToast('Programare acceptată!');
+      return app;
+    }));
   }
 
   public refuseAppointment(appointmentId: string, refuseReason: string): Observable<Appointment> {
     return this.base.post<{}, Appointment>('users/appointments/' + appointmentId +'/refuse', {
       reason: refuseReason
-    });
+    }).pipe(map((app: Appointment) => {
+      this.toastService.showToast('Programare refuzată!');
+      return app;
+    }));
   }
 
   public getMedicFreeIntervals(medicId: string, timestamp: number): Observable<number[]> {
@@ -111,7 +129,10 @@ export class AppointmentsService {
   }
 
   public finishInvestigation(appointmentId: string): Observable<Appointment> {
-    return this.base.post<any, Appointment>('users/appointments/' + appointmentId + '/finalize', {});
+    return this.base.post<any, Appointment>('users/appointments/' + appointmentId + '/finalize', {}).pipe(map((app: Appointment) => {
+      this.toastService.showToast('Investigație finalizată cu success!');
+      return app;
+    }));
   }
 
   private getFullMedicOfAppointments(appointments: Appointment[]): void {

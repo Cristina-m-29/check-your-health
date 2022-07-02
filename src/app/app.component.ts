@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
 import { options } from './models/menu';
+import { NotificationsService } from './services/notifications.service';
 
 @Component({
   selector: 'cyh-root',
@@ -12,7 +13,7 @@ import { options } from './models/menu';
 export class AppComponent implements OnInit {
   public showMainNavbar = false;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private notificationsService: NotificationsService) {}
 
   public ngOnInit(): void {
     this.router.events
@@ -21,5 +22,11 @@ export class AppComponent implements OnInit {
         const userType = event.url.split('/')[1];
         this.showMainNavbar = userTypes.includes(userType) || userType === 'profile' || !!options.menuList.find(option => event.url.includes(option));
       });
+
+    this.getNotifications();
+  }
+
+  private getNotifications(): void {
+    this.notificationsService.getNotifications();
   }
 }

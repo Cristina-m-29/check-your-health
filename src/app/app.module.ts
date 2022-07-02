@@ -66,6 +66,7 @@ import { PharmacyPatientSearchComponent } from './components/user-type-component
 import { PharmacyPatientSearchDialogComponent } from './components/user-type-components/pharmacy/pharmacy-patient-search-dialog/pharmacy-patient-search-dialog.component';
 import { PharmacyPrescriptionDetailsComponent } from './components/user-type-components/pharmacy/pharmacy-prescription-details/pharmacy-prescription-details.component';
 import { PatientMedicDetailsCardComponent } from './components/user-type-details-cards/patient-medic-details-card/patient-medic-details-card.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -136,6 +137,7 @@ import { PatientMedicDetailsCardComponent } from './components/user-type-details
     MatSelectModule,
     ReactiveFormsModule,
     SafePipeModule,
+    MatSnackBarModule
   ],
   providers: [
     {

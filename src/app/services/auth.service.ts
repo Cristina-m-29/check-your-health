@@ -8,6 +8,7 @@ import { LoginResponse } from '../models/login/loginResponse';
 import { menus } from '../models/menu';
 import { UserType } from '../models/userType';
 import { BaseService } from './base.service';
+import { ToastService } from './toast.service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,7 @@ export class AuthService {
   private userType: UserType | null = JSON.parse(localStorage.getItem('cyhUserType') || 'null');
   private requestingRefreshToken: boolean = false;
 
-  constructor(private router: Router, private baseService: BaseService) {}
+  constructor(private router: Router, private baseService: BaseService, private toastService: ToastService) {}
 
   public setUserType(userType: UserType| null): void {
     localStorage.setItem('cyhUserType', JSON.stringify(userType));
@@ -51,7 +52,11 @@ export class AuthService {
     return this.baseService.post<LoginRequest, LoginResponse>('auth/login', loginRequest)
       .pipe(map((response: LoginResponse) => {
         if (!response.err) {
+          this.toastService.showToast('Autentificare reușită!')
           this.setTokens(response);
+        }
+        else {
+          this.toastService.showToast('A apărut o eroare! Asigurați-vă că ați introdus credențialele corecte!')
         }
         return response;
       })
