@@ -38,8 +38,9 @@ export class RecommendationsService {
     return this.baseService.get<Recommendation[]>('users/' + patientId + '/recommendations');
   }
 
-  public addRecommendation(patientId: string, specialistId: string, details: string): Observable<Recommendation> {
+  public addRecommendation(appointmentId: string, patientId: string, specialistId: string, details: string): Observable<Recommendation> {
     return this.baseService.post<any, Recommendation>('users/recommendations', {
+      appointment: appointmentId,
       patient: patientId,
       specialist: specialistId,
       details: details

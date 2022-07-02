@@ -78,15 +78,21 @@
 
           <span class="small-subtitle">Status</span>
 
-          <span class="subtitle pending block margin_bottom" *ngIf="appointment.status === 'pending'">Așteaptă confirmare</span>
-          <span class="subtitle accepted block margin_bottom" *ngIf="appointment.status === 'accepted'">Confirmată</span>
-          <span class="subtitle refused block margin_bottom" *ngIf="appointment.status === 'refused'">Respinsă</span>
-
-          <ng-container *ngIf="appointment.refuseReason && appointment.status === 'refused'">
-            <span class="small-subtitle">Motiv refuz</span>
-
-            <span class="subtitle block margin_bottom">{{appointment.refuseReason || 'Nu este specificat' | upperCaseFirstLetter}}</span>
+          <ng-container *ngIf="appointment.examinationFinished; else normalStatus">
+            <span class="subtitle accepted block margin_bottom">Finalizată</span>
           </ng-container>
+
+          <ng-template #normalStatus>
+            <span class="subtitle pending block margin_bottom" *ngIf="appointment.status === 'pending'">Așteaptă confirmare</span>
+            <span class="subtitle accepted block margin_bottom" *ngIf="appointment.status === 'accepted'">Confirmată</span>
+            <span class="subtitle refused block margin_bottom" *ngIf="appointment.status === 'refused'">Respinsă</span>
+  
+            <ng-container *ngIf="appointment.refuseReason && appointment.status === 'refused'">
+              <span class="small-subtitle">Motiv refuz</span>
+  
+              <span class="subtitle block margin_bottom">{{appointment.refuseReason || 'Nu este specificat' | upperCaseFirstLetter}}</span>
+            </ng-container>
+          </ng-template>
         </div>
       </ng-container>
     </div>

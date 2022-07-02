@@ -12,9 +12,15 @@
           </span>
         </span>
 
-        <span class="small-subtitle pending" *ngIf="appointment.status === 'pending'">Așteaptă confirmare</span>
-        <span class="small-subtitle accepted" *ngIf="appointment.status === 'accepted'">Confirmată</span>
-        <span class="small-subtitle refused" *ngIf="appointment.status === 'refused'">Respinsă</span>
+        <ng-container *ngIf="appointment.examinationFinished && appointment.status !== 'refused'; else normalStatus">
+          <span class="small-subtitle accepted" *ngIf="appointment.status === 'accepted'">Finalizată</span>
+        </ng-container>
+
+        <ng-template #normalStatus>
+          <span class="small-subtitle pending" *ngIf="appointment.status === 'pending'">Așteaptă confirmare</span>
+          <span class="small-subtitle accepted" *ngIf="appointment.status === 'accepted'">Confirmată</span>
+          <span class="small-subtitle refused" *ngIf="appointment.status === 'refused'">Respinsă</span>
+        </ng-template>
       </div>
 
       <span *ngIf="a.length === 0" class="small-subtitle">Nu există programări viitoare</span>

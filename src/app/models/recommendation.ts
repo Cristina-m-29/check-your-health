@@ -1,3 +1,4 @@
+import { Appointment } from "./appointment";
 import { Patient } from "./patient";
 
 export class Recommendation {
@@ -11,5 +12,6 @@ export class Recommendation {
   date: Date = new Date();
   details: string = '';
   feedback: string = '';
+  appointment = new Appointment();
   canCreateAppointment: boolean = true;
 }

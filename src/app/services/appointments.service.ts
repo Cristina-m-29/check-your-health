@@ -2,7 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import * as moment from 'moment';
-import { catchError, EMPTY, filter, map, mapTo, Observable, of, Subject } from 'rxjs';
+import { catchError, EMPTY, filter, map, mapTo, Observable, of, pipe, Subject } from 'rxjs';
 import { Appointment } from '../models/appointment';
 import { BaseUser } from '../models/base-user';
 import { Specialist } from '../models/medic';
@@ -108,6 +108,10 @@ export class AppointmentsService {
 
   public getMedicFreeIntervals(medicId: string, timestamp: number): Observable<number[]> {
     return this.base.get<number[]>('medic/' + medicId + '/free/' + timestamp);
+  }
+
+  public finishInvestigation(appointmentId: string): Observable<Appointment> {
+    return this.base.post<any, Appointment>('users/appointments/' + appointmentId + '/finalize', {});
   }
 
   private getFullMedicOfAppointments(appointments: Appointment[]): void {

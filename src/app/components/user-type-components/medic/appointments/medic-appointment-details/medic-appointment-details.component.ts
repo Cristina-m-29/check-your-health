@@ -24,6 +24,7 @@ import { MedicAddRecommendationComponent } from '../medic-add-recommendation/med
 import { MedicRefuseAppointmentDialogComponent } from '../medic-refuse-appointment-dialog/medic-refuse-appointment-dialog.component';
 import { RecommendationsService } from 'src/app/services/recommandations.service';
 import { PrescriptionsService } from 'src/app/services/prescriptions.service';
+import { BaseUser } from 'src/app/models/base-user';
 
 @Component({
   selector: 'cyh-medic-appointment-details',
@@ -120,8 +121,7 @@ export class MedicAppointmentDetailsComponent implements OnInit {
       if (appointment) {
         this.appointment = <Appointment>JSON.parse(appointment || '{}');
         this.patient = this.appointment.fullPacient;
-        this.appointmentViewLoaded = true;
-        this.checkIfViewLoadingIsDone();
+        this.getMedicNameForRecommendations();
       }
       else {
         this.goBack();
@@ -131,6 +131,15 @@ export class MedicAppointmentDetailsComponent implements OnInit {
 
   public generateRaportLink(): string {
     return environment['baseUrl'] + '/appointments/' + this.appointment.id + '/download-report';
+  }
+
+  public finishInvestigation(): void {
+    this.appointmentsService.finishInvestigation(this.appointment.id).subscribe((app: Appointment) => {
+      this.appointment = app;
+      sessionStorage.removeItem('cyhSelectedAppointment');
+      sessionStorage.setItem('cyhSelectedAppointment', JSON.stringify(this.appointment));
+      this.cd.detectChanges();
+    });
   }
 
   public onFocus(): void {
@@ -233,29 +242,33 @@ export class MedicAppointmentDetailsComponent implements OnInit {
       });
   }
 
-  public openAddDiagnostic(): void {
+  public openAddDiagnostic(canBeFinal: boolean, mustBeFinal: boolean): void {
     const addDiagnosticDialog = this.dialog.open(MedicAddDiagnosticDialogComponent, {
       width: '160rem',
       data: {
-        editable: true
+        editable: true,
+        canBeFinal: canBeFinal,
+        mustBeFinal: mustBeFinal
       }
     });
     addDiagnosticDialog.afterClosed().subscribe((diagnostic: Diagnostic) => {
       if (diagnostic) {
-        this.diagnosticsService.addDiagnostic(this.appointment.id, diagnostic).subscribe((diagnostic: Diagnostic) => {
+        this.diagnosticsService.addDiagnostic(this.appointment.id, diagnostic).subscribe(() => {
           this.appointment.diagnostic = diagnostic;
+          sessionStorage.removeItem('cyhSelectedAppointment');
+          sessionStorage.setItem('cyhSelectedAppointment', JSON.stringify(this.appointment));
           this.cd.detectChanges();
         });
       }
     });
   }
 
-  public openViewDiagnostic(): void {
+  public openViewDiagnostic(diagnostic?: Diagnostic): void {
     const viewDiagnosticDialog = this.dialog.open(MedicAddDiagnosticDialogComponent, {
       width: '160rem',
       data: {
         editable: false,
-        diagnostic: this.appointment.diagnostic,
+        diagnostic: diagnostic ? diagnostic : this.appointment.diagnostic,
       }
     });
     viewDiagnosticDialog.afterClosed().subscribe();
@@ -268,8 +281,11 @@ export class MedicAppointmentDetailsComponent implements OnInit {
     addRecommendationDialog.afterClosed().subscribe((rec: Recommendation) => {
       if (rec) {
         this.loading = true;
-        this.recommendationsService.addRecommendation(this.appointment.patient, rec.specialist, rec.details)
-          .subscribe(() => {
+        this.recommendationsService.addRecommendation(this.appointment.id, this.appointment.patient, rec.specialist, rec.details)
+          .subscribe((rec: Recommendation) => {
+            this.appointment.recommendations.push(rec);
+            sessionStorage.removeItem('cyhSelectedAppointment');
+            sessionStorage.setItem('cyhSelectedAppointment', JSON.stringify(this.appointment));
             window.location.reload();
           });
       }
@@ -283,12 +299,36 @@ export class MedicAppointmentDetailsComponent implements OnInit {
     addRecommendationDialog.afterClosed().subscribe((prescription: Prescription) => {
       if (prescription) {
         this.loading = true;
-        this.prescriptionsService.addPrescription(this.appointment.patient, prescription.pharmacy, this.appointment.medic, prescription.medicines)
+        this.prescriptionsService.addPrescription(this.appointment.id, this.appointment.patient, prescription.pharmacy, this.appointment.medic, prescription.medicines)
           .subscribe((pres: Prescription) => {
+            this.appointment.prescription = pres;
+            sessionStorage.removeItem('cyhSelectedAppointment');
+            sessionStorage.setItem('cyhSelectedAppointment', JSON.stringify(this.appointment));
             window.location.reload();
           });
       }
     });
+  }
+
+  private getMedicNameForRecommendations(): void {
+    if (this.appointment.recommendations.length > 0) {
+      const recs = this.appointment.recommendations;
+      recs.forEach((rec: Recommendation) => {
+        this.userService.getUserInfo(rec.medic).subscribe((specialist: BaseUser) => {
+          rec.medicName = specialist.name;
+          
+          if (recs.indexOf(rec) === recs.length - 1) {
+            this.appointmentViewLoaded = true;
+            this.checkIfViewLoadingIsDone();
+          }
+        });
+      });
+      
+    }
+    else {
+      this.appointmentViewLoaded = true;
+      this.checkIfViewLoadingIsDone();
+    }
   }
 
   private getAllPacientsForMedic(): void {

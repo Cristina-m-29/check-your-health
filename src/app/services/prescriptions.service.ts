@@ -39,8 +39,9 @@ export class PrescriptionsService {
     return this.baseService.get<Prescription[]>('users/'+ patientId +'/prescriptions');
   }
 
-  public addPrescription(patientId: string, pharmacyId: string, medicId: string, medicines: PrescribedMedicine[]): Observable<Prescription> {
+  public addPrescription(appointmentId: string, patientId: string, pharmacyId: string, medicId: string, medicines: PrescribedMedicine[]): Observable<Prescription> {
     return this.baseService.post<any, Prescription>('users/prescriptions', {
+      appointment: appointmentId,
       patient: patientId,
       pharmacy: pharmacyId,
       medic: medicId,

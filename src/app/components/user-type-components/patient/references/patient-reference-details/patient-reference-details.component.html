@@ -22,12 +22,41 @@
     <span class="subtitle block margin_bottom">{{reference.feedback}}</span>
   </ng-container>
 
-  <button 
-    mat-raised-button 
-    class="max-width-medium" 
-    *ngIf="reference.canCreateAppointment"
-    (click)="goToCreateAppointment()"
-  >
-    Creaza programare
-  </button>
+  <ng-container *ngIf="reference.canCreateAppointment; else viewOnly">
+    <ng-container *ngIf="appointment; else createAppointment">
+      <span class="subtitle block margin_bottom">Programare refuzată</span>
+
+      <button 
+        mat-raised-button 
+        class="max-width-medium"
+        color="primary"
+        *ngIf="reference.canCreateAppointment"
+        (click)="goToCreateAppointment()"
+      >
+        Reprogramează
+      </button>
+    </ng-container>
+
+    <ng-template #createAppointment>
+      <button 
+        mat-raised-button 
+        class="max-width-medium" 
+        color="primary"
+        *ngIf="reference.canCreateAppointment"
+        (click)="goToCreateAppointment()"
+      >
+        Creaza programare
+      </button>
+    </ng-template>
+  </ng-container>
+
+  <ng-template #viewOnly>
+    <button 
+      mat-raised-button 
+      class="max-width-medium"
+      (click)="viewAppointment()"
+    >
+      Vezi programare
+    </button>
+  </ng-template>
 </div>

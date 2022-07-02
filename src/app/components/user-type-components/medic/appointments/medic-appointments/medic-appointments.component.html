@@ -50,7 +50,7 @@
               <span class="subtitle-purple">{{appointment?.fullPacient?.name}}</span>
             </span>
 
-            <ng-container *ngIf="appointment.status === 'pending'">
+            <ng-container *ngIf="appointment.status === 'pending'; else notPending">
               <ng-container *ngIf="!isOldAppointment(appointment.date); else old">
                 <span class="small-subtitle pending">Așteaptă confirmare</span>
               </ng-container>
@@ -58,8 +58,17 @@
                 <span class="small-subtitle pending">Expirata</span>
               </ng-template>
             </ng-container>  
-            <span class="small-subtitle accepted" *ngIf="appointment.status === 'accepted'">Confirmată</span>
-            <span class="small-subtitle refused" *ngIf="appointment.status === 'refused'">Respinsă</span>
+
+            <ng-template #notPending>
+              <ng-container *ngIf="appointment.examinationFinished; else normalStatus">
+                <span class="small-subtitle accepted">Finalizată</span>
+              </ng-container>
+
+              <ng-template #normalStatus>
+                <span class="small-subtitle accepted" *ngIf="appointment.status === 'accepted'">Confirmată</span>
+                <span class="small-subtitle refused" *ngIf="appointment.status === 'refused'">Respinsă</span>
+              </ng-template>
+            </ng-template>
           </div>
 
           <span *ngIf="a.length === 0" class="small-subtitle">Nu există programări viitoare</span>
@@ -80,16 +89,25 @@
               </span>
               </span>
 
-              <ng-container *ngIf="appointment.status === 'pending'">
+              <ng-container *ngIf="appointment.status === 'pending'; else notPending">
                 <ng-container *ngIf="!isOldAppointment(appointment.date); else old">
                   <span class="small-subtitle pending">Așteaptă confirmare</span>
                 </ng-container>
                 <ng-template #old>
                   <span class="small-subtitle pending">Expirata</span>
                 </ng-template>
-              </ng-container>  
-              <span class="small-subtitle accepted" *ngIf="appointment.status === 'accepted'">Confirmată</span>
-              <span class="small-subtitle refused" *ngIf="appointment.status === 'refused'">Respinsă</span>
+              </ng-container>
+
+              <ng-template #notPending>
+                <ng-container *ngIf="appointment.examinationFinished; else normalStatus">
+                  <span class="small-subtitle accepted">Finalizată</span>
+                </ng-container>
+
+                <ng-template #normalStatus>
+                  <span class="small-subtitle accepted" *ngIf="appointment.status === 'accepted'">Confirmată</span>
+                  <span class="small-subtitle refused" *ngIf="appointment.status === 'refused'">Respinsă</span>
+                </ng-template>
+              </ng-template>
             </div>
 
             <span *ngIf="a.length === 0" class="small-subtitle">Istoricul programărilor este gol</span>

@@ -79,18 +79,13 @@ Farmacie: []
 // de documentat:
   - trimitere sms uri
 
-
 // pt sergiu
     - notificari - realizate cu ajutorul websocket urilor
 
 
 // TO DO:
-    - add view programare pe pagina de trimiteri daca pacientul a creat deja o programare pt o trimitere
-    - adauga optiunea de reprogramare pe trimiteri, in cazul in care programarea initiala a fost respinsa sau a expirat
-
     - adauga vezi trimitere btn pe pagine de detalii programare, daca aceasta a fost creata in urma unei trimiteri
 
-    - adauga rezultate trimitere pe detalii programare (medic)
     - dezactiveaza btn de creaza prescriptie daca aceasta a fost aceptata de o farmacie
     - retrimite prescriptie catre alta farmacie daca farmacia ulterioara a refuzat-o 
 

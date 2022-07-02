@@ -5,6 +5,8 @@ import { Diagnostic } from 'src/app/models/diagnostic';
 
 export interface DialogData {
   editable: boolean;
+  canBeFinal: boolean;
+  mustBeFinal: boolean;
   diagnostic: undefined | Diagnostic;
 }
 
@@ -30,10 +32,21 @@ export class MedicAddDiagnosticDialogComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<MedicAddDiagnosticDialogComponent>,
+    private cd: ChangeDetectorRef,
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
   ) {
     this.diagnosticForm.valueChanges.subscribe((diagnostic: Diagnostic) => {
       this.diagnostic = diagnostic;
+      if (!this.data.canBeFinal) {
+        this.diagnostic.final = false;
+      }
+      else {
+        if(this.data.mustBeFinal) {
+          this.diagnostic.final = true;
+        }
+      }
+
+      this.cd.detectChanges();
     });
   }
 
@@ -67,6 +80,22 @@ export class MedicAddDiagnosticDialogComponent implements OnInit {
 
       this.diagnosticForm.controls['paraclinicalExaminationResults'].setValue(this.data.diagnostic?.paraclinicalExaminationResults);
       this.diagnosticForm.controls['paraclinicalExaminationResults'].disable();
+
+      this.cd.detectChanges();
+    }
+    if (!this.data.canBeFinal) {
+      this.diagnosticForm.controls['final'].setValue(false);
+      this.diagnosticForm.controls['final'].disable();
+
+      this.cd.detectChanges();
+    }
+    else {
+      if(this.data.mustBeFinal) {
+        this.diagnosticForm.controls['final'].setValue(true);
+        this.diagnosticForm.controls['final'].disable();
+
+        this.cd.detectChanges();
+      }
     }
   }
 
