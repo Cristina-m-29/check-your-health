@@ -5,7 +5,7 @@
       <div class="card appointments-card margin_bottom-xl">
         <span class="title">Programari noi</span>
 
-        <div class="appointments-list new-appointments-list" *ngIf="(futureAppointments$ | async) as a">
+        <div class="appointments-list new-appointments-list" *ngIf="(futureNotMarkedAppointments$ | async) as a">
             <div class="appointment" *ngFor="let appointment of a" (click)="openAppointmentDetails(appointment, 'new')">
               <span class="subtitle">
                 {{appointment.date * 1000 | date: 'dd MMM yyyy'}} -

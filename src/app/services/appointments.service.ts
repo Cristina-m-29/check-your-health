@@ -186,7 +186,7 @@ export class AppointmentsService {
 
     const currentDate = this.getCurrentMomentDate();
 
-    appointments.forEach((app: Appointment) => {
+    appointments.reverse().forEach((app: Appointment) => {
       const appointmentDate = this.getMomentDateFromTimespamp(app);
 
       if (appointmentDate <= currentDate) {
@@ -195,6 +195,13 @@ export class AppointmentsService {
       else {
         futureValues.push(app);
       }
+    });
+
+    pastValues.sort((a: Appointment, b:Appointment) => {
+      return a.date === b.date ? a.hoursInterval.start - b.hoursInterval.start : 0;
+    });
+    futureValues.sort((a: Appointment, b:Appointment) => {
+      return a.date === b.date ? a.hoursInterval.start - b.hoursInterval.start : 0;
     });
 
     this.pastAppointmentsObservable.next(pastValues);

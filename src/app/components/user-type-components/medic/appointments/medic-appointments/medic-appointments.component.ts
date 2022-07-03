@@ -15,7 +15,7 @@ export class MedicAppointmentsComponent implements OnInit{
   @Output() gotAppointments = new EventEmitter<string>();
 
   public futureMarkedAppointments$ = new Subject<Appointment[]>();
-  public futureAppointments$ = new Subject<Appointment[]>();
+  public futureNotMarkedAppointments$ = new Subject<Appointment[]>();
   public oldAppointments$: Observable<Appointment[]> = this.appointmentsService.pastAppointmentsObservable
     .pipe(map((app: Appointment[]) => {
       this.gotAppointments.emit('old');
@@ -52,30 +52,29 @@ export class MedicAppointmentsComponent implements OnInit{
 
   private filterFutureAppointments(): void {
     this.appointmentsService.futureAppointmentsObservable.subscribe((appointments: Appointment[]) => {
-      const futureAccepted: Appointment[] = [];
-      const futureRefused: Appointment[] = [];
-      const future: Appointment[] = [];
+      const futureMarked: Appointment[] = [];
+      const futureNotMarked: Appointment[] = [];
 
       appointments.forEach((app: Appointment) => {
         switch(app.status) {
           case 'pending': {
-            future.push(app);
+            futureNotMarked.push(app);
             break;
           }
           case 'accepted': {
-            futureAccepted.push(app);
+            futureMarked.push(app);
             break;
           }
           case 'refused': {
-            futureRefused.push(app);
+            futureMarked.push(app);
             break;
           }
         }
       });
 
       this.gotAppointments.emit('future');
-      this.futureMarkedAppointments$.next(futureAccepted.concat(futureRefused));
-      this.futureAppointments$.next(future);
+      this.futureNotMarkedAppointments$.next(futureNotMarked);
+      this.futureMarkedAppointments$.next(futureMarked);
     });
   }
 
