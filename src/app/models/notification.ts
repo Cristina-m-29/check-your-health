@@ -1,6 +1,8 @@
+import { UserType } from "./userType";
+
 export class Notification {
   id: string = '';
-  recipientId: string = '';
-  receiverId: string = '';
+  userType!: UserType;
   message: string = '';
+  read? = false;
 }

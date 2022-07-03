@@ -47,6 +47,7 @@
       mat-button
     >
       {{ item | upperCaseFirstLetter }}
+      <span *ngIf="item === 'notificări'">{{numberOfUnreadNotifications !== 0 ? numberOfUnreadNotifications : ''}}</span>
     </button>
 
     <button

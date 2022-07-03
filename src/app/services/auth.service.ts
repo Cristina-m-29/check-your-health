@@ -2,7 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { catchError, map, Observable, Subject } from 'rxjs';
+import { catchError, EMPTY, map, Observable, Subject } from 'rxjs';
 import { LoginRequest } from '../models/login/loginRequest';
 import { LoginResponse } from '../models/login/loginResponse';
 import { menus } from '../models/menu';
@@ -50,6 +50,10 @@ export class AuthService {
 
   public login(loginRequest: LoginRequest): Observable<LoginResponse> {
     return this.baseService.post<LoginRequest, LoginResponse>('auth/login', loginRequest)
+      .pipe(catchError((error: HttpErrorResponse) => {
+        this.toastService.showToast('A apărut o eroare! Asigurați-vă că ați introdus credențialele corecte!');
+        return EMPTY;
+      }))
       .pipe(map((response: LoginResponse) => {
         if (!response.err) {
           this.toastService.showToast('Autentificare reușită!')

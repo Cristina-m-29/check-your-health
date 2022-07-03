@@ -49,6 +49,18 @@ export class UsersService {
     return this.base.get("users/pharmacies");
   }
 
+  public getPatientsEvents(): Observable<any> {
+    return new Observable<any>(subscriber => {
+      this.websocketService.connect('patients').subscribe((value) => {
+        if (!this.websocketIgnoreNextEvent) {
+          subscriber.next(value);
+        } else {
+          this.websocketIgnoreNextEvent = false;
+        }
+      })
+    })
+  }
+
   public getPharmacyEvents(): Observable<any> {
     return new Observable<any>(subscriber => {
       this.websocketService.connect('pharmacies').subscribe((value) => {
