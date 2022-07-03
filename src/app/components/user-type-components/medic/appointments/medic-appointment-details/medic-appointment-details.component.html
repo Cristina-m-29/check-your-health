@@ -266,19 +266,21 @@
             </span>
 
             <span class="recommendations-grid rec-row" *ngFor="let rec of appointment.recommendations">
-                <span class="subtitle">{{rec?.medicName}}aaaaaaaaaaaaaaaaaaaaaaaaasssssssssssssssssssss</span>
+                <span class="subtitle">{{rec?.medicName}}</span>
                 <span class="subtitle checkbox">
-                  <mat-checkbox color="primary" [checked]="!!rec.appointment"></mat-checkbox>
+                  <mat-checkbox color="primary" [disabled]="true" [checked]="!!rec?.appointment"></mat-checkbox>
                 </span>
                 <span class="subtitle checkbox">
-                  <mat-checkbox color="primary" [checked]="rec.appointment.examinationFinished"></mat-checkbox>
+                  <mat-checkbox color="primary" [disabled]="true" [checked]="rec?.appointment?.examinationFinished"></mat-checkbox>
                 </span>
-                <button mat-stroked-button (click)="openViewDiagnostic(rec.appointment.diagnostic)">Vezi</button>
+                <button mat-stroked-button 
+                  [disabled]="!rec?.appointment?.diagnostic"
+                  (click)="openViewDiagnostic(rec.appointment.diagnostic)">Vezi</button>
             </span>
           </div>
         </ng-container>
         
-        <div class="margin_top">
+        <div class="margin_top" *ngIf="appointmentType !== 'new' && appointment.status === 'accepted' && appointment.diagnostic">
           <ng-container *ngIf="appointment.recommendations.length > 0; else noData">
             <button
               *ngIf="!forSpecialist"
@@ -316,7 +318,6 @@
             Finalizează investigația
           </button>
         </div>
-       
       </div>
     </ng-container>    
   </div>

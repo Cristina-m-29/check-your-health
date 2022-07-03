@@ -1,8 +1,14 @@
 import { UserType } from "./userType";
 
 export class Notification {
-  id: string = '';
+  objectId: string = '';
   userType!: UserType;
   message: string = '';
-  read? = false;
+  isRead? = false;
+}
+
+export class SocketNotification {
+  eventMethod: string = '';
+  objectId: string = '';
+  message: string = '';
 }

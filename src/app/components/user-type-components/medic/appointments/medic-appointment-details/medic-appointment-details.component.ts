@@ -1,6 +1,5 @@
 import { Prescription } from 'src/app/models/prescription';
 import { Recommendation } from 'src/app/models/recommendation';
-import { ThisReceiver } from '@angular/compiler';
 import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatAutocompleteTrigger } from '@angular/material/autocomplete';
@@ -25,6 +24,7 @@ import { MedicRefuseAppointmentDialogComponent } from '../medic-refuse-appointme
 import { RecommendationsService } from 'src/app/services/recommandations.service';
 import { PrescriptionsService } from 'src/app/services/prescriptions.service';
 import { BaseUser } from 'src/app/models/base-user';
+import { SocketNotification } from 'src/app/models/notification';
 
 @Component({
   selector: 'cyh-medic-appointment-details',
@@ -95,6 +95,8 @@ export class MedicAppointmentDetailsComponent implements OnInit {
   }
 
   public ngOnInit(): void {
+    this.connectToSocket();
+
     this.route.queryParams
       .subscribe(params => {
         const type = params['type'];
@@ -127,6 +129,20 @@ export class MedicAppointmentDetailsComponent implements OnInit {
         this.goBack();
       }
     }
+  }
+
+  public connectToSocket(): void {
+    this.appointmentsService.getAppointmentEvents().subscribe((value) => {
+      const notif = <SocketNotification>JSON.parse(value.data);
+      if(notif.objectId === this.appointment.id) {
+        this.appointmentsService.getAppointment(this.appointment.id).subscribe((app: Appointment) => {
+          this.appointment = app;
+          sessionStorage.removeItem('cyhSelectedAppointment');
+          sessionStorage.setItem('cyhSelectedAppointment', JSON.stringify(this.appointment));
+          this.cd.detectChanges();
+        });
+      }
+    })
   }
 
   public generateRaportLink(): string {
@@ -286,7 +302,8 @@ export class MedicAppointmentDetailsComponent implements OnInit {
             this.appointment.recommendations.push(rec);
             sessionStorage.removeItem('cyhSelectedAppointment');
             sessionStorage.setItem('cyhSelectedAppointment', JSON.stringify(this.appointment));
-            window.location.reload();
+            this.cd.detectChanges();
+            this.getMedicNameForRecommendations();
           });
       }
     });
@@ -301,10 +318,11 @@ export class MedicAppointmentDetailsComponent implements OnInit {
         this.loading = true;
         this.prescriptionsService.addPrescription(this.appointment.id, this.appointment.patient, prescription.pharmacy, this.appointment.medic, prescription.medicines)
           .subscribe((pres: Prescription) => {
+            this.loading = false;
             this.appointment.prescription = pres;
             sessionStorage.removeItem('cyhSelectedAppointment');
             sessionStorage.setItem('cyhSelectedAppointment', JSON.stringify(this.appointment));
-            window.location.reload();
+            this.cd.detectChanges();
           });
       }
     });
@@ -314,7 +332,7 @@ export class MedicAppointmentDetailsComponent implements OnInit {
     if (this.appointment.recommendations.length > 0) {
       const recs = this.appointment.recommendations;
       recs.forEach((rec: Recommendation) => {
-        this.userService.getUserInfo(rec.medic).subscribe((specialist: BaseUser) => {
+        this.userService.getUserInfo(rec.specialist).subscribe((specialist: BaseUser) => {
           rec.medicName = specialist.name;
           
           if (recs.indexOf(rec) === recs.length - 1) {

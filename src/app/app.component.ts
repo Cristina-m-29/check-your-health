@@ -22,11 +22,5 @@ export class AppComponent implements OnInit {
         const userType = event.url.split('/')[1];
         this.showMainNavbar = userTypes.includes(userType) || userType === 'profile' || !!options.menuList.find(option => event.url.includes(option));
       });
-
-    this.getNotifications();
-  }
-
-  private getNotifications(): void {
-    this.notificationsService.getNotifications();
   }
 }

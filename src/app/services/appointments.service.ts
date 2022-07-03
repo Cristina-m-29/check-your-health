@@ -48,6 +48,7 @@ export class AppointmentsService {
     this.base
       .get<Appointment[]>('users/appointments')
       .pipe(catchError((error: HttpErrorResponse) => {
+        this.toastService.showToast('A apărut o eroare! Actualizați pagina!')
         return [];
       }))
       .subscribe((appointments: Appointment[]) => {
@@ -63,11 +64,21 @@ export class AppointmentsService {
   public getAppointmentsOfPatientForMedic(patientId: string): Observable<Appointment[]> {
     return this.base.get<Appointment[]>('users/appointments')
       .pipe(catchError(() => {
+        this.toastService.showToast('A apărut o eroare! Actualizați pagina!')
         return [];
       }))
       .pipe(map((apps: Appointment[]) => {
         return apps.filter((app: Appointment) => app.patient === patientId);
       }));
+  }
+
+  public getAppointment(appointmentId: string): Observable<Appointment> {
+    return this.base
+      .get<Appointment>('users/appointments/' + appointmentId)
+      .pipe(catchError(() => {
+        this.toastService.showToast('A apărut o eroare! Programarea nu a putut fi adusă!')
+        return [];
+      }))
   }
 
   public addAppointment(
@@ -86,6 +97,7 @@ export class AppointmentsService {
         reason: reason,
         recommendation: recommendationId
       }).pipe(catchError(() => {
+        this.toastService.showToast('A apărut o eroare! Programare nu a fost creată!');
         return EMPTY;
       })).pipe(map((app: Appointment) => {
         this.toastService.showToast('Programare creată!');
@@ -100,6 +112,7 @@ export class AppointmentsService {
         reason: reason,
         recommendation: recommendationId
       }).pipe(catchError(() => {
+        this.toastService.showToast('A apărut o eroare! Programare nu a fost creată!');
         return EMPTY;
       })).pipe(map((app: Appointment) => {
         this.toastService.showToast('Programare creată!');
@@ -109,19 +122,26 @@ export class AppointmentsService {
   }
 
   public acceptAppointment(appointmentId: string): Observable<Appointment> {
-    return this.base.post<{}, Appointment>('users/appointments/' + appointmentId +'/accept', {}).pipe(map((app: Appointment) => {
-      this.toastService.showToast('Programare acceptată!');
-      return app;
-    }));
+    return this.base.post<{}, Appointment>('users/appointments/' + appointmentId +'/accept', {})
+      .pipe(catchError(() => {
+        this.toastService.showToast('A apărut o eroare! Programare nu a fost acceptată!');
+        return EMPTY;
+      }))
+      .pipe(map((app: Appointment) => {
+        this.toastService.showToast('Programare acceptată!');
+        return app;
+      }));
   }
 
   public refuseAppointment(appointmentId: string, refuseReason: string): Observable<Appointment> {
-    return this.base.post<{}, Appointment>('users/appointments/' + appointmentId +'/refuse', {
-      reason: refuseReason
-    }).pipe(map((app: Appointment) => {
-      this.toastService.showToast('Programare refuzată!');
-      return app;
-    }));
+    return this.base.post<{}, Appointment>('users/appointments/' + appointmentId +'/refuse', { reason: refuseReason })
+      .pipe(catchError(() => {
+        this.toastService.showToast('A apărut o eroare! Programare nu a fost refuzată!');
+        return EMPTY;
+      })).pipe(map((app: Appointment) => {
+        this.toastService.showToast('Programare refuzată!');
+        return app;
+      }));
   }
 
   public getMedicFreeIntervals(medicId: string, timestamp: number): Observable<number[]> {
@@ -129,10 +149,15 @@ export class AppointmentsService {
   }
 
   public finishInvestigation(appointmentId: string): Observable<Appointment> {
-    return this.base.post<any, Appointment>('users/appointments/' + appointmentId + '/finalize', {}).pipe(map((app: Appointment) => {
-      this.toastService.showToast('Investigație finalizată cu success!');
-      return app;
-    }));
+    return this.base.post<any, Appointment>('users/appointments/' + appointmentId + '/finalize', {})
+      .pipe(catchError(() => {
+        this.toastService.showToast('A apărut o eroare! Investigația nu a putut fi finalizată!');
+        return EMPTY;
+      }))
+      .pipe(map((app: Appointment) => {
+        this.toastService.showToast('Investigație finalizată cu success!');
+        return app;
+      }));
   }
 
   private getFullMedicOfAppointments(appointments: Appointment[]): void {

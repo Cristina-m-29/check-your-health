@@ -41,17 +41,17 @@
     class="flex_column width-full"
   >
     <button
-      *ngIf="selectedMenuItem !== item"
+      *ngIf="selectedMenuItem !== options.menuList[options.translateMenuList.indexOf(item)]"
       color="primary"
       class="width-full"
       mat-button
     >
       {{ item | upperCaseFirstLetter }}
-      <span *ngIf="item === 'notificări'">{{numberOfUnreadNotifications !== 0 ? numberOfUnreadNotifications : ''}}</span>
+      <!-- <span *ngIf="item === 'notificări'">{{numberOfUnreadNotifications !== 0 ? numberOfUnreadNotifications : ''}}</span> -->
     </button>
 
     <button
-      *ngIf="selectedMenuItem === item"
+      *ngIf="selectedMenuItem === options.menuList[options.translateMenuList.indexOf(item)]"
       color="primary"
       class="width-full"
       mat-stroked-button

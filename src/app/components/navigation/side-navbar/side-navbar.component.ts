@@ -1,11 +1,8 @@
-import { userTypes } from './../../../models/userType';
-import { Component, OnInit } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
-import { filter } from 'rxjs';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Menu, menus, options } from 'src/app/models/menu';
 import { AuthService } from 'src/app/services/auth.service';
 import { NotificationsService } from 'src/app/services/notifications.service';
-import { Notification } from 'src/app/models/notification';
 
 @Component({
   selector: 'cyh-side-navbar',
@@ -18,28 +15,21 @@ export class SideNavbarComponent implements OnInit {
   public options = options;
   public selectedMenuItem: string = this.menus.find(menu => menu.userType === this.userType)?.menuList[0] || '';
 
-  private userTypeBasedNotifications = {
-    'patient': <Notification[]>[],
-    'medic': <Notification[]>[],
-    'specialist': <Notification[]>[],
-    'pharmacy': <Notification[]>[],
-  } 
-
   constructor(
     private authService: AuthService, 
     private router: Router,
-    private notificationsService: NotificationsService
+    private cd: ChangeDetectorRef,
+    private notificationsService: NotificationsService,
   ) {}
 
-  get numberOfUnreadNotifications(): number {
-    return this.userType 
-      ? this.userTypeBasedNotifications[this.userType].filter((notif: Notification) => !notif.read).length 
-      : 0;
-  }
-
   public ngOnInit(): void {
+    this.startListeningForNotifications();
+    this.getNotifications();
     this.initSideNav();
-    this.listenForNotifications();
+
+    this.notificationsService.gotNewNotifications.subscribe(() => {
+      this.getNotifications();
+    });
   }
 
   public goHome(): void {
@@ -49,6 +39,7 @@ export class SideNavbarComponent implements OnInit {
 
   public goTo(menu: Menu, selectedMenuItem: string): void {
     this.selectedMenuItem = this.getUrlItemOfMenuList(menu, selectedMenuItem);
+    this.cd.detectChanges();
 
     if (this.selectedMenuItem === 'iesire') {
       this.authService.logout();
@@ -56,7 +47,7 @@ export class SideNavbarComponent implements OnInit {
     }
 
     if (this.selectedMenuItem === 'notificari') {
-      // to do
+      console.log('here'); // to do
     }
 
     if (options.menuList.find(option => option === this.selectedMenuItem) || selectedMenuItem === 'profil') {
@@ -79,11 +70,11 @@ export class SideNavbarComponent implements OnInit {
     this.selectedMenuItem = menu.menuList.find((item: string) => item === selectedMenuItem) || menu.menuList[0];
   }
 
-  private listenForNotifications(): void {
-    this.notificationsService.notifications.subscribe((notification: Notification) => {
-      if (notification) {
-        this.userTypeBasedNotifications[notification.userType].push(notification);
-      }
-    });
+  private getNotifications(): void {
+    this.notificationsService.getNotifications(); // to do
+  }
+
+  private startListeningForNotifications(): void {
+    this.notificationsService.startListeningForNotifications();
   }
 }

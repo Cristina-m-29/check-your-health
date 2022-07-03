@@ -1,10 +1,11 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { catchError, EMPTY, Observable } from 'rxjs';
+import { catchError, EMPTY, map, Observable } from 'rxjs';
 import { Recommendation } from '../models/recommendation';
 import { AuthService } from './auth.service';
 import { BaseService } from './base.service';
+import { ToastService } from './toast.service';
 import { WebsocketService } from './websocket.service';
 
 @Injectable({
@@ -13,10 +14,20 @@ import { WebsocketService } from './websocket.service';
 export class RecommendationsService {
   public websocketIgnoreNextEvent: Boolean = false;
 
-  constructor(private baseService: BaseService, private authService: AuthService, private websocketService: WebsocketService) { }
+  constructor(
+    private baseService: BaseService, 
+    private authService: AuthService, 
+    private websocketService: WebsocketService,
+    private toastService: ToastService,
+  ) {}
 
   public getRecommendations(): Observable<Recommendation[]> {
-    return this.baseService.get<Recommendation[]>('users/recommendations');
+    return this.baseService
+      .get<Recommendation[]>('users/recommendations')
+      .pipe(catchError((err: HttpErrorResponse) => {
+        this.toastService.showToast('A apărut o eroare! Nu s-a putut obține lista cu trimiteri!');
+        return [];
+      }));
   }
 
   public getRecommendationEvents(): Observable<any> {
@@ -35,7 +46,12 @@ export class RecommendationsService {
   }
 
   public getRecommendationsForSpecificPatient(patientId: string): Observable<Recommendation[]> {
-    return this.baseService.get<Recommendation[]>('users/' + patientId + '/recommendations');
+    return this.baseService
+      .get<Recommendation[]>('users/' + patientId + '/recommendations')
+      .pipe(catchError((err: HttpErrorResponse) => {
+        this.toastService.showToast('A apărut o eroare! Actualizați pagina!');
+        return [];
+      }));
   }
 
   public addRecommendation(appointmentId: string, patientId: string, specialistId: string, details: string): Observable<Recommendation> {
@@ -45,8 +61,12 @@ export class RecommendationsService {
       specialist: specialistId,
       details: details
     }).pipe(catchError((err: HttpErrorResponse) => {
+      this.toastService.showToast('A apărut o eroare! Trimiterea nu a putut fi adăugată!');
       return EMPTY;
-    }));
+    })).pipe(map((rec: Recommendation) => {
+      this.toastService.showToast('Trimiterea a fost adăugată cu succes!')
+      return rec;
+    }));;
   }
 
 }

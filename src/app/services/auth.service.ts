@@ -18,7 +18,7 @@ export class AuthService {
   private userType: UserType | null = JSON.parse(localStorage.getItem('cyhUserType') || 'null');
   private requestingRefreshToken: boolean = false;
 
-  constructor(private router: Router, private baseService: BaseService, private toastService: ToastService) {}
+  constructor(private router: Router, private baseService: BaseService, private toastService: ToastService, ) {}
 
   public setUserType(userType: UserType| null): void {
     localStorage.setItem('cyhUserType', JSON.stringify(userType));
@@ -90,6 +90,8 @@ export class AuthService {
 
       this.baseService.post<object, LoginResponse>('auth/refresh', {})
         .pipe(catchError(() => {
+          this.toastService.showToast('A apărut o eroare!')
+          this.logout();
           return [];
         }))
         .subscribe((response: LoginResponse) => {

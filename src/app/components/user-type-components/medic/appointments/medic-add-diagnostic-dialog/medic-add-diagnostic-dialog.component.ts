@@ -83,7 +83,7 @@ export class MedicAddDiagnosticDialogComponent implements OnInit {
 
       this.cd.detectChanges();
     }
-    if (!this.data.canBeFinal) {
+    else if (!this.data.canBeFinal) {
       this.diagnosticForm.controls['final'].setValue(false);
       this.diagnosticForm.controls['final'].disable();
 
