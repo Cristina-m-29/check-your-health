@@ -1,0 +1,58 @@
+<form [formGroup]="workingHoursForm" class="width-full margin_bottom-l">
+    <div 
+        *ngFor="let day of daysOfTheWeek"
+        class="width-full working-hours-day"
+        [class.padding_bottom]="getToggleLabelForDay(day) === 'Închis'"
+    >
+        <span class="small-subtitle">
+            {{ getLabelForDay(day) | upperCaseFirstLetter }}
+        </span>
+
+        <mat-slide-toggle 
+            class="example-margin" 
+            color="primary" 
+            (change)="toggleDay($event, day)"
+            formControlName="{{day}}"
+        >
+            <span class="subtitle">{{getToggleLabelForDay(day)}}</span>
+        </mat-slide-toggle>
+
+        <div class="flex">
+            <ng-container *ngIf="showTimeInputs(day)">
+                <mat-form-field appearance="outline" class="hour-select">
+                    <mat-label>Început</mat-label>
+
+                    <mat-select 
+                        matNativeControl
+                        formControlName="{{day + 'Start'}}"
+                    >
+                        <mat-option 
+                            *ngFor="let option of selectHoursValues" 
+                            [value]="option.value"
+                        >
+                            {{option.key}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <span class="small-subtitile block margin_left margin_right margin_top-l"> - </span>
+
+                <mat-form-field appearance="outline" class="hour-select">
+                    <mat-label>Final</mat-label>
+
+                    <mat-select 
+                        matNativeControl
+                        formControlName="{{day + 'End'}}"
+                    >
+                        <mat-option 
+                            *ngFor="let option of selectHoursValues" 
+                            [value]="option.value"
+                        >
+                            {{option.key}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </ng-container>
+        </div>
+    </div>
+</form>

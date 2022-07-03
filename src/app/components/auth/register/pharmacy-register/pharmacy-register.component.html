@@ -1,4 +1,4 @@
-<div class="flex_column flex_column-align-center flex_column-justify-center register">
+<div *ngIf="!showWorkingHoursForm"  class="flex_column flex_column-align-center flex_column-justify-center register">
   <div class="title width-full margin_bottom-s">
     <mat-icon (click)="goBack()">keyboard_arrow_left</mat-icon>
 
@@ -19,7 +19,35 @@
     mat-raised-button
     color="primary"
     class="width-full height-small button"
-    (click)="finishRegister()"
+    (click)="continueRegister()"
     [disabled]="!farmacyRegisterForm.valid"
-  >Înregistrați-vă</button>
+  >Continuă</button>
+</div>
+
+<div 
+  *ngIf="showWorkingHoursForm" 
+  class="flex_column flex_column-align-center flex_column-justify-center register"
+>
+  <div class="title width-full margin_bottom-s">
+    <mat-icon (click)="goBackPharmacy()">keyboard_arrow_left</mat-icon>
+
+    <span>Date aditionale</span>
+  </div>
+
+  <span class="subtitle margin_bottom-xl">Completați programul cabinetului dumneavoastră</span>
+
+  <cyh-working-hours-form 
+    class="width-full" 
+    (changedWorkingHours)="changedWorkingHours($event)"
+  ></cyh-working-hours-form>
+
+  <button
+    mat-raised-button
+    color="primary"
+    class="width-full height-small button"
+    [disabled]="isFinishRegisterBtnDisabled()"
+    (click)="finishRegister()"
+  >
+    Înregistrați-vă
+  </button>
 </div>

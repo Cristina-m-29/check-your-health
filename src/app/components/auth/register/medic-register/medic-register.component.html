@@ -1,11 +1,14 @@
-<div class="flex_column flex_column-align-center flex_column-justify-center register">
+<div 
+  *ngIf="!showWorkingHoursForm && !showSelectMedic" 
+  class="flex_column flex_column-align-center flex_column-justify-center register"
+>
   <div class="title width-full margin_bottom-s">
     <mat-icon (click)="goBack()">keyboard_arrow_left</mat-icon>
 
     <span>Date aditionale</span>
   </div>
 
-  <span class="subtitle margin_bottom-xl">Completati datele profesiei dumneavoastra</span>
+  <span class="subtitle margin_bottom-xl">Completați datele profesiei dumneavoastră</span>
 
   <form [formGroup]="medicRegisterForm" class="width-full">
     <mat-form-field appearance="outline" class="width-full">
@@ -24,8 +27,48 @@
   <button
     mat-raised-button
     color="primary"
-    class="width-full height-small button"
-    (click)="finishRegister()"
+    class="width-full height-small button" 
     [disabled]="!medicRegisterForm.valid"
-  >Înregistrați-vă</button>
+    (click)="continueRegister()"
+  >
+    Continuă
+  </button>
 </div>
+
+<div 
+  *ngIf="showWorkingHoursForm && !showSelectMedic" 
+  class="flex_column flex_column-align-center flex_column-justify-center register"
+>
+  <div class="title width-full margin_bottom-s">
+    <mat-icon (click)="goBackToMedic()">keyboard_arrow_left</mat-icon>
+
+    <span>Date aditionale</span>
+  </div>
+
+  <span class="subtitle margin_bottom-xl">Completați programul cabinetului dumneavoastră</span>
+
+  <cyh-working-hours-form 
+    class="width-full" 
+    (changedWorkingHours)="changedWorkingHours($event)"
+  ></cyh-working-hours-form>
+
+  <button
+    mat-raised-button
+    color="primary"
+    class="width-full height-small button"
+    [disabled]="isFinishRegisterBtnDisabled()"
+    (click)="continueRegisterToSelectMedic()"
+  >
+    Continuă
+  </button>
+</div>
+
+<ng-container *ngIf="!showWorkingHoursForm && showSelectMedic">
+  <cyh-patient-register
+    [userType]="'medic'"
+    [medicsList]="medicsList"
+    [registerBaseUser]="registerBaseUser"
+    (goBackToBaseRegister)="hideSelectMedic()"
+    (finishRegister)="finishRegister($event)"
+  ></cyh-patient-register>
+</ng-container>

@@ -37,8 +37,7 @@ export class SideNavbarComponent implements OnInit {
   }
 
   public goHome(): void {
-    this.authService.setUserType(null);
-    this.router.navigateByUrl('');
+    this.router.navigateByUrl(this.userType + '/home');
   }
 
   public goTo(menu: Menu, selectedMenuItem: string): void {

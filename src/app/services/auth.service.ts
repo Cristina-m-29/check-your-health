@@ -3,9 +3,11 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { catchError, EMPTY, map, Observable, Subject } from 'rxjs';
+import { BaseUser } from '../models/base-user';
 import { LoginRequest } from '../models/login/loginRequest';
 import { LoginResponse } from '../models/login/loginResponse';
 import { menus } from '../models/menu';
+import { RegisterPatient } from '../models/patient';
 import { UserType } from '../models/userType';
 import { BaseService } from './base.service';
 import { ToastService } from './toast.service';
@@ -107,6 +109,16 @@ export class AuthService {
     this.requestingRefreshToken = false;
   }
 
-  // register to do
-
+  public registerPatient(patient: RegisterPatient): void {
+    this.baseService.post<RegisterPatient, BaseUser>('auth/register', patient).subscribe(() => {
+      const loginRequest: LoginRequest = {
+        userType: 'patient',
+        identity: patient.phoneNumber,
+        password: patient.password
+      };
+      this.login(loginRequest).subscribe(() => {
+        this.navigateToDashboard();
+      })
+    })
+  }
 }

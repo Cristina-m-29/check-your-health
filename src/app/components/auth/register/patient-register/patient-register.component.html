@@ -11,7 +11,26 @@
     <mat-form-field appearance="outline" class="width-full">
       <mat-label>Nume medic de familie</mat-label>
 
-      <input matInput placeholder="Ana Grigorescu" required formControlName="name">
+      <input
+        #medicineTrigger
+        type="text"
+        placeholder="Medicament"
+        matInput
+        formControlName="name"
+        [matAutocomplete]="autoMedic"
+        (focus)="onFocus()"
+        required
+      >
+
+      <mat-autocomplete autoActiveFirstOption #autoMedic="matAutocomplete">
+        <mat-option
+          *ngFor="let option of medicsListForInput | async"
+          [value]="option.name"
+          (click)="selectMedic(option)"
+        >
+          {{option.name}}
+        </mat-option>
+      </mat-autocomplete>
     </mat-form-field>
   </form>
 
@@ -19,7 +38,7 @@
     mat-raised-button
     color="primary"
     class="width-full height-small button"
-    (click)="finishRegister()"
+    (click)="doFinishRegister()"
     [disabled]="!medicName.valid"
   >Înregistrați-vă</button>
 </div>

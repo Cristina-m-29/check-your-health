@@ -67,6 +67,8 @@ import { PharmacyPatientSearchDialogComponent } from './components/user-type-com
 import { PharmacyPrescriptionDetailsComponent } from './components/user-type-components/pharmacy/pharmacy-prescription-details/pharmacy-prescription-details.component';
 import { PatientMedicDetailsCardComponent } from './components/user-type-details-cards/patient-medic-details-card/patient-medic-details-card.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { WorkingHoursFormComponent } from './components/utils/working-hours-form/working-hours-form.component';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 @NgModule({
   declarations: [
@@ -117,6 +119,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     PharmacyPatientSearchDialogComponent,
     PharmacyPrescriptionDetailsComponent,
     PatientMedicDetailsCardComponent,
+    WorkingHoursFormComponent,
   ],
   imports: [
     AppRoutingModule,
@@ -137,7 +140,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatSelectModule,
     ReactiveFormsModule,
     SafePipeModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatSlideToggleModule
   ],
   providers: [
     {

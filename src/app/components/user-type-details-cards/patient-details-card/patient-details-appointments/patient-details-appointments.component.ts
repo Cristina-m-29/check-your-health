@@ -25,7 +25,9 @@ export class PatientDetailsAppointmentsComponent implements OnInit {
 
   public ngOnInit(): void {
     this.appointmentsService.getAppointmentsOfPatientForMedic(this.patient.id).subscribe((apps: Appointment[]) => {
-      this.patientAppointmentsForMedic = apps;
+      this.patientAppointmentsForMedic = apps.sort((a: Appointment, b:Appointment) => {
+        return a.date === b.date ? a.hoursInterval.start - b.hoursInterval.start : a.date - b.date;
+      });
     });
   }
 

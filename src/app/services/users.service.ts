@@ -58,6 +58,15 @@ export class UsersService {
       }));
   }
 
+  public getMedicsListForRegister(): Observable<Medic[]> {
+    return this.base
+      .get<Medic[]>('medics')
+      .pipe(catchError((err: HttpErrorResponse) => {
+        this.toastService.showToast('A apărut o eroare! Nu s-a putut obține lista cu medici!');
+        return [];
+      }));
+  }
+
   public getAllMedics(): Observable<Medic[]> {
     return this.base
       .get<Medic[]>("users/medics")
