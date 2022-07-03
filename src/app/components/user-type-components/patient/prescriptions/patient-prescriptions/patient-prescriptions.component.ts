@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BaseUser } from 'src/app/models/base-user';
+import { SocketNotification } from 'src/app/models/notification';
 import { Pharmacy } from 'src/app/models/pharmacy';
 import { Prescription } from 'src/app/models/prescription';
 import { PrescriptionsService } from 'src/app/services/prescriptions.service';
@@ -44,7 +45,8 @@ export class PatientPrescriptionsComponent implements OnInit {
 
   private getPrescriptionEvents(): void {
     this.prescriptionsService.getPrescriptionEvents().subscribe((value) => {
-      if(value.data === 'POST' || value.data === 'PUT' || value.data === 'PATCH') {
+      const notif = <SocketNotification>JSON.parse(value.data);
+      if(notif.eventMethod === 'POST' || notif.eventMethod === 'PUT' || notif.eventMethod === 'PATCH') {
         this.getPrescriptions();
       }
     });

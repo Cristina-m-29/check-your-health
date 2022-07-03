@@ -1,9 +1,10 @@
 import { RecommendationsService } from 'src/app/services/recommandations.service';
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { BaseUser } from 'src/app/models/base-user';
 import { Medic, Specialist } from 'src/app/models/medic';
 import { Recommendation } from 'src/app/models/recommendation';
 import { UsersService } from 'src/app/services/users.service';
+import { SocketNotification } from 'src/app/models/notification';
 
 @Component({
   selector: 'cyh-patient-dashboard-references',
@@ -18,16 +19,19 @@ export class PatientReferencesComponent implements OnInit {
 
   constructor(
     private usersService: UsersService, 
-    private recommendationsService: RecommendationsService
+    private recommendationsService: RecommendationsService,
+    private cd: ChangeDetectorRef,
   ) {}
 
   public ngOnInit() {
     this.getReferences();
+    this.getReferencesEvents();
   }
 
   public selectReference(reference: Recommendation): void {
     this.loading = true;
     this.selectedReference = reference;
+    this.cd.detectChanges();
     this.getMedicForSelectedReference(this.selectedReference);
   }
 
@@ -36,7 +40,14 @@ export class PatientReferencesComponent implements OnInit {
       this.references = references;
       
       if (references.length > 0) {
-        this.selectReference(this.references[0]);
+        const selectedReference = sessionStorage.getItem('cyhSelectedReference');
+        sessionStorage.removeItem('cyhSelectedReference');
+        if (selectedReference) {
+          this.selectReference(<Recommendation>JSON.parse(selectedReference));
+        }
+        else {
+          this.selectReference(this.references[0]);
+        }
       }
       else {
         this.loading = false;
@@ -46,7 +57,8 @@ export class PatientReferencesComponent implements OnInit {
 
   private getReferencesEvents(): void {
     this.recommendationsService.getRecommendationEvents().subscribe((value) => {
-      if(value.data === 'POST') {
+      const notif = <SocketNotification>JSON.parse(value.data);
+      if(notif.eventMethod === 'POST') {
         this.getReferences();
       }
     });
@@ -56,6 +68,7 @@ export class PatientReferencesComponent implements OnInit {
     this.usersService.getUserInfo(reference.specialist).subscribe((specialist: BaseUser) => {
       this.medicForSelectedReference = <Specialist>specialist;
       this.loading = false;
+      this.cd.detectChanges();
     });
   }
 

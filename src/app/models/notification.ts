@@ -1,10 +1,13 @@
 import { UserType } from "./userType";
 
 export class Notification {
-  objectId: string = '';
-  userType!: UserType;
+  id: string = '';
+  eventMethod: string = '';
+  eventName: string = '';
   message: string = '';
-  isRead? = false;
+  objectId: string = '';
+  isRead: boolean = false;
+  role: string = '';
 }
 
 export class SocketNotification {

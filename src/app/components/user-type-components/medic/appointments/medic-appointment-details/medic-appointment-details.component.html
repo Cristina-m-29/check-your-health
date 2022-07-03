@@ -81,7 +81,7 @@
 
         <span class="small-subtitle">Status</span>
 
-        <ng-container *ngIf="!appointment.examinationFinished && !forSpecialist; else appFinished">
+        <ng-container *ngIf="!appointment.examinationFinished; else appFinished">
           <ng-container *ngIf="appointment.status === 'pending'">
             <ng-container *ngIf="!isOldAppointment(appointment.date); else old">
               <span class="small-subtitle pending block">Așteaptă confirmare</span>

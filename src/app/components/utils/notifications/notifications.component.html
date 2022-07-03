@@ -1,1 +1,35 @@
-<p>notifications works!</p>
+<div
+    [class.flex_column-justify-center]="notifications.length === 0"
+    class="flex_column flex_column-align-center height-full min-height-full"
+>
+    <div class="card flex flex-align-center flex-justify notification width-full margin_bottom" *ngFor="let notification of notifications">
+        <span class="subtitle">{{notification.message}}</span>
+
+        <div>
+            <button 
+                mat-raised-button
+                [disabled]="notification.isRead"
+                (click)="markAsRead(notification)"
+            >
+                Marchează ca citită
+            </button>
+
+            <span class="margin_right"></span>
+
+            <button 
+                color="primary" 
+                mat-raised-button
+                (click)="openNotification(notification)"
+            >  
+                Deschide
+            </button>
+        </div>
+    </div>
+
+    <span
+        class="title" 
+        *ngIf="notifications.length === 0"
+    >
+        Nu au fost găsite notificări : (
+    </span>
+</div>

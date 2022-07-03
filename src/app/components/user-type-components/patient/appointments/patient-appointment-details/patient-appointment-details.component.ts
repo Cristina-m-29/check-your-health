@@ -6,8 +6,10 @@ import * as moment from 'moment';
 import { Appointment } from 'src/app/models/appointment';
 import { BaseUser } from 'src/app/models/base-user';
 import { Specialist } from 'src/app/models/medic';
+import { Recommendation } from 'src/app/models/recommendation';
 import { HoursInterval, HoursIntervalOption, weekday } from 'src/app/models/workingHours';
 import { AppointmentsService } from 'src/app/services/appointments.service';
+import { RecommendationsService } from 'src/app/services/recommandations.service';
 import { UsersService } from 'src/app/services/users.service';
 import { UtilsService } from 'src/app/services/utils.service';
 
@@ -23,6 +25,7 @@ export class PatientAppointmentDetailsComponent implements OnInit {
   public referenceId = '';
   public loading = true;
 
+  public recommendation = new Recommendation();
   public hoursIntervalOptions: HoursIntervalOption[] = [];
 
   // input fields
@@ -45,6 +48,7 @@ export class PatientAppointmentDetailsComponent implements OnInit {
   constructor(
     private router: Router,
     private appointmentsService: AppointmentsService,
+    private recommendationsService: RecommendationsService,
     private usersService: UsersService,
     private utilsService: UtilsService,
   ) {
@@ -75,7 +79,7 @@ export class PatientAppointmentDetailsComponent implements OnInit {
       const appointment = sessionStorage.getItem('cyhSelectedAppointment');
       if(appointment) {
         this.appointment = <Appointment>JSON.parse(appointment || '{}');
-        this.getMedic(this.appointment.medic);
+        this.findIfAppointmentIsFromRecommendation(this.appointment);
       }
       else {
         this.goBack();
@@ -123,10 +127,25 @@ export class PatientAppointmentDetailsComponent implements OnInit {
       });
   }
 
+  public viewRecommendation(): void {
+    sessionStorage.setItem('cyhSelectedReference', JSON.stringify(this.recommendation));
+    this.router.navigateByUrl('patient/references');
+  }
+
   // go to privious page
   public goBack(): void {
     sessionStorage.removeItem('cyhSelectedAppointment');
     this.router.navigateByUrl('patient/home');
+  }
+
+  private findIfAppointmentIsFromRecommendation(appointment: Appointment): void {
+    this.recommendationsService.getRecommendations().subscribe((recs: Recommendation[]) => {
+      const recommendation = recs.find((rec: Recommendation) => rec?.appointment?.id === appointment.id);
+      if (recommendation) {
+        this.recommendation = recommendation;
+      }
+      this.getMedic(appointment.medic);
+    });
   }
 
   // get family medic

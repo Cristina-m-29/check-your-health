@@ -9,6 +9,7 @@ import { MedicineService } from 'src/app/services/medicine.service';
 import { MatAutocompleteTrigger } from '@angular/material/autocomplete';
 import { Observable, of } from 'rxjs';
 import { Pharmacy } from 'src/app/models/pharmacy';
+import { SocketNotification } from 'src/app/models/notification';
 
 @Component({
   selector: 'cyh-medic-add-prescription',
@@ -136,7 +137,8 @@ export class MedicAddPrescriptionComponent implements OnInit {
 
   private getAllPharmacyEvents(): void {
     this.usersService.getPharmacyEvents().subscribe((value) => {
-      if(value.data === 'POST') {
+      const notif = <SocketNotification>JSON.parse(value.data);
+      if(notif.eventMethod === 'POST') {
         this.getAllPharmacies();
       }
     });
@@ -150,7 +152,8 @@ export class MedicAddPrescriptionComponent implements OnInit {
 
   private getAllMedicineEvents(): void {
     this.medicineService.getMedicineEvents().subscribe((value) => {
-      if(value.data === 'POST') {
+      const notif = <SocketNotification>JSON.parse(value.data);
+      if(notif.eventMethod === 'POST') {
         this.getAllMedicine();
       }
     });

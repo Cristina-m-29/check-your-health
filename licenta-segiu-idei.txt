@@ -108,3 +108,7 @@ Farmacie: []
 
     pt farmacie:
         - cand primeste o reteta noua (done)
+
+
+// ce nu merge cum ar trebui
+- nu am primit notificare pe pacient pt adaugare prescriptie

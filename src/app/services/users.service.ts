@@ -87,7 +87,7 @@ export class UsersService {
 
   public getPatientsEvents(): Observable<any> {
     return new Observable<any>(subscriber => {
-      this.websocketService.connect('patients').subscribe((value) => {
+      this.websocketService.connect('register').subscribe((value) => {
         if (!this.websocketIgnoreNextEvent) {
           subscriber.next(value);
         } else {

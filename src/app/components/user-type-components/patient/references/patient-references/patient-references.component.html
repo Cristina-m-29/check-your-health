@@ -10,7 +10,7 @@
       <cyh-patient-reference-details
         *ngFor="let reference of references"
         [reference]="reference"
-        [selected]="reference === selectedReference"
+        [selected]="reference.id === selectedReference.id"
         (click)="selectReference(reference)"
       ></cyh-patient-reference-details>
     </div>

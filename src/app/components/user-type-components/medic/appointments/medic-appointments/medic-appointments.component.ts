@@ -3,6 +3,7 @@ import { Component, EventEmitter, Output, OnInit, Input } from '@angular/core';
 import { map, Observable, Subject } from 'rxjs';
 import { Appointment } from 'src/app/models/appointment';
 import { Router } from '@angular/router';
+import { SocketNotification } from 'src/app/models/notification';
 
 @Component({
   selector: 'cyh-medic-appointments',
@@ -25,7 +26,8 @@ export class MedicAppointmentsComponent implements OnInit{
   constructor(private appointmentsService: AppointmentsService, private router: Router) {
     this.appointmentsService.getAppointments('medic');
     this.appointmentsService.getAppointmentEvents().subscribe((value) => {
-      if(value.data === 'POST' || value.data === 'PUT') {
+      const notif = <SocketNotification>JSON.parse(value.data);
+      if(notif.eventMethod === 'POST' || notif.eventMethod === 'PUT') {
         this.appointmentsService.getAppointments('medic');
       }
     });

@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@
 import { Router } from '@angular/router';
 import { BaseUser } from 'src/app/models/base-user';
 import { Medic } from 'src/app/models/medic';
+import { SocketNotification } from 'src/app/models/notification';
 import { Patient } from 'src/app/models/patient';
 import { Prescription } from 'src/app/models/prescription';
 import { PrescriptionsService } from 'src/app/services/prescriptions.service';
@@ -27,7 +28,8 @@ export class PharmacyHomeComponent implements OnInit {
     private router: Router,
   ) {
     this.prescriptionsService.getPrescriptionEvents().subscribe((value) => {
-      if(value.data === 'POST' || value.data === 'PUT') {
+      const notif = <SocketNotification>JSON.parse(value.data);
+      if(notif.eventMethod === 'POST' || notif.eventMethod === 'PUT') {
         this.getPrescriptions();
       }
     });

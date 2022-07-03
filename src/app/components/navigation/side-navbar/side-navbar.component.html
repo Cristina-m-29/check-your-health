@@ -47,7 +47,7 @@
       mat-button
     >
       {{ item | upperCaseFirstLetter }}
-      <!-- <span *ngIf="item === 'notificări'">{{numberOfUnreadNotifications !== 0 ? numberOfUnreadNotifications : ''}}</span> -->
+      <span class="notifactions-badge" *ngIf="item === 'notificări' && notificationsCount !== 0">{{notificationsCount}}</span>
     </button>
 
     <button
@@ -57,6 +57,7 @@
       mat-stroked-button
     >
       {{ item | upperCaseFirstLetter }}
+      <span class="notifactions-badge" *ngIf="item === 'notificări' && notificationsCount !== 0">{{notificationsCount}}</span>
     </button>
   </div>
 </div>

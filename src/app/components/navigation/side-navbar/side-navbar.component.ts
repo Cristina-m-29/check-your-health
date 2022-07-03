@@ -1,6 +1,7 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Menu, menus, options } from 'src/app/models/menu';
+import { Notification } from 'src/app/models/notification';
 import { AuthService } from 'src/app/services/auth.service';
 import { NotificationsService } from 'src/app/services/notifications.service';
 
@@ -14,6 +15,9 @@ export class SideNavbarComponent implements OnInit {
   public menus = menus;
   public options = options;
   public selectedMenuItem: string = this.menus.find(menu => menu.userType === this.userType)?.menuList[0] || '';
+
+  private notifications: Notification[] = [];
+  public notificationsCount = 0;
 
   constructor(
     private authService: AuthService, 
@@ -46,10 +50,6 @@ export class SideNavbarComponent implements OnInit {
       return;
     }
 
-    if (this.selectedMenuItem === 'notificari') {
-      console.log('here'); // to do
-    }
-
     if (options.menuList.find(option => option === this.selectedMenuItem) || selectedMenuItem === 'profil') {
       this.router.navigateByUrl(this.selectedMenuItem);
       return;
@@ -71,7 +71,10 @@ export class SideNavbarComponent implements OnInit {
   }
 
   private getNotifications(): void {
-    this.notificationsService.getNotifications(); // to do
+    this.notificationsService.getNotifications().subscribe((notifs: Notification[]) => {
+      this.notifications = notifs;
+      this.notificationsCount = this.notifications.filter((notification: Notification) => !notification.isRead).length;
+    });
   }
 
   private startListeningForNotifications(): void {

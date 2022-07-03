@@ -93,6 +93,16 @@
               <span class="subtitle block margin_bottom">{{appointment.refuseReason || 'Nu este specificat' | upperCaseFirstLetter}}</span>
             </ng-container>
           </ng-template>
+
+          <button 
+            *ngIf="recommendation.id !== ''"
+            mat-raised-button 
+            color="primary" 
+            class="width-full height-small button"
+            (click)="viewRecommendation()"
+          >
+            Vezi trimitere
+          </button>
         </div>
       </ng-container>
     </div>

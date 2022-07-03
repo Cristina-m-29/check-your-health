@@ -2,6 +2,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { map, Observable } from 'rxjs';
 import { Appointment } from 'src/app/models/appointment';
+import { SocketNotification } from 'src/app/models/notification';
 import { AppointmentsService } from 'src/app/services/appointments.service';
 
 @Component({
@@ -28,7 +29,8 @@ export class PatientAppointmentsComponent {
   constructor(private router: Router, private appointmentsService: AppointmentsService) {
     this.appointmentsService.getAppointments('patient');
     this.appointmentsService.getAppointmentEvents().subscribe((value) => {
-      if(value.data === 'POST' || value.data === 'PUT') {
+      const notif = <SocketNotification>JSON.parse(value.data);
+      if(notif.eventMethod === 'POST' || notif.eventMethod === 'PUT') {
         this.appointmentsService.getAppointments('patient');
       }
     });
