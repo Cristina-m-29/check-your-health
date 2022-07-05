@@ -1,15 +1,26 @@
-<div *ngIf="!showWorkingHoursForm && !showSelectMedic"  class="flex_column flex_column-align-center flex_column-justify-center register">
-  <div class="title width-full margin_bottom-s">
-    <mat-icon (click)="goBack()">keyboard_arrow_left</mat-icon>
+<ng-container *ngIf="!showWorkingHoursForm && !showSelectMedic">
+  <cyh-patient-register
+    [end]="false"
+    [userType]="'medic'"
+    [medicsList]="medicsList"
+    [registerBaseUser]="registerBaseUser"
+    (goBackToBaseRegister)="goBack()"
+    (finishRegister)="setMedicId($event)"
+  ></cyh-patient-register>
+</ng-container>
 
-    <span>Date aditionale</span>
+<div *ngIf="showWorkingHoursForm && !showSelectMedic" class="flex_column flex_column-align-center flex_column-justify-center register">
+  <div class="title width-full margin_bottom-s">
+    <mat-icon (click)="goBackToMedic()">keyboard_arrow_left</mat-icon>
+
+    <span>Date adiționale</span>
   </div>
 
-  <span class="subtitle margin_bottom-xl">Completati datele profesiei dumnevoastra</span>
+  <span class="subtitle margin_bottom-xl">Completați datele profesiei dumnevoastra</span>
 
   <form [formGroup]="medicRegisterForm" class="width-full">
     <mat-form-field appearance="outline" class="width-full">
-      <mat-label>Cod unic parafa</mat-label>
+      <mat-label>Cod unic parafă</mat-label>
 
       <input matInput placeholder="AG96H" required formControlName="code">
     </mat-form-field>
@@ -21,7 +32,7 @@
     </mat-form-field>
 
     <mat-form-field appearance="outline" class="width-full">
-      <mat-label>Locatie Cabinet</mat-label>
+      <mat-label>Locatțe cabinet</mat-label>
 
       <input matInput placeholder="Bulevardul Stefan Cel Mare nr.4" required formControlName="location">
     </mat-form-field>
@@ -31,19 +42,19 @@
     mat-raised-button
     color="primary"
     class="width-full height-small button"
-    (click)="continueRegister()"
+    (click)="continueRegisterToSelectMedic()"
     [disabled]="!medicRegisterForm.valid"
   >Continuă</button>
 </div>
 
 <div 
-  *ngIf="showWorkingHoursForm && !showSelectMedic" 
+  *ngIf="!showWorkingHoursForm && showSelectMedic"
   class="flex_column flex_column-align-center flex_column-justify-center register"
 >
   <div class="title width-full margin_bottom-s">
-    <mat-icon (click)="goBackToMedic()">keyboard_arrow_left</mat-icon>
+    <mat-icon (click)="hideSelectMedic()">keyboard_arrow_left</mat-icon>
 
-    <span>Date aditionale</span>
+    <span>Date adiționale</span>
   </div>
 
   <span class="subtitle margin_bottom-xl">Completați programul cabinetului dumneavoastră</span>
@@ -58,18 +69,9 @@
     color="primary"
     class="width-full height-small button"
     [disabled]="isFinishRegisterBtnDisabled()"
-    (click)="continueRegisterToSelectMedic()"
+    (click)="finishRegister()"
   >
-    Continuă
+    Înregistrați-vă
   </button>
 </div>
 
-<ng-container *ngIf="!showWorkingHoursForm && showSelectMedic">
-  <cyh-patient-register
-    [userType]="'medic'"
-    [medicsList]="medicsList"
-    [registerBaseUser]="registerBaseUser"
-    (goBackToBaseRegister)="hideSelectMedic()"
-    (finishRegister)="finishRegister($event)"
-  ></cyh-patient-register>
-</ng-container>

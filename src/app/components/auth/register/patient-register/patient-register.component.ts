@@ -14,6 +14,7 @@ import { UtilsService } from 'src/app/services/utils.service';
   templateUrl: './patient-register.component.html',
 })
 export class PatientRegisterComponent {
+  @Input() public end = true;
   @Input() public userType: UserType = 'patient';
   @Input() public registerBaseUser = new RegisterBaseUser();
   @Input() public medicsList: Medic[] = [];

@@ -40,5 +40,5 @@
     class="width-full height-small button"
     (click)="doFinishRegister()"
     [disabled]="!medicName.valid"
-  >Înregistrați-vă</button>
+  >{{end ? 'Înregistrați-vă' : 'Continuă'}}</button>
 </div>

@@ -15,7 +15,7 @@
     </mat-form-field>
 
     <mat-form-field appearance="outline" class="width-full">
-      <mat-label>Numar de telefon</mat-label>
+      <mat-label>Număr de telefon</mat-label>
 
       <input matInput placeholder="0723232344" formControlName="phoneNumber">
     </mat-form-field>
@@ -81,6 +81,7 @@
     mat-raised-button
     color="primary"
     class="width-full height-small button"
+    [disabled]="!additionalBaseRegisterForm.valid"
     (click)="continueRegister()"
   >
     Continuă
@@ -92,28 +93,28 @@
     *ngIf="!showBaseRegisterView && userType === 'patient'"
     [medicsList]="medicsList"
     [registerBaseUser]="registerBaseUser"
-    (goBackToBaseRegister)="goBackToBaseRegister()"
+    (goBackToBaseRegister)="goBackToAdditionalBaseRegister()"
   ></cyh-patient-register>
 
   <cyh-medic-register
     *ngIf="!showBaseRegisterView && userType === 'medic'"
     [medicsList]="medicsList"
     [registerBaseUser]="registerBaseUser"
-    (goBackToBaseRegister)="goBackToBaseRegister()"
+    (goBackToAdditionalBaseRegister)="goBackToAdditionalBaseRegister()"
   ></cyh-medic-register>
 
   <cyh-pharmacy-register
     *ngIf="!showBaseRegisterView && userType === 'pharmacy'"
     [medicsList]="medicsList"
     [registerBaseUser]="registerBaseUser"
-    (goBackToBaseRegister)="goBackToBaseRegister()"
+    (goBackToBaseRegister)="goBackToAdditionalBaseRegister()"
   ></cyh-pharmacy-register>
 
   <cyh-specialist-register
     *ngIf="!showBaseRegisterView && userType === 'specialist'"
     [medicsList]="medicsList"
     [registerBaseUser]="registerBaseUser"
-    (goBackToBaseRegister)="goBackToBaseRegister()"
+    (goBackToAdditionalBaseRegister)="goBackToAdditionalBaseRegister()"
   ></cyh-specialist-register>
 </ng-container>
 

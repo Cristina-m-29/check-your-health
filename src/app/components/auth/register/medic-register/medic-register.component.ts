@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, EventEmitter, Input, Output } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { RegisterBaseUser } from 'src/app/models/base-user';
 import { Medic, RegisterMedic } from 'src/app/models/medic';
 import { WorkingHours } from 'src/app/models/workingHours';
@@ -12,35 +12,44 @@ import { WorkingHours } from 'src/app/models/workingHours';
 export class MedicRegisterComponent {
   @Input() public registerBaseUser = new RegisterBaseUser();
   @Input() public medicsList: Medic[] = [];
-  @Output() public goBackToBaseRegister = new EventEmitter();
+  @Output() public goBackToAdditionalBaseRegister = new EventEmitter();
 
   public medicRegisterForm = new FormGroup({
-    code: new FormControl(),
-    location: new FormControl()
+    code: new FormControl('', [Validators.required]),
+    location: new FormControl('', [Validators.required])
   });
 
+  public medicId = '';
   public workingHours = new WorkingHours();
   public showWorkingHoursForm = false;
   public showSelectMedic = false;
 
   constructor(private cd: ChangeDetectorRef) {}
 
+  public setMedicId(medicId: string): void {
+    this.medicId = medicId;
+    this.continueRegister();
+  }
+
   public goBack(): void {
-    this.goBackToBaseRegister.emit();
+    this.goBackToAdditionalBaseRegister.emit();
   }
 
   public goBackToMedic(): void {
     this.showWorkingHoursForm = false;
+    this.showSelectMedic = false;
     this.cd.detectChanges();
   }
 
   public hideSelectMedic(): void {
+    this.showWorkingHoursForm = true;
     this.showSelectMedic = false;
     this.cd.detectChanges();
   }
 
   public continueRegister(): void {
     this.showWorkingHoursForm = true;
+    this.showSelectMedic = false;
     this.cd.detectChanges();
   }
 
@@ -50,9 +59,10 @@ export class MedicRegisterComponent {
     this.cd.detectChanges();
   }
 
-  public finishRegister(medicId: string): void {
+  public finishRegister(): void {
     const medic = new RegisterMedic();
 
+    medic.userType = 'medic';
     medic.name = this.registerBaseUser.name;
     medic.email = this.registerBaseUser.email;
     medic.phoneNumber = this.registerBaseUser.phoneNumber;
@@ -62,7 +72,7 @@ export class MedicRegisterComponent {
     medic.conditions = [];
     medic.code = this.medicRegisterForm.value['code'];
     medic.address = this.medicRegisterForm.value['location'];
-    medic.medic = medicId;
+    medic.medic = this.medicId;
     medic.workingHours = this.workingHours;
 
     console.log(medic);
