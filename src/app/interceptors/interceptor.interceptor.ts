@@ -16,10 +16,9 @@ export class InterceptorInterceptor implements HttpInterceptor {
   constructor(private authService: AuthService) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    if (req.url !==  environment['baseUrl'] + '/medics') {
+    if (req.url !== environment['baseUrl'] + '/medics') {
       if (
-        (!req.url.includes('auth') && !req.url.includes('refresh')) || 
-        req.url.includes('auth/register')
+        (!req.url.includes('auth') && !req.url.includes('refresh')) && !req.url.includes('auth/register')
       ) {
         const accessToken = this.authService.getAccessToken()
         const helper = new JwtHelperService();

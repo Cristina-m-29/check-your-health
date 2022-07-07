@@ -25,14 +25,24 @@ export class BaseRegisterComponent implements OnInit {
       Validators.minLength(10), 
       Validators.maxLength(10),
     ]),
-    email: new FormControl('', this.userType !== 'patient' ? [Validators.required] : []),
+    email: new FormControl('', this.userType !== 'patient' ? [
+      Validators.required,
+      Validators.pattern(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)
+    ] : [
+      Validators.pattern(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)
+    ]),
     password: new FormControl('', [Validators.required]),
     address: new FormControl('', [Validators.required]),
   });
   public registerBaseUser = new RegisterBaseUser();
 
   public additionalBaseRegisterForm = new FormGroup({
-    personalNumericCode: new FormControl('', [Validators.required]),
+    personalNumericCode: new FormControl('', [
+      Validators.required, 
+      Validators.minLength(13), 
+      Validators.maxLength(13),
+      Validators.pattern(/^[1-9]\d{2}(0[1-9]|1[0-2])(0[1-9]|[12]\d|3[01])(0[1-9]|[1-4]\d|5[0-2]|99)(00[1-9]|0[1-9]\d|[1-9]\d\d)\d$/)
+    ]),
     dateOfBirthOld: new FormControl('', [Validators.required]),
   });
 

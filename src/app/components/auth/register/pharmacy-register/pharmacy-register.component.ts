@@ -4,6 +4,7 @@ import { RegisterBaseUser } from 'src/app/models/base-user';
 import { Medic } from 'src/app/models/medic';
 import { RegisterPharmacy } from 'src/app/models/pharmacy';
 import { WorkingHours } from 'src/app/models/workingHours';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'cyh-pharmacy-register',
@@ -22,7 +23,7 @@ export class PharmacyRegisterComponent {
     location: new FormControl()
   });
 
-  constructor(private cd: ChangeDetectorRef) {}
+  constructor(private cd: ChangeDetectorRef, private authService: AuthService) {}
 
   public goBack(): void {
     this.goBackToBaseRegister.emit();
@@ -48,9 +49,9 @@ export class PharmacyRegisterComponent {
     pharmacy.dateOfBirth = this.registerBaseUser.dateOfBirth;
     pharmacy.address = this.farmacyRegisterForm.value['location'];
     pharmacy.workingHours = this.workingHours;
+    pharmacy.userType = 'pharmacy'
 
-    console.log(pharmacy)
-    // to do
+    this.authService.registerPharmacy(pharmacy);
   }
 
   public isFinishRegisterBtnDisabled(): boolean {

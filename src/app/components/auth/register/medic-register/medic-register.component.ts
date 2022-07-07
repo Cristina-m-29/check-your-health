@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { RegisterBaseUser } from 'src/app/models/base-user';
 import { Medic, RegisterMedic } from 'src/app/models/medic';
 import { WorkingHours } from 'src/app/models/workingHours';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'cyh-medic-register',
@@ -24,7 +25,7 @@ export class MedicRegisterComponent {
   public showWorkingHoursForm = false;
   public showSelectMedic = false;
 
-  constructor(private cd: ChangeDetectorRef) {}
+  constructor(private cd: ChangeDetectorRef, private authService: AuthService) {}
 
   public setMedicId(medicId: string): void {
     this.medicId = medicId;
@@ -75,8 +76,7 @@ export class MedicRegisterComponent {
     medic.medic = this.medicId;
     medic.workingHours = this.workingHours;
 
-    console.log(medic);
-    // to do
+    this.authService.registerMedic(medic);
   }
 
   public isFinishRegisterBtnDisabled(): boolean {

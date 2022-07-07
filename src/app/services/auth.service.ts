@@ -6,8 +6,10 @@ import { catchError, EMPTY, map, Observable, Subject } from 'rxjs';
 import { BaseUser } from '../models/base-user';
 import { LoginRequest } from '../models/login/loginRequest';
 import { LoginResponse } from '../models/login/loginResponse';
+import { RegisterMedic, RegisterSpecialist } from '../models/medic';
 import { menus } from '../models/menu';
 import { RegisterPatient } from '../models/patient';
+import { RegisterPharmacy } from '../models/pharmacy';
 import { UserType } from '../models/userType';
 import { BaseService } from './base.service';
 import { ToastService } from './toast.service';
@@ -110,15 +112,70 @@ export class AuthService {
   }
 
   public registerPatient(patient: RegisterPatient): void {
-    this.baseService.post<RegisterPatient, BaseUser>('auth/register', patient).subscribe(() => {
-      const loginRequest: LoginRequest = {
-        userType: 'patient',
-        identity: patient.phoneNumber,
-        password: patient.password
-      };
-      this.login(loginRequest).subscribe(() => {
-        this.navigateToDashboard();
-      })
-    })
+    this.baseService
+      .post<RegisterPatient, BaseUser>('auth/register', patient)
+      .pipe(catchError((error: HttpErrorResponse) => {
+        this.toastService.showToast(
+          translate[error.error?.err] || 'A apărut o eroare! Contul nu a putut fi creat!', true
+        );
+        this.router.navigateByUrl('');
+        return EMPTY;
+      }))
+      .subscribe(() => {
+        this.toastService.showToast('Contul a fost creat cu succes!', true);
+        this.router.navigateByUrl('login/patient');
+    });
   }
+
+  public registerMedic(medic: RegisterMedic): void {
+    this.baseService
+      .post<RegisterMedic, BaseUser>('auth/register', medic)
+      .pipe(catchError((error: HttpErrorResponse) => {
+        this.toastService.showToast(
+          translate[error.error?.err] || 'A apărut o eroare! Contul nu a putut fi creat!', true
+        );
+        this.router.navigateByUrl('');
+        return EMPTY;
+      }))
+      .subscribe(() => {
+        this.toastService.showToast('Contul a fost creat cu succes!', true);
+        this.router.navigateByUrl('login/medic');
+    });
+  }
+
+  public registerSpecialist(specialist: RegisterSpecialist): void {
+    this.baseService
+      .post<RegisterSpecialist, BaseUser>('auth/register', specialist)
+      .pipe(catchError((error: HttpErrorResponse) => {
+        this.toastService.showToast(
+          translate[error.error?.err] || 'A apărut o eroare! Contul nu a putut fi creat!', true
+        );
+        this.router.navigateByUrl('');
+        return EMPTY;
+      }))
+      .subscribe(() => {
+        this.toastService.showToast('Contul a fost creat cu succes!', true);
+        this.router.navigateByUrl('login/specialist');
+    });
+  }
+
+  public registerPharmacy(pharmacy: RegisterPharmacy): void {
+    this.baseService
+      .post<RegisterPharmacy, BaseUser>('auth/register', pharmacy)
+      .pipe(catchError((error: HttpErrorResponse) => {
+        this.toastService.showToast(
+          translate[error.error?.err] || 'A apărut o eroare! Contul nu a putut fi creat!', true
+        );
+        this.router.navigateByUrl('');
+        return EMPTY;
+      }))
+      .subscribe(() => {
+        this.toastService.showToast('Contul a fost creat cu succes!', true);
+        this.router.navigateByUrl('login/pharmacy');
+    });
+  }
+}
+
+const translate: {[key: string]: string} = {
+  'User with this email already exists!': 'Exista deja un utilizator creat cu acest email!'
 }

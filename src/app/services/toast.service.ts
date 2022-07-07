@@ -8,8 +8,8 @@ export class ToastService {
 
   constructor(private _snackBar: MatSnackBar) { }
 
-  public showToast(message: string): void {
-    this._snackBar.open(message, 'ok', { duration: 2000 });
+  public showToast(message: string, dontClose?: boolean ): void {
+    this._snackBar.open(message, 'ok', dontClose ?  {} : { duration: 2000 });
   }
 
 }

@@ -6,5 +6,6 @@ export class Pharmacy extends BaseUser {
 }
 
 export class RegisterPharmacy extends Pharmacy {
+  userType: string = '';
   password: string = '';
 }

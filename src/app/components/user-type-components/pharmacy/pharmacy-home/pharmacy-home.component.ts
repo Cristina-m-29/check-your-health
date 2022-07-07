@@ -46,7 +46,13 @@ export class PharmacyHomeComponent implements OnInit {
 
   private getPrescriptions(): void {
     this.prescriptionsService.getPrescriptions().subscribe((press: Prescription[]) => {
-      this.getFullPatientsOfPrescriptions(press);
+      if (press.length > 0) {
+        this.getFullPatientsOfPrescriptions(press);
+      }
+      else {
+        this.loading = false;
+        this.cd.detectChanges();
+      }
     });
   }
 
