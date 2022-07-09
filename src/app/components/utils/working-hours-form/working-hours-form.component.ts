@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { WorkingHours } from 'src/app/models/workingHours';
@@ -9,6 +9,8 @@ import { WorkingHours } from 'src/app/models/workingHours';
   styleUrls: ['./working-hours-form.component.sass']
 })
 export class WorkingHoursFormComponent implements OnInit {
+  @Input() workingHoursInput = new WorkingHours();
+  @Input() forEdit = false;
   @Output() changedWorkingHours = new EventEmitter<WorkingHours>();
 
   public workingHours: WorkingHours = new WorkingHours();
@@ -54,6 +56,10 @@ export class WorkingHoursFormComponent implements OnInit {
         value: i * 100
       });
     }
+
+    if (this.forEdit) {
+      this.setWorkingHours(this.workingHoursInput);
+    }
   }
 
   public getLabelForDay(day: string): string {
@@ -78,6 +84,43 @@ export class WorkingHoursFormComponent implements OnInit {
       this.workingHoursForm.setControl(day + 'Start', new FormControl(0));
       this.workingHoursForm.setControl(day + 'End', new FormControl(0));
       this.cd.detectChanges();
+    }
+  }
+
+  private setWorkingHours(wh: WorkingHours): void {
+    const monday = wh.monday.start !== 0 || wh.monday.end !== 0;
+    this.workingHoursForm.controls['monday'].setValue(!!monday);
+    if (!!monday) {
+      this.workingHoursForm.controls['mondayStart'].setValue(wh.monday.start);
+      this.workingHoursForm.controls['mondayEnd'].setValue(wh.monday.end);
+    }
+
+    const tuesday = wh.tuesday.start !== 0 || wh.tuesday.end !== 0;
+    this.workingHoursForm.controls['tuesday'].setValue(!!tuesday);
+    if (!!tuesday) {
+      this.workingHoursForm.controls['tuesdayStart'].setValue(wh.tuesday.start);
+      this.workingHoursForm.controls['tuesdayEnd'].setValue(wh.tuesday.end);
+    }
+
+    const wednesday = wh.wednesday.start !== 0 || wh.wednesday.end !== 0;
+    this.workingHoursForm.controls['wednesday'].setValue(!!wednesday);
+    if (!!wednesday) {
+      this.workingHoursForm.controls['wednesdayStart'].setValue(wh.wednesday.start);
+      this.workingHoursForm.controls['wednesdayEnd'].setValue(wh.wednesday.end);
+    }
+
+    const thursday = wh.thursday.start !== 0 || wh.thursday.end !== 0;
+    this.workingHoursForm.controls['thursday'].setValue(!!thursday);
+    if (!!thursday) {
+      this.workingHoursForm.controls['thursdayStart'].setValue(wh.thursday.start);
+      this.workingHoursForm.controls['thursdayEnd'].setValue(wh.thursday.end);
+    }
+
+    const friday = wh.friday.start !== 0 || wh.friday.end !== 0;
+    this.workingHoursForm.controls['friday'].setValue(!!friday);
+    if (!!friday) {
+      this.workingHoursForm.controls['fridayStart'].setValue(wh.friday.start);
+      this.workingHoursForm.controls['fridayEnd'].setValue(wh.friday.end);
     }
   }
 }

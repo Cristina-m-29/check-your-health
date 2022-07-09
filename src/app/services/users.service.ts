@@ -1,10 +1,11 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, concatMap, Observable } from 'rxjs';
+import { catchError, concatMap, Observable, of } from 'rxjs';
 import { BaseUser } from '../models/base-user';
 import { Medic, Specialist } from '../models/medic';
 import { Patient } from '../models/patient';
 import { Pharmacy } from '../models/pharmacy';
+import { WorkingHours } from '../models/workingHours';
 import { BaseService } from './base.service';
 import { ToastService } from './toast.service';
 import { WebsocketService } from './websocket.service';
@@ -117,4 +118,34 @@ export class UsersService {
       })
     })
   }
+
+  public editEmail(oldEmail: string, newEmail: string): void {
+    // to do
+  }
+
+  public editPassword(email: string, oldPassword: string, newPassword: string): void {
+    // to do
+  }
+
+  public editPhoneNumber(oldPhoneNumber: string, newPhoneNumber: string): void {
+    // to do
+  }
+
+  public editBaseInfo(name: string, address: string, dateOfBirth?: Date | undefined): void {
+    // to do
+  }
+
+  public editAdditionalInfoPatient(conditions: string[], medicId: string): void {
+    // to do
+  }
+
+  public editAdditionalInfoMedicOrSpecialist(code: string, workingHours: WorkingHours, domain?: string): void {
+    // to do
+  }
+
+  public editAdditionalInfoPharmacy(workingHours: WorkingHours): void {
+    // to do
+  }
+
+
 }

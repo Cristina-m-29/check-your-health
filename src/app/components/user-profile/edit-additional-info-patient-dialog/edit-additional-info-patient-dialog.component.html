@@ -1,0 +1,82 @@
+<h1 class="purple-title" mat-dialog-title>Schimbare informații adiționale</h1>
+
+<div mat-dialog-content class="padding_bottom">
+    <form class="width-full" [formGroup]="editAdditionalInfoPatientForm">
+        <div class="flex">
+            <mat-form-field  appearance="outline" class="width-full margin_right">
+                <mat-label>Adaugă condiție nouă</mat-label>
+    
+                <input 
+                    type="text"
+                    matInput
+                    formControlName="condition"
+                >
+            </mat-form-field>
+
+            <button
+                mat-button
+                color="primary"
+                class="width-medium height-small button secondary-button b"
+                (click)="addCondition()"
+            >
+                Adaugă
+            </button>
+        </div>
+
+        <div class="width-full conditions" *ngIf="conditions.length > 0">
+            <span 
+                class="subtitle margin_bottom-s block condition" 
+                *ngFor="let condition of conditions"
+            >
+                <span>{{condition}}</span>
+
+                <mat-icon (click)="removeCondition(condition)">close</mat-icon>
+            </span>
+        </div>
+
+        <mat-form-field appearance="outline" class="width-full">
+            <mat-label>Medic de familie</mat-label>
+    
+            <input 
+                type="text"
+                matInput
+                formControlName="medic"
+                [matAutocomplete]="auto"
+                (focus)="onFocus()"
+            >
+    
+            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                <mat-option 
+                    *ngFor="let option of medicsListForInput | async" 
+                    [value]="option.name" 
+                    (click)="selectMedic(option)"
+                >
+                    {{option.name | upperCaseFirstLetter}}
+                </mat-option>
+            </mat-autocomplete>
+        </mat-form-field>
+    </form>
+</div>
+
+<div class="flex width-full">
+    <button
+        mat-button
+        color="primary"
+        class="width-medium height-small button secondary-button"
+        (click)="onNoClick()"
+    >
+        Anulează
+    </button>
+
+    <span class="margin_right"></span>
+
+    <button 
+        mat-raised-button 
+        color="primary" 
+        [disabled]="disabled"
+        class="width-medium height-small button"
+        (click)="editAdditionalInfoPatient()"
+    >
+        Schimbă
+    </button>
+</div>

@@ -1,0 +1,50 @@
+<h1 class="purple-title" mat-dialog-title>Schimbare număr de telefon</h1>
+
+<div mat-dialog-content class="padding_bottom">
+    <form class="width-full" [formGroup]="editPhoneForm">
+        <mat-form-field appearance="fill" class="width-full">
+            <mat-label>Numar de telefon vechi</mat-label>
+
+            <input 
+                type="text"
+                matInput
+                required
+                formControlName="oldPhoneNumber"
+            >
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="width-full">
+            <mat-label>Numar de telefon nou</mat-label>
+
+            <input 
+                type="text"
+                matInput
+                required
+                formControlName="newPhoneNumber"
+            >
+        </mat-form-field>
+    </form>
+</div>
+
+<div class="flex width-full">
+    <button
+        mat-button
+        color="primary"
+        class="width-medium height-small button secondary-button"
+        (click)="onNoClick()"
+    >
+        Anulează
+    </button>
+
+    <span class="margin_right"></span>
+
+    <button 
+        mat-raised-button 
+        color="primary" 
+        [disabled]="!editPhoneForm.valid"
+        class="width-medium height-small button"
+        (click)="editPhoneNumber()"
+    >
+        Schimbă
+    </button>
+</div>

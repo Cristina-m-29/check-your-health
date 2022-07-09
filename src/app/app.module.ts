@@ -69,6 +69,13 @@ import { PatientMedicDetailsCardComponent } from './components/user-type-details
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { WorkingHoursFormComponent } from './components/utils/working-hours-form/working-hours-form.component';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { EditEmailDialogComponent } from './components/user-profile/edit-email-dialog/edit-email-dialog.component';
+import { EditPhoneDialogComponent } from './components/user-profile/edit-phone-dialog/edit-phone-dialog.component';
+import { EditPasswordDialogComponent } from './components/user-profile/edit-password-dialog/edit-password-dialog.component';
+import { EditBaseInfoDialogComponent } from './components/user-profile/edit-base-info-dialog/edit-base-info-dialog.component';
+import { EditAdditionalInfoPatientDialogComponent } from './components/user-profile/edit-additional-info-patient-dialog/edit-additional-info-patient-dialog.component';
+import { EditAdditionalInfoMedicDialogComponent } from './components/user-profile/edit-additional-info-medic-dialog/edit-additional-info-medic-dialog.component';
+import { EditAdditionalInfoPharmacyDialogComponent } from './components/user-profile/edit-additional-info-pharmacy-dialog/edit-additional-info-pharmacy-dialog.component';
 
 @NgModule({
   declarations: [
@@ -120,6 +127,13 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     PharmacyPrescriptionDetailsComponent,
     PatientMedicDetailsCardComponent,
     WorkingHoursFormComponent,
+    EditEmailDialogComponent,
+    EditPhoneDialogComponent,
+    EditPasswordDialogComponent,
+    EditBaseInfoDialogComponent,
+    EditAdditionalInfoPatientDialogComponent,
+    EditAdditionalInfoMedicDialogComponent,
+    EditAdditionalInfoPharmacyDialogComponent,
   ],
   imports: [
     AppRoutingModule,

@@ -1,0 +1,32 @@
+<h1 class="purple-title" mat-dialog-title>Schimbare date adiționale</h1>
+
+<div mat-dialog-content class="padding_bottom">
+    <cyh-working-hours-form 
+        [forEdit]="true" 
+        [workingHoursInput]="data.workingHours"
+        (changedWorkingHours)="changedWorkingHours($event)"
+    ></cyh-working-hours-form>
+</div>
+
+<div class="flex width-full">
+    <button
+        mat-button
+        color="primary"
+        class="width-medium height-small button secondary-button"
+        (click)="onNoClick()"
+    >
+        Anulează
+    </button>
+
+    <span class="margin_right"></span>
+
+    <button 
+        mat-raised-button 
+        color="primary" 
+        [disabled]="disabled"
+        class="width-medium height-small button"
+        (click)="editAdditionalInfoPharmacy()"
+    >
+        Schimbă
+    </button>
+</div>

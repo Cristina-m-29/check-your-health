@@ -1,1 +1,220 @@
-<p>user works!</p>
+<ng-container *ngIf="loading">
+    <cyh-loading-screen></cyh-loading-screen>
+</ng-container>
+  
+<div class="profile-container flex width-full" [ngClass]="{'card-hide': loading}">
+    <div class="width-medium">
+        <ng-container #authInfo>
+            <div class="card width-full margin_bottom-xl">
+                <span class="title block margin_bottom">Informații de autentificare</span>
+
+                <span class="profile-info width-full">
+                    <span class="small-subtitle">Email</span>
+                    <span class="subtitle margin_bottom-s">{{user?.email}}</span>
+                </span>
+                
+                <span class="profile-info width-full">
+                    <span class="small-subtitle">Număr de telefon</span>
+                    <span class="subtitle margin_bottom-s">{{user?.phoneNumber}}</span>
+                </span>
+
+                <span class="profile-info width-full">
+                    <span class="small-subtitle">Parolă</span>
+                    <span class="subtitle margin_bottom-s">************</span>
+                </span>
+
+                <span class="flex width-full margin_top">
+                    <button
+                        mat-button
+                        color="primary"
+                        class="width-full height-small button secondary-button"
+                        (click)="openEditEmail()"
+                    >
+                        Editează email
+                    </button>
+
+                    <span class="margin_right"></span>
+
+                    <button
+                        mat-button
+                        color="primary"
+                        class="width-full height-small button secondary-button"
+                        (click)="openEditPhoneNumber()"
+                    >
+                        Editează numar telefon
+                    </button>
+                </span>
+
+                <span class="block margin_top"></span>
+                
+                <button
+                    mat-button
+                    color="primary"
+                    class="width-full height-small button secondary-button"
+                    (click)="openEditPassword()"
+                >
+                    Editează parolă
+                </button>
+            </div>
+        </ng-container>
+
+        <ng-container #additionalPatientInfo *ngIf="userType === 'patient'">
+            <div class="card width-full margin_right">
+                <span class="title">Informații adiționale</span>
+                
+                <span class="profile-info width-full">
+                    <span class="small-subtitle">Condiții cunoscute</span>
+                    <ng-container *ngIf="patientConditions && patientConditions.length > 0; else noConditions">
+                        <div>
+                            <span 
+                                class="subtitle margin_bottom-s" 
+                                *ngFor="let condition of patientConditions"
+                            >
+                                {{condition}}
+                            </span>
+                        </div>
+                    </ng-container>
+                    <ng-template #noConditions>
+                        <span class="subtitle margin_bottom-s">Nu există condiții cunoscute</span>
+                    </ng-template>
+                </span>
+
+                <span class="profile-info width-full">
+                    <span class="small-subtitle">Medic de familie</span>
+                    <span class="subtitle margin_bottom-s">{{fullMedic.name}}</span>
+                </span>
+
+                <span class="flex width-full margin_top">
+                    <button
+                        mat-button
+                        color="primary"
+                        class="width-full height-small button secondary-button"
+                        (click)="openEditAdditionalInfoPatient()"
+                    >
+                        Editează
+                    </button>
+                </span>
+            </div>
+        </ng-container>
+
+        <ng-container #additionalMedicInfo *ngIf="userType === 'medic' || userType === 'specialist'">
+            <div class="card width-full margin_right">
+                <span class="title">Informații adiționale</span>
+                
+                <span class="profile-info width-full">
+                    <span class="small-subtitle">Cod parafă</span>
+                    <span class="subtitle margin_bottom-s">{{medicCode}}</span>
+                </span>
+
+                <span class="profile-info width-full" *ngIf="userType === 'specialist'">
+                    <span class="small-subtitle">Domeniu</span>
+                    <span class="subtitle margin_bottom-s">{{specialistDomain}}</span>
+                </span>
+
+                <span class="profile-info width-full">
+                    <span class="small-subtitle">Program</span>
+                    <div>
+                        <span class="subtitle margin_bottom-s">
+                            Luni:  {{medicWorkingHours?.monday?.start || 0 | formatTime}} - {{medicWorkingHours?.monday?.end || 0 | formatTime}}
+                        </span>
+                        <span class="subtitle margin_bottom-s">
+                            Marți: {{medicWorkingHours?.tuesday?.start || 0 | formatTime}} - {{medicWorkingHours?.tuesday?.end || 0 | formatTime}}
+                        </span>
+                        <span class="subtitle margin_bottom-s">
+                            Miercuri: {{medicWorkingHours?.wednesday?.start || 0 | formatTime}} - {{medicWorkingHours?.wednesday?.end || 0 | formatTime}}
+                        </span>
+                        <span class="subtitle margin_bottom-s">
+                            Joi: {{medicWorkingHours?.thursday?.start || 0 | formatTime}} - {{medicWorkingHours?.thursday?.end || 0 | formatTime}}
+                        </span>
+                        <span class="subtitle margin_bottom-s">
+                            Vineri: {{medicWorkingHours?.friday?.start || 0 | formatTime}} - {{medicWorkingHours?.friday?.end || 0 | formatTime}}
+                        </span>
+                    </div>
+                </span>
+
+                <span class="flex width-full margin_top">
+                    <button
+                        mat-button
+                        color="primary"
+                        class="width-full height-small button secondary-button"
+                        (click)="openEditAdditionalInfoMedic()"
+                    >
+                        Editează
+                    </button>
+                </span>
+            </div>
+        </ng-container>
+
+        <ng-container #additionalPharmacyInfo *ngIf="userType === 'pharmacy'">
+            <div class="card width-full margin_right">
+                <span class="title">Informații adiționale</span>
+
+                <span class="profile-info width-full">
+                    <span class="small-subtitle">Program</span>
+                    <div>
+                        <span class="subtitle margin_bottom-s">
+                            Luni:  {{medicWorkingHours?.monday?.start || 0 | formatTime}} - {{medicWorkingHours?.monday?.end || 0 | formatTime}}
+                        </span>
+                        <span class="subtitle margin_bottom-s">
+                            Marți: {{medicWorkingHours?.tuesday?.start || 0 | formatTime}} - {{medicWorkingHours?.tuesday?.end || 0 | formatTime}}
+                        </span>
+                        <span class="subtitle margin_bottom-s">
+                            Miercuri: {{medicWorkingHours?.wednesday?.start || 0 | formatTime}} - {{medicWorkingHours?.wednesday?.end || 0 | formatTime}}
+                        </span>
+                        <span class="subtitle margin_bottom-s">
+                            Joi: {{medicWorkingHours?.thursday?.start || 0 | formatTime}} - {{medicWorkingHours?.thursday?.end || 0 | formatTime}}
+                        </span>
+                        <span class="subtitle margin_bottom-s">
+                            Vineri: {{medicWorkingHours?.friday?.start || 0 | formatTime}} - {{medicWorkingHours?.friday?.end || 0 | formatTime}}
+                        </span>
+                    </div>
+                </span>
+
+                <span class="flex width-full margin_top">
+                    <button
+                        mat-button
+                        color="primary"
+                        class="width-full height-small button secondary-button"
+                        (click)="openEditAdditionalInfoPharmacy()"
+                    >
+                        Editează
+                    </button>
+                </span>
+            </div>
+        </ng-container>
+    </div>
+
+    <div class="width-medium margin_left-xl" #baseInfo>
+        <div class="card width-full">
+            <span class="title block margin_bottom">Informații de bază</span>
+            
+            <span class="profile-info width-full">
+                <span class="small-subtitle">Nume</span>
+                <span class="subtitle margin_bottom-s">{{user?.name}}</span>
+            </span>
+
+            <span class="profile-info width-full">
+                <span class="small-subtitle">Adresă</span>
+                <span class="subtitle margin_bottom-s">{{user?.address}}</span>
+            </span>
+
+            <ng-container *ngIf="userType !== 'pharmacy'">
+                <span class="profile-info width-full">
+                    <span class="small-subtitle">Dată de naștere</span>
+                    <span class="subtitle margin_bottom-s">{{user?.dateOfBirth}}</span>
+                </span>
+            </ng-container>
+
+            <span class="flex width-full margin_top">
+                <button
+                    mat-button
+                    color="primary"
+                    class="width-full height-small button secondary-button"
+                    (click)="openEditBaseInfo()"
+                >
+                    Editează
+                </button>
+            </span>
+        </div>
+    </div>
+</div>

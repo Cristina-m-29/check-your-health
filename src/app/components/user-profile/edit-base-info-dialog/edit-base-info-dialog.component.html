@@ -1,0 +1,60 @@
+<h1 class="purple-title" mat-dialog-title>Schimbare informații de bază</h1>
+
+<div mat-dialog-content class="padding_bottom">
+    <form class="width-full" [formGroup]="editBaseInfoForm">
+        <mat-form-field appearance="fill" class="width-full">
+            <mat-label>Nume</mat-label>
+
+            <input 
+                type="text"
+                matInput
+                required
+                formControlName="name"
+            >
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="width-full">
+            <mat-label>Adresă</mat-label>
+
+            <input 
+                type="text"
+                matInput
+                required
+                formControlName="address"
+            >
+        </mat-form-field>
+
+        <mat-form-field *ngIf="data.dateOfBirth" appearance="outline" class="width-full margin_bottom-l">
+            <mat-label>Data de naștere</mat-label>
+      
+            <input matInput [matDatepicker]="picker" formControlName="dateOfBirth">
+      
+            <mat-hint>LL/ZZ/AAAA</mat-hint>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+    </form>
+</div>
+
+<div class="flex width-full">
+    <button
+        mat-button
+        color="primary"
+        class="width-medium height-small button secondary-button"
+        (click)="onNoClick()"
+    >
+        Anulează
+    </button>
+
+    <span class="margin_right"></span>
+
+    <button 
+        mat-raised-button 
+        color="primary" 
+        [disabled]="!editBaseInfoForm.valid"
+        class="width-medium height-small button"
+        (click)="editBaseInfo()"
+    >
+        Schimbă
+    </button>
+</div>
