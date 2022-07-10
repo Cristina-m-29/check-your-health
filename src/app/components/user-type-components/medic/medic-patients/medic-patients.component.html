@@ -3,12 +3,12 @@
 </ng-container>
 
 <div class="flex" [ngClass]="{'card-hide': loading, 'no-data': patients.length === 0}">
-    <span *ngIf="patients.length === 0">Nu au fost gasiti pacienti : (</span>
+    <span *ngIf="patients.length === 0">Nu au fost găsiti pacienți : (</span>
   
     <ng-container *ngIf="patients.length > 0">
         <div class="width-medium margin_right-xl">
             <mat-form-field appearance="outline" class="width-full">
-                <mat-label>Cauta pacient</mat-label>
+                <mat-label>Caută pacient</mat-label>
 
                 <input 
                     type="text" 

@@ -26,7 +26,7 @@
     </mat-form-field>
 
     <mat-form-field appearance="outline" class="width-full">
-        <mat-label>Adauga medicamente</mat-label>
+        <mat-label>Adaugă medicamente</mat-label>
 
         <input
             #medicineTrigger
@@ -50,7 +50,7 @@
     </mat-form-field>
 
     <form [formGroup]="medicineListInputs">
-        <span *ngIf="prescription.medicines.length > 0" class="block margin_bottom-s">Medicamente adaugate:</span>
+        <span *ngIf="prescription.medicines.length > 0" class="block margin_bottom-s">Medicamente adăugate:</span>
 
         <div *ngFor="let medicine of prescription.medicines" class="flex width-full">
             <mat-form-field appearance="outline" class="width-medium margin_right">
@@ -60,7 +60,7 @@
             </mat-form-field>
 
             <mat-form-field appearance="outline" class="width-medium">
-                <mat-label>Cantitate in mg</mat-label>
+                <mat-label>Cantitate în mg</mat-label>
 
                 <input matInput type="number" required formControlName="{{medicine.medicine.name}}">
             </mat-form-field>
@@ -77,7 +77,7 @@
         class="width-medium height-small button secondary-button"
         (click)="onNoClick()"
     >
-        Anuleaza
+        Anulează
     </button>
 
     <span class="margin_right"></span>
@@ -89,6 +89,6 @@
         [disabled]="isCreateBtnDisabled()"
         class="width-medium height-small button"
     >
-        Creaza
+        Crează
     </button>
 </div>

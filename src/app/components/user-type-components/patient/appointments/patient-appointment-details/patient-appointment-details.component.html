@@ -8,11 +8,11 @@
       <ng-container *ngIf="addAppointment">
         <div class="flex flex-align-center">
           <mat-icon (click)="goBack()" class="back-btn">keyboard_arrow_left</mat-icon>
-          <span class="title card-title">Creaza o programare noua</span>
+          <span class="title card-title">Crează o programare nouă</span>
         </div>
 
         <form class="width-full margin_top">
-          <span class="subtitle block margin_bottom">Selecteaza ziua</span>
+          <span class="subtitle block margin_bottom">Selectează ziua</span>
 
           <mat-card class="calendar-card block margin_bottom">
             <mat-calendar
@@ -23,7 +23,7 @@
             ></mat-calendar>
           </mat-card>
 
-          <span class="subtitle block margin_bottom">Selecteaza intervalul orar</span>
+          <span class="subtitle block margin_bottom">Selectează intervalul orar</span>
 
           <mat-form-field appearance="fill" class="width-full">
             <mat-label>Interval orar</mat-label>
@@ -38,7 +38,7 @@
           </mat-form-field>
         </form>
 
-        <span class="subtitle block margin_bottom">Motivul programarii</span>
+        <span class="subtitle block margin_bottom">Motivul programării</span>
 
         <mat-form-field appearance="fill" class="width-full">
           <mat-label>Motiv</mat-label>
@@ -53,7 +53,7 @@
           [disabled]="isCreateBtnDisabled()"
           (click)="createAppointment()"
         >
-          Creaza
+          Crează
         </button>
       </ng-container>
 
@@ -64,7 +64,7 @@
         </div>
 
         <div class="padding_left-s">
-          <span class="small-subtitle">Ziua programarii</span>
+          <span class="small-subtitle">Ziua programării</span>
 
           <span class="subtitle block margin_bottom">{{appointment.date * 1000 | date: 'dd MMM yyyy'}}</span>
 

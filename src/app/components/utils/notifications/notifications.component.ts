@@ -4,9 +4,11 @@ import { Appointment } from 'src/app/models/appointment';
 import { BaseUser } from 'src/app/models/base-user';
 import { Notification } from 'src/app/models/notification';
 import { Patient } from 'src/app/models/patient';
+import { Prescription } from 'src/app/models/prescription';
 import { Recommendation } from 'src/app/models/recommendation';
 import { AppointmentsService } from 'src/app/services/appointments.service';
 import { NotificationsService } from 'src/app/services/notifications.service';
+import { PrescriptionsService } from 'src/app/services/prescriptions.service';
 import { RecommendationsService } from 'src/app/services/recommandations.service';
 import { UsersService } from 'src/app/services/users.service';
 
@@ -23,6 +25,7 @@ export class NotificationsComponent implements OnInit {
     private notificationsService: NotificationsService,
     private appointmentsService: AppointmentsService,
     private recommendationsService: RecommendationsService,
+    private prescriptionsService: PrescriptionsService,
     private usersService: UsersService,
   ) {}
 
@@ -47,6 +50,10 @@ export class NotificationsComponent implements OnInit {
       }
       case 'recommendations': {
         this.openRecommandationNotification(notification);
+        break;
+      }
+      case 'prescriptions': {
+        this.openPrescriptionNotification(notification);
         break;
       }
     }
@@ -78,12 +85,17 @@ export class NotificationsComponent implements OnInit {
     });
   }
 
+  private openPrescriptionNotification(notification: Notification): void {
+    this.prescriptionsService.getPrescriptions().subscribe((precs: Prescription[]) => {
+      const pres = precs.find((p: Prescription) => p.id === notification.objectId);
+      sessionStorage.setItem('cyhSelectedPrescription', JSON.stringify(pres));
+      this.router.navigateByUrl(notification.role + '/prescriptions');
+    })
+  }
+
   private getNotifications(): void {
     this.notificationsService.getNotifications().subscribe((notifs: Notification[]) => {
-      this.notifications = notifs.reverse()
-      // .filter((notification: Notification) => {
-      //   notification.
-      // });
+      this.notifications = notifs.reverse();
     });
   }
 }

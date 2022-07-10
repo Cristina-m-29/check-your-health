@@ -7,13 +7,13 @@
     <ng-container *ngIf="addAppointment">
       <div class="flex flex-align-center margin_bottom-s back-btn" (click)="goBack()">
         <mat-icon>keyboard_arrow_left</mat-icon>
-        <span class="small-subtitle">Inapoi</span>
+        <span class="small-subtitle">Înapoi</span>
       </div>
       
-      <span class="title block margin_bottom">Adauga o programare</span>
+      <span class="title block margin_bottom">Adaugă o programare</span>
 
       <form class="width-full margin_top">
-        <span class="subtitle block margin_bottom">Selecteaza ziua</span>
+        <span class="subtitle block margin_bottom">Selectează ziua</span>
 
         <mat-card class="calendar-card block margin_bottom">
           <mat-calendar
@@ -24,7 +24,7 @@
           ></mat-calendar>
         </mat-card>
 
-        <span class="subtitle block margin_bottom">Selecteaza intervalul orar</span>
+        <span class="subtitle block margin_bottom">Selectează intervalul orar</span>
 
         <mat-form-field appearance="fill" class="width-full">
           <mat-label>Interval orar</mat-label>
@@ -38,7 +38,7 @@
           </mat-select>
         </mat-form-field>
 
-        <span class="subtitle block margin_bottom">Motivul programarii</span>
+        <span class="subtitle block margin_bottom">Motivul programării</span>
 
         <mat-form-field appearance="fill" class="width-full">
           <mat-label>Motiv</mat-label>
@@ -54,20 +54,20 @@
         [disabled]="isCreateBtnDisabled()"
         (click)="createAppointment()"
       >
-        Creaza
+        Crează
       </button>
     </ng-container>
 
     <ng-container *ngIf="!addAppointment">
       <div class="flex flex-align-center margin_bottom-s back-btn" (click)="goBack()">
         <mat-icon>keyboard_arrow_left</mat-icon>
-        <span class="small-subtitle">Inapoi</span>
+        <span class="small-subtitle">Înapoi</span>
       </div>
 
       <div class="padding_left-s">
         <span class="title block margin_bottom">Programarea nr. {{appointment.id.slice(0, 5)}}</span>
 
-        <span class="small-subtitle">Ziua programarii</span>
+        <span class="small-subtitle">Ziua programării</span>
 
         <span class="subtitle block margin_bottom">{{appointment.date * 1000 | date: 'dd MMM yyyy'}}</span>
 
@@ -87,7 +87,7 @@
               <span class="small-subtitle pending block">Așteaptă confirmare</span>
             </ng-container>
             <ng-template #old>
-              <span class="small-subtitle pending block">Expirata</span>
+              <span class="small-subtitle pending block">Expirată</span>
             </ng-template>
           </ng-container>
           <span class="subtitle accepted block margin_bottom" *ngIf="appointment.status === 'accepted'">Confirmată</span>
@@ -107,7 +107,7 @@
                 <span class="small-subtitle pending block">Așteaptă confirmare</span>
               </ng-container>
               <ng-template #old>
-                <span class="small-subtitle pending block">Expirata</span>
+                <span class="small-subtitle pending block">Expirată</span>
               </ng-template>
             </ng-container>
             <span class="subtitle accepted block margin_bottom" *ngIf="appointment.status === 'accepted'">Confirmată</span>
@@ -128,7 +128,7 @@
               class="width-medium height-small button secondary-button"
               (click)="setAppointmentStatus('refused')"
             >
-              Refuza
+              Refuză
             </button>
 
             <span class="margin_right"></span>
@@ -139,7 +139,7 @@
               class="width-medium height-small button"
               (click)="setAppointmentStatus('accepted')"
             >
-              Accepta
+              Acceptă
             </button>
           </ng-container>
         </div>
@@ -152,7 +152,7 @@
             class="width-full height-small button"
             (click)="openAddDiagnostic(true, false)"
           >
-            Adauga diagnostic
+            Adaugă diagnostic
           </button>
 
           <ng-container *ngIf="appointment.diagnostic">
@@ -184,7 +184,7 @@
                 class="width-full height-small button secondary-button"
                 (click)="openAddRecommendation()"
               >
-                Creaza trimitere
+                Crează trimitere
               </button>
           
               <span class="block margin_right"></span>
@@ -196,7 +196,7 @@
                 [disabled]="appointment.prescription"
                 (click)="openAddPrescription()"
               >
-                Creaza prescriptie
+                Crează prescripție
               </button>
             </div>
           </ng-container>
@@ -210,7 +210,7 @@
             class="width-full height-small button"
             (click)="openAddDiagnostic(false, false)"
           >
-            Adauga diagnostic
+            Adaugă diagnostic
           </button>
 
           <ng-container *ngIf="appointment.diagnostic">
@@ -231,7 +231,7 @@
                 color="primary"
                 class="width-full height-small button"
               >
-                <a [href]="generateRaportLink()">Genereaza raport</a>
+                <a [href]="generateRaportLink()">Generează raport</a>
               </button>
             </div>
           </ng-container>
@@ -290,7 +290,7 @@
               class="width-full height-small button"
               (click)="openAddDiagnostic(true, true)"
             >
-              Adauga diagnostic final
+              Adaugă diagnostic final
             </button>
           </ng-container>
 
@@ -303,7 +303,7 @@
               class="width-full height-small button"
               (click)="openAddDiagnostic(true, true)"
             >
-              Adauga diagnostic final
+              Adaugă diagnostic final
             </button>
           </ng-template>
           
@@ -329,10 +329,10 @@
     >
       <span class="title block margin_bottom">Pacient</span>
 
-      <span class="subtitle block margin_bottom">Selecteaza pacientul</span>
+      <span class="subtitle block margin_bottom">Selectează pacientul</span>
 
       <mat-form-field appearance="outline" class="width-full">
-        <mat-label>Cauta pacient</mat-label>
+        <mat-label>Caută pacient</mat-label>
 
         <input 
             type="text" 

@@ -3,7 +3,7 @@
       <cyh-specialist-appointment-search class="flex width-full"></cyh-specialist-appointment-search>
 
       <div class="card appointments-card margin_bottom-xl">
-        <span class="title">Programari noi</span>
+        <span class="title">Programări noi</span>
 
         <div class="appointments-list new-appointments-list" *ngIf="(futureNotMarkedAppointments$ | async) as a">
             <div class="appointment" *ngFor="let appointment of a" (click)="openAppointmentDetails(appointment, 'new')">
@@ -18,7 +18,7 @@
                   <span class="small-subtitle pending">Așteaptă confirmare</span>
                 </ng-container>
                 <ng-template #old>
-                  <span class="small-subtitle pending">Expirata</span>
+                  <span class="small-subtitle pending">Expirată</span>
                 </ng-template>
               </ng-container>  
               <span class="small-subtitle accepted" *ngIf="appointment.status === 'accepted'">Confirmată</span>
@@ -35,7 +35,7 @@
           class="width-full height-small button"
           (click)="addAppointment()"
         >
-          Adauga programare
+          Adaugă programare
         </button>
       </div>
 
@@ -55,7 +55,7 @@
                 <span class="small-subtitle pending">Așteaptă confirmare</span>
               </ng-container>
               <ng-template #old>
-                <span class="small-subtitle pending">Expirata</span>
+                <span class="small-subtitle pending">Expirată</span>
               </ng-template>
             </ng-container>  
 
@@ -94,7 +94,7 @@
                   <span class="small-subtitle pending">Așteaptă confirmare</span>
                 </ng-container>
                 <ng-template #old>
-                  <span class="small-subtitle pending">Expirata</span>
+                  <span class="small-subtitle pending">Expirată</span>
                 </ng-template>
               </ng-container>
 

@@ -37,6 +37,9 @@ export class UserComponent implements OnInit {
 
   public ngOnInit(): void {
     this.getUserInfo();
+    this.usersService.changeOnUserProfile.subscribe(() => {
+      this.getUserInfo();
+    });
   }
 
   get patientConditions(): string[] {

@@ -8,11 +8,11 @@
         <span class="small-subtitle">Email</span>
         <a class="subtitle margin_bottom-s email" [href]="'mailto:' + 'popescuvaleria@mail.com'">{{patient.email}}</a>
 
-        <span class="small-subtitle">Numar de telefon</span>
+        <span class="small-subtitle">Număr de telefon</span>
         <span class="subtitle margin_bottom-s">{{patient.phoneNumber}}</span>
 
-        <span class="small-subtitle">Conditii</span>
-        <span class="subtitle margin_bottom-l" *ngIf="patient.conditions.length === 0">Pacientul nu are momentan conditii cunoscute</span>
+        <span class="small-subtitle">Condiții</span>
+        <span class="subtitle margin_bottom-l" *ngIf="patient.conditions.length === 0">Pacientul nu are momentan condiții cunoscute</span>
         <ng-container *ngIf="patient.conditions.length !== 0">
             <span class="subtitle margin_bottom-l" *ngFor="let condition of patient.conditions">{{condition}}</span>
         </ng-container>
@@ -31,14 +31,14 @@
     <span class="small-subtitle">Email</span>
     <a class="subtitle margin_bottom-s email" [href]="'mailto:' + 'popescuvaleria@mail.com'">{{medic.email}}</a>
   
-    <span class="small-subtitle">Numar de telefon</span>
+    <span class="small-subtitle">Număr de telefon</span>
     <span class="subtitle margin_bottom-s">{{medic.phoneNumber}}</span>
 
     <span class="small-subtitle margin_top block">Program de lucru</span>
     <div class="flex margin_top-s">
         <div class="margin_right-l">
-        <span class="subtitle">Luni-Vineri:</span>
-        <span class="subtitle">Marti:</span>
+        <span class="subtitle">Luni:</span>
+        <span class="subtitle">Marți:</span>
         <span class="subtitle">Miercuri:</span>
         <span class="subtitle">Joi:</span>
         <span class="subtitle margin_bottom-s">Vineri:</span>
@@ -52,7 +52,7 @@
         </div>
     </div>
 
-    <span class="small-subtitle">Locatie cabinet</span>
+    <span class="small-subtitle">Locație cabinet</span>
     <span class="subtitle block margin_bottom">{{medic.address}}</span>
 </div>
   

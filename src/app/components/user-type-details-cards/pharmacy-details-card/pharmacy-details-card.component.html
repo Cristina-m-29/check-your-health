@@ -1,5 +1,5 @@
 <div class="card pharmacy-card">
-    <span class="title">Farmacia de pe reteta</span>
+    <span class="title">Farmacia de pe rețetă</span>
   
     <span class="small-subtitle">Nume</span>
     <span class="subtitle margin_bottom-s">{{pharmacy.name}}</span>
@@ -7,14 +7,14 @@
     <span class="small-subtitle">Email</span>
     <a class="subtitle margin_bottom-s email" [href]="'mailto:' + 'popescuvaleria@mail.com'">{{pharmacy.email}}</a>
   
-    <span class="small-subtitle">Numar de telefon</span>
+    <span class="small-subtitle">Număr de telefon</span>
     <span class="subtitle margin_bottom-s">{{pharmacy.phoneNumber}}</span>
   
     <span class="small-subtitle margin_top block">Program de lucru</span>
     <div class="flex margin_top-s">
       <div class="margin_right-l">
-        <span class="subtitle">Luni-Vineri:</span>
-        <span class="subtitle">Marti:</span>
+        <span class="subtitle">Luni:</span>
+        <span class="subtitle">Marți:</span>
         <span class="subtitle">Miercuri:</span>
         <span class="subtitle">Joi:</span>
         <span class="subtitle margin_bottom-s">Vineri:</span>
@@ -28,7 +28,7 @@
       </div>
     </div>
   
-    <span class="small-subtitle">Locatie cabinet</span>
+    <span class="small-subtitle">Locație cabinet</span>
     <span class="subtitle block margin_bottom">{{pharmacy.address}}</span>
   
     <cyh-google-map [address]="pharmacy.address"></cyh-google-map>

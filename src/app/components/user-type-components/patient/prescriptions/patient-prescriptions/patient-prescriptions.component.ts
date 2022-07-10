@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { BaseUser } from 'src/app/models/base-user';
 import { SocketNotification } from 'src/app/models/notification';
 import { Pharmacy } from 'src/app/models/pharmacy';
@@ -9,7 +9,7 @@ import { UsersService } from 'src/app/services/users.service';
 @Component({
   selector: 'cyh-patient-prescriptions',
   templateUrl: './patient-prescriptions.component.html',
-  styleUrls: ['./patient-prescriptions.component.sass']
+  styleUrls: ['./patient-prescriptions.component.sass'],
 })
 export class PatientPrescriptionsComponent implements OnInit {
   public loading = true;
@@ -17,7 +17,11 @@ export class PatientPrescriptionsComponent implements OnInit {
   public selectedPrescription = new Prescription();
   public pharmacyForSelectedPrescription = new Pharmacy();
 
-  constructor(private prescriptionsService: PrescriptionsService, private usersService: UsersService) { }
+  constructor(
+    private prescriptionsService: PrescriptionsService, 
+    private usersService: UsersService,
+    private cd: ChangeDetectorRef,
+  ) {}
 
   public ngOnInit() {
     this.getPrescriptions();
@@ -27,6 +31,7 @@ export class PatientPrescriptionsComponent implements OnInit {
   public selectPrescription(prescription: Prescription): void {
     this.loading = true;
     this.selectedPrescription = prescription;
+    this.cd.detectChanges();
     this.getPharmacyForSelectedPrescription(prescription);
   }
 
@@ -35,7 +40,14 @@ export class PatientPrescriptionsComponent implements OnInit {
       this.prescriptions = prescriptions;
       
       if (prescriptions.length > 0) {
-        this.selectPrescription(this.prescriptions[0]);
+        const selectedPrescription = sessionStorage.getItem('cyhSelectedPrescription');
+        sessionStorage.removeItem('cyhSelectedPrescription');
+        if (selectedPrescription) {
+          this.selectPrescription(<Prescription>JSON.parse(selectedPrescription));
+        }
+        else {
+          this.selectPrescription(this.prescriptions[0]);
+        }
       }
       else {
         this.loading = false;
@@ -56,6 +68,7 @@ export class PatientPrescriptionsComponent implements OnInit {
     this.usersService.getUserInfo(prescription.pharmacy).subscribe((pharmacy: BaseUser) => {
       this.pharmacyForSelectedPrescription = <Pharmacy>pharmacy;
       this.loading = false;
+      this.cd.detectChanges();
     });
   }
 

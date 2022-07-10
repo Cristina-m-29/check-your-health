@@ -80,7 +80,12 @@ export class EditAdditionalInfoPatientDialogComponent implements OnInit {
   }
 
   public editAdditionalInfoPatient(): void {
-    this.usersService.editAdditionalInfoPatient(this.conditions, this.medic.id);
+    if (this.medic.id !== this.data.medic.id) {
+      this.usersService.editAdditionalInfoPatient(this.conditions, this.medic.id);
+    }
+    else {
+      this.usersService.editAdditionalInfoPatient(this.conditions);
+    }
     this.onNoClick();
   }
 

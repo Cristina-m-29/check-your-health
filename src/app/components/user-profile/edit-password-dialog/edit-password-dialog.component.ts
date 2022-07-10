@@ -10,12 +10,10 @@ import { UsersService } from 'src/app/services/users.service';
 })
 export class EditPasswordDialogComponent {
   public editPasswordForm = new FormGroup({
-    email: new FormControl(),
     oldPassword: new FormControl(),
     newPassword: new FormControl()
   })
 
-  private email = '';
   private oldPassword = '';
   private newPassword = '';
 
@@ -24,14 +22,13 @@ export class EditPasswordDialogComponent {
     private usersService: UsersService
   ) {
     this.editPasswordForm.valueChanges.subscribe((form: any) => {
-      this.email = form.email;
       this.oldPassword = form.oldPassword;
       this.newPassword = form.newPassword;
     });
   }
 
   public editPassword(): void {
-    this.usersService.editPassword(this.email, this.oldPassword, this.newPassword);
+    this.usersService.editPassword(this.oldPassword, this.newPassword);
     this.onNoClick();
   }
 

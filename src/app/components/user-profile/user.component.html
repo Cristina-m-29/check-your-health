@@ -115,19 +115,44 @@
                     <span class="small-subtitle">Program</span>
                     <div>
                         <span class="subtitle margin_bottom-s">
-                            Luni:  {{medicWorkingHours?.monday?.start || 0 | formatTime}} - {{medicWorkingHours?.monday?.end || 0 | formatTime}}
+                            <ng-container *ngIf="medicWorkingHours?.monday?.start !== 0; else closedOnMonday">
+                                Luni:  {{medicWorkingHours?.monday?.start || 0 | formatTime}} - {{medicWorkingHours?.monday?.end || 0 | formatTime}}
+                            </ng-container>
+                            <ng-template #closedOnMonday>
+                                Luni: închis
+                            </ng-template>
                         </span>
                         <span class="subtitle margin_bottom-s">
-                            Marți: {{medicWorkingHours?.tuesday?.start || 0 | formatTime}} - {{medicWorkingHours?.tuesday?.end || 0 | formatTime}}
+                            <ng-container *ngIf="medicWorkingHours?.tuesday?.start !== 0; else closedOnTuesday">
+                                Marți: {{medicWorkingHours?.tuesday?.start || 0 | formatTime}} - {{medicWorkingHours?.tuesday?.end || 0 | formatTime}}
+                            </ng-container>
+                            <ng-template #closedOnTuesday>
+                                Marți: închis
+                            </ng-template>
                         </span>
                         <span class="subtitle margin_bottom-s">
-                            Miercuri: {{medicWorkingHours?.wednesday?.start || 0 | formatTime}} - {{medicWorkingHours?.wednesday?.end || 0 | formatTime}}
+                            <ng-container *ngIf="medicWorkingHours?.wednesday?.start !== 0; else closedOnWednesday">
+                                Miercuri: {{medicWorkingHours?.wednesday?.start || 0 | formatTime}} - {{medicWorkingHours?.wednesday?.end || 0 | formatTime}}
+                            </ng-container>
+                            <ng-template #closedOnWednesday>
+                                Miercuri: închis
+                            </ng-template>
                         </span>
                         <span class="subtitle margin_bottom-s">
-                            Joi: {{medicWorkingHours?.thursday?.start || 0 | formatTime}} - {{medicWorkingHours?.thursday?.end || 0 | formatTime}}
+                            <ng-container *ngIf="medicWorkingHours?.thursday?.start !== 0; else closedOnThursday">
+                                Joi: {{medicWorkingHours?.thursday?.start || 0 | formatTime}} - {{medicWorkingHours?.thursday?.end || 0 | formatTime}}
+                            </ng-container>
+                            <ng-template #closedOnThursday>
+                                Joi: închis
+                            </ng-template>
                         </span>
                         <span class="subtitle margin_bottom-s">
-                            Vineri: {{medicWorkingHours?.friday?.start || 0 | formatTime}} - {{medicWorkingHours?.friday?.end || 0 | formatTime}}
+                            <ng-container *ngIf="medicWorkingHours?.friday?.start !== 0; else closedOnFriday">
+                                Vineri: {{medicWorkingHours?.friday?.start || 0 | formatTime}} - {{medicWorkingHours?.friday?.end || 0 | formatTime}}
+                            </ng-container>
+                            <ng-template #closedOnFriday>
+                                Vineri: închis
+                            </ng-template>
                         </span>
                     </div>
                 </span>
@@ -153,19 +178,44 @@
                     <span class="small-subtitle">Program</span>
                     <div>
                         <span class="subtitle margin_bottom-s">
-                            Luni:  {{medicWorkingHours?.monday?.start || 0 | formatTime}} - {{medicWorkingHours?.monday?.end || 0 | formatTime}}
+                            <ng-container *ngIf="medicWorkingHours?.monday?.start !== 0; else closedOnMonday">
+                                Luni:  {{medicWorkingHours?.monday?.start || 0 | formatTime}} - {{medicWorkingHours?.monday?.end || 0 | formatTime}}
+                            </ng-container>
+                            <ng-template #closedOnMonday>
+                                Luni: închis
+                            </ng-template>
                         </span>
                         <span class="subtitle margin_bottom-s">
-                            Marți: {{medicWorkingHours?.tuesday?.start || 0 | formatTime}} - {{medicWorkingHours?.tuesday?.end || 0 | formatTime}}
+                            <ng-container *ngIf="medicWorkingHours?.tuesday?.start !== 0; else closedOnTuesday">
+                                Marți: {{medicWorkingHours?.tuesday?.start || 0 | formatTime}} - {{medicWorkingHours?.tuesday?.end || 0 | formatTime}}
+                            </ng-container>
+                            <ng-template #closedOnTuesday>
+                                Marți: închis
+                            </ng-template>
                         </span>
                         <span class="subtitle margin_bottom-s">
-                            Miercuri: {{medicWorkingHours?.wednesday?.start || 0 | formatTime}} - {{medicWorkingHours?.wednesday?.end || 0 | formatTime}}
+                            <ng-container *ngIf="medicWorkingHours?.wednesday?.start !== 0; else closedOnWednesday">
+                                Miercuri: {{medicWorkingHours?.wednesday?.start || 0 | formatTime}} - {{medicWorkingHours?.wednesday?.end || 0 | formatTime}}
+                            </ng-container>
+                            <ng-template #closedOnWednesday>
+                                Miercuri: închis
+                            </ng-template>
                         </span>
                         <span class="subtitle margin_bottom-s">
-                            Joi: {{medicWorkingHours?.thursday?.start || 0 | formatTime}} - {{medicWorkingHours?.thursday?.end || 0 | formatTime}}
+                            <ng-container *ngIf="medicWorkingHours?.thursday?.start !== 0; else closedOnThursday">
+                                Joi: {{medicWorkingHours?.thursday?.start || 0 | formatTime}} - {{medicWorkingHours?.thursday?.end || 0 | formatTime}}
+                            </ng-container>
+                            <ng-template #closedOnThursday>
+                                Joi: închis
+                            </ng-template>
                         </span>
                         <span class="subtitle margin_bottom-s">
-                            Vineri: {{medicWorkingHours?.friday?.start || 0 | formatTime}} - {{medicWorkingHours?.friday?.end || 0 | formatTime}}
+                            <ng-container *ngIf="medicWorkingHours?.friday?.start !== 0; else closedOnFriday">
+                                Vineri: {{medicWorkingHours?.friday?.start || 0 | formatTime}} - {{medicWorkingHours?.friday?.end || 0 | formatTime}}
+                            </ng-container>
+                            <ng-template #closedOnFriday>
+                                Vineri: închis
+                            </ng-template>
                         </span>
                     </div>
                 </span>
@@ -201,7 +251,7 @@
             <ng-container *ngIf="userType !== 'pharmacy'">
                 <span class="profile-info width-full">
                     <span class="small-subtitle">Dată de naștere</span>
-                    <span class="subtitle margin_bottom-s">{{user?.dateOfBirth}}</span>
+                    <span class="subtitle margin_bottom-s">{{((user?.dateOfBirth || 0) * 1000) | date}}</span>
                 </span>
             </ng-container>
 

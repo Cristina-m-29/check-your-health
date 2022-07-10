@@ -2,9 +2,9 @@
   class="card card-hover-effect appointments-card flex_column flex_column-justify margin_bottom-xl"
   [ngClass]="{'card-not-selected': !selected, 'card-selected': selected}"
 >
-    <span class="title card-title">Reteta nr. {{prescription.id.slice(0, 5)}}</span>
+    <span class="title card-title">Rețeta nr. {{prescription.id.slice(0, 5)}}</span>
     
-    <span class="small-subtitle">Creata de medicul</span>
+    <span class="small-subtitle">Creată de medicul</span>
 
     <span class="subtitle block margin_bottom">{{medic.name}}</span>
 
@@ -15,11 +15,11 @@
         <ng-container *ngFor="let medicine of prescription.medicines">
             <span class="subtitle">{{medicine.medicine.name}}</span>
 
-            <span class="subtitle">{{medicine.quantity + 'g'}}</span>
+            <span class="subtitle">{{medicine.quantity + 'mg'}}</span>
         </ng-container>
     </span>
 
-    <span class="small-subtitle margin_top">Farmacie asignata</span>
+    <span class="small-subtitle margin_top">Farmacie asignată</span>
 
     <span class="subtitle block margin_bottom">{{pharmacy.name}}</span>
 

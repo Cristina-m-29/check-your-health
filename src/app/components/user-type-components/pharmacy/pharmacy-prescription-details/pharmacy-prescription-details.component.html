@@ -6,11 +6,11 @@
     <div class="card card-height-auto width-medium margin_right-xl margin_bottom-xl">
         <div class="flex flex-align-center margin_bottom-s back-btn" (click)="goBack()">
           <mat-icon>keyboard_arrow_left</mat-icon>
-          <span class="small-subtitle">Inapoi</span>
+          <span class="small-subtitle">Înapoi</span>
         </div>
   
         <div class="padding_left-s">
-          <span class="title block margin_bottom">Reteta nr. {{prescription.id.slice(0, 5)}}</span>
+          <span class="title block margin_bottom">Rețeta nr. {{prescription.id.slice(0, 5)}}</span>
   
           <span class="small-subtitle">Nume pacient</span>
   
@@ -27,7 +27,7 @@
             <ng-container *ngFor="let medicine of prescription.medicines">
                 <span class="subtitle">{{medicine.medicine.name}}</span>
     
-                <span class="subtitle">{{medicine.quantity + 'g'}}</span>
+                <span class="subtitle">{{medicine.quantity + 'mg'}}</span>
             </ng-container>
         </span>
   
@@ -45,7 +45,7 @@
                 class="width-medium height-small button secondary-button"
                 (click)="setPrescriptionStatus('refused')"
               >
-                Refuza
+                Refuză
               </button>
   
               <span class="margin_right"></span>
@@ -56,7 +56,7 @@
                 class="width-medium height-small button"
                 (click)="setPrescriptionStatus('ready for pickup')"
               >
-                Accepta
+                Acceptă
               </button>
           </div>
   
@@ -67,7 +67,7 @@
               class="width-full height-small button"
               (click)="setPrescriptionStatus('delivered')"
             >
-              Marcheaza ca ridicata
+              Marchează ca ridicată
             </button>
           </ng-container>
         </div> 

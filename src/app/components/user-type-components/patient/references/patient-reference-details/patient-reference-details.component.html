@@ -4,11 +4,11 @@
 >
   <span class="title card-title">Trimiterea nr. {{reference.id.slice(0, 5)}}</span>
   
-  <span class="small-subtitle">Creata de medicul</span>
+  <span class="small-subtitle">Creată de medicul</span>
 
   <span class="subtitle block margin_bottom">{{medic.name}}</span>
 
-  <span class="small-subtitle">Catre medicul</span>
+  <span class="small-subtitle">Către medicul</span>
 
   <span class="subtitle block margin_bottom">{{specialist.name}}</span>
 
@@ -17,7 +17,7 @@
   <span class="subtitle block margin_bottom">{{reference.details}}</span>
 
   <ng-container *ngIf="reference.feedback">
-    <span class="small-subtitle">Concluzii in urma consultului</span>
+    <span class="small-subtitle">Concluzii în urma consultului</span>
 
     <span class="subtitle block margin_bottom">{{reference.feedback}}</span>
   </ng-container>
@@ -45,7 +45,7 @@
         *ngIf="reference.canCreateAppointment"
         (click)="goToCreateAppointment()"
       >
-        Creaza programare
+        Crează programare
       </button>
     </ng-template>
   </ng-container>
