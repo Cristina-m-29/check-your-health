@@ -83,7 +83,7 @@
 
         <ng-container *ngIf="!appointment.examinationFinished; else appFinished">
           <ng-container *ngIf="appointment.status === 'pending'">
-            <ng-container *ngIf="!isOldAppointment(appointment.date); else old">
+            <ng-container *ngIf="!isOldAppointment(appointment); else old">
               <span class="small-subtitle pending block">Așteaptă confirmare</span>
             </ng-container>
             <ng-template #old>
@@ -103,7 +103,7 @@
         <ng-template #appFinished>
           <ng-container *ngIf="!forSpecialist && !appointment.diagnostic?.final; else forSpec">
             <ng-container *ngIf="appointment.status === 'pending'">
-              <ng-container *ngIf="!isOldAppointment(appointment.date); else old">
+              <ng-container *ngIf="!isOldAppointment(appointment); else old">
                 <span class="small-subtitle pending block">Așteaptă confirmare</span>
               </ng-container>
               <ng-template #old>
@@ -121,7 +121,7 @@
         </ng-template>
 
         <div class="flex margin_top" *ngIf="appointmentType === 'new'">
-          <ng-container *ngIf="!isOldAppointment(appointment.date)">
+          <ng-container *ngIf="!isOldAppointment(appointment)">
             <button
               mat-button
               color="primary"

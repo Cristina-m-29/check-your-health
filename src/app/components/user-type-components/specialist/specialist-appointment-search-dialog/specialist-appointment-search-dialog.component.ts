@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import * as moment from 'moment';
 import { Appointment } from 'src/app/models/appointment';
 import { Patient } from 'src/app/models/patient';
 
@@ -33,8 +34,10 @@ export class SpecialistAppointmentSearchDialogComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  public isOldAppointment(date: number): boolean {
-    return new Date() > new Date(date * 1000);
+  public isOldAppointment(app: Appointment): boolean {
+    const nowMoment = moment();
+    const appMoment = moment.unix(app.date).hours(app.hoursInterval.start / 100).minutes(app.hoursInterval.start % 100);
+    return nowMoment > appMoment;
   }
 
   public openAppointmentDetails(appointment: Appointment, status: string): void {

@@ -4,7 +4,7 @@
 <div mat-dialog-content>
     <div 
       class="appointment" 
-      [ngClass]="{'old-appointment': isOldAppointment(appointment.date)}"
+      [ngClass]="{'old-appointment': isOldAppointment(appointment)}"
       *ngFor="let appointment of appointments" 
       (click)="openAppointmentDetails(appointment, appointment.status)"
     >
@@ -14,7 +14,7 @@
           <span class="subtitle-purple">{{appointment?.fullPacient?.name}}</span>
       </span>
   
-      <ng-container *ngIf="!isOldAppointment(appointment.date)">
+      <ng-container *ngIf="!isOldAppointment(appointment)">
         -
         <span class="small-subtitle pending" *ngIf="appointment.status === 'pending'">Așteaptă confirmare</span>
         <span class="small-subtitle accepted" *ngIf="appointment.status === 'accepted'">Confirmată</span>

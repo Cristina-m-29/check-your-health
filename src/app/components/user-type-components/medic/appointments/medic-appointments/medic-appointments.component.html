@@ -14,7 +14,7 @@
               </span>
 
               <ng-container *ngIf="appointment.status === 'pending'">
-                <ng-container *ngIf="!isOldAppointment(appointment.date); else old">
+                <ng-container *ngIf="!isOldAppointment(appointment); else old">
                   <span class="small-subtitle pending">Așteaptă confirmare</span>
                 </ng-container>
                 <ng-template #old>
@@ -51,7 +51,7 @@
             </span>
 
             <ng-container *ngIf="appointment.status === 'pending'; else notPending">
-              <ng-container *ngIf="!isOldAppointment(appointment.date); else old">
+              <ng-container *ngIf="!isOldAppointment(appointment); else old">
                 <span class="small-subtitle pending">Așteaptă confirmare</span>
               </ng-container>
               <ng-template #old>
@@ -90,7 +90,7 @@
               </span>
 
               <ng-container *ngIf="appointment.status === 'pending'; else notPending">
-                <ng-container *ngIf="!isOldAppointment(appointment.date); else old">
+                <ng-container *ngIf="!isOldAppointment(appointment); else old">
                   <span class="small-subtitle pending">Așteaptă confirmare</span>
                 </ng-container>
                 <ng-template #old>
