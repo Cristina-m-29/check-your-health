@@ -82,7 +82,7 @@ export class SpecialistAppointmentSearchComponent implements OnInit {
   }
 
   private _filter(value: string): Patient[] {
-    return this.usersList.filter(option => option.name.startsWith(value));
+    return this.usersList.filter(option => option.name.toLocaleLowerCase().startsWith(value.toLocaleLowerCase()));
   }
 
 }

@@ -3,7 +3,7 @@
       <cyh-specialist-appointment-search class="flex width-full"></cyh-specialist-appointment-search>
 
       <div class="card appointments-card margin_bottom-xl">
-        <span class="title">Programări noi</span>
+        <span class="title">Programări în așteptare</span>
 
         <div class="appointments-list new-appointments-list" *ngIf="(futureNotMarkedAppointments$ | async) as a">
             <div class="appointment" *ngFor="let appointment of a" (click)="openAppointmentDetails(appointment, 'new')">

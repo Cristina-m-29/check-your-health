@@ -86,6 +86,6 @@ export class MedicPatientsComponent implements OnInit {
   }
 
   private _filter(value: string): Patient[] {
-    return this.patients.filter(option => option.name.startsWith(value));
+    return this.patients.filter(option => option.name.toLocaleLowerCase().startsWith(value.toLocaleLowerCase()));
   }
 }

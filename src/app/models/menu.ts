@@ -8,7 +8,7 @@ export const menus: Menu[] = [
   {
     userType: 'patient',
     menuList: ['home', 'references', 'prescriptions', 'profile'],
-    translateMenuList: [ 'acasă', 'trimiteri', 'rețete', 'profil']
+    translateMenuList: [ 'acasă', 'bilete de trimitere', 'rețete', 'profil']
   },
   {
     userType: 'medic',

@@ -72,7 +72,7 @@ export class PatientRegisterComponent {
   }
 
   private _filter(value: string): Medic[] {
-    return this.medicsList.filter(option => option.name.startsWith(value));
+    return this.medicsList.filter(option => option.name.toLocaleLowerCase().startsWith(value.toLocaleLowerCase()));
   }
 
 }

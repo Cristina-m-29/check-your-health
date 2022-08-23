@@ -160,11 +160,11 @@ export class MedicAddPrescriptionComponent implements OnInit {
   }
 
   private _filterPharmaicies(value: string): Pharmacy[] {
-    return this.pharmaciesList.filter(option => option.name.startsWith(value));
+    return this.pharmaciesList.filter(option => option.name.toLocaleLowerCase().startsWith(value.toLocaleLowerCase()));
   }
 
   private _filterMedine(value: string): Medicine[] {
-    return this.medicineList.filter(option => option.name.startsWith(value));
+    return this.medicineList.filter(option => option.name.toLocaleLowerCase().startsWith(value.toLocaleLowerCase()));
   }
 
 }

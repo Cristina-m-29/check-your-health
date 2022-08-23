@@ -367,7 +367,7 @@ export class MedicAppointmentDetailsComponent implements OnInit {
   }
 
   private _filter(value: string): Patient[] {
-    return this.patientsForSelect.filter(option => option.name.startsWith(value));
+    return this.patientsForSelect.filter(option => option.name.toLocaleLowerCase().startsWith(value.toLocaleLowerCase()));
   }
 
 }

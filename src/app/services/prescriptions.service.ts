@@ -61,10 +61,10 @@ export class PrescriptionsService {
       medic: medicId,
       medicines: medicines
     }).pipe(catchError((err: HttpErrorResponse) => {
-      this.toastService.showToast('A apărut o eroare! Prescripția nu a putut fi adăugată!');
+      this.toastService.showToast('A apărut o eroare! Rețeta nu a putut fi adăugată!');
       return EMPTY;
     })).pipe(map((pres: Prescription) => {
-      this.toastService.showToast('Prescripția a fost adăugată cu succes!')
+      this.toastService.showToast('Rețeta a fost adăugată cu succes!')
       return pres;
     }));
   }
@@ -73,10 +73,10 @@ export class PrescriptionsService {
     return this.baseService
       .patch<any, Prescription>('users/prescriptions/' + prescriptionId, { status: status })
       .pipe(catchError((err: HttpErrorResponse) => {
-        this.toastService.showToast('A apărut o eroare! Statusul prescripției nu a putut fi actualizat!');
+        this.toastService.showToast('A apărut o eroare! Statusul rețetei nu a putut fi actualizat!');
         return EMPTY;
       })).pipe(map((pres: Prescription) => {
-        this.toastService.showToast('Statusul prescripției a fost actualizat cu succes!')
+        this.toastService.showToast('Statusul rețetei a fost actualizat cu succes!')
         return pres;
       }));
   }
