@@ -1,10 +1,12 @@
 
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
 import { Appointment } from 'src/app/models/appointment';
 import { BaseUser } from 'src/app/models/base-user';
+import { Diagnostic } from 'src/app/models/diagnostic';
 import { Specialist } from 'src/app/models/medic';
 import { Recommendation } from 'src/app/models/recommendation';
 import { HoursInterval, HoursIntervalOption, weekday } from 'src/app/models/workingHours';
@@ -12,6 +14,8 @@ import { AppointmentsService } from 'src/app/services/appointments.service';
 import { RecommendationsService } from 'src/app/services/recommandations.service';
 import { UsersService } from 'src/app/services/users.service';
 import { UtilsService } from 'src/app/services/utils.service';
+import { environment } from 'src/environments/environment';
+import { MedicAddDiagnosticDialogComponent } from '../../../medic/appointments/medic-add-diagnostic-dialog/medic-add-diagnostic-dialog.component';
 
 @Component({
   selector: 'cyh-patient-appointment-details',
@@ -51,6 +55,7 @@ export class PatientAppointmentDetailsComponent implements OnInit {
     private recommendationsService: RecommendationsService,
     private usersService: UsersService,
     private utilsService: UtilsService,
+    public dialog: MatDialog,
   ) {
     this.reasonField.valueChanges.subscribe((value: string) => {
       this.reason = value;
@@ -136,6 +141,21 @@ export class PatientAppointmentDetailsComponent implements OnInit {
   public goBack(): void {
     sessionStorage.removeItem('cyhSelectedAppointment');
     this.router.navigateByUrl('patient/home');
+  }
+
+  public generateRaportLink(): string {
+    return environment['baseUrl'] + '/appointments/' + this.appointment.id + '/download-report';
+  }
+
+  public openViewDiagnostic(diagnostic?: Diagnostic): void {
+    const viewDiagnosticDialog = this.dialog.open(MedicAddDiagnosticDialogComponent, {
+      width: '160rem',
+      data: {
+        editable: false,
+        diagnostic: diagnostic ? diagnostic : this.appointment.diagnostic,
+      }
+    });
+    viewDiagnosticDialog.afterClosed().subscribe();
   }
 
   private findIfAppointmentIsFromRecommendation(appointment: Appointment): void {

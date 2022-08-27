@@ -179,6 +179,7 @@
 
             <div class="flex margin_top" *ngIf="!appointment.diagnostic?.final">
               <button
+                *ngIf="!appointment.diagnostic?.final"
                 mat-button
                 color="primary"
                 class="width-full height-small button secondary-button"
@@ -186,10 +187,12 @@
               >
                 Crează trimitere
               </button>
-          
-              <span class="block margin_right"></span>
+            </div>
+            
+            <br>
+            <span class="block margin_right"></span>
 
-              <button
+            <button
                 mat-button
                 color="primary"
                 class="width-full height-small button secondary-button"
@@ -198,7 +201,6 @@
               >
                 Crează rețetă
               </button>
-            </div>
           </ng-container>
         </ng-container>
 
@@ -283,10 +285,10 @@
         <div class="margin_top" *ngIf="appointmentType !== 'new' && appointment.status === 'accepted' && appointment.diagnostic">
           <ng-container *ngIf="appointment.recommendations.length > 0; else noData">
             <button
-              *ngIf="!forSpecialist"
+              *ngIf="!forSpecialist && !appointment.diagnostic?.final"
               mat-raised-button
               color="primary"
-              [disabled]="!appointment.examinationFinished || appointment.diagnostic?.final"
+              [disabled]="!appointment.examinationFinished"
               class="width-full height-small button"
               (click)="openAddDiagnostic(true, true)"
             >
@@ -296,10 +298,9 @@
 
           <ng-template #noData>
             <button
-              *ngIf="!forSpecialist"
+              *ngIf="!forSpecialist && !appointment.diagnostic?.final"
               mat-raised-button
               color="primary"
-              [disabled]="appointment.diagnostic?.final"
               class="width-full height-small button"
               (click)="openAddDiagnostic(true, true)"
             >

@@ -104,6 +104,29 @@
             Vezi trimitere
           </button>
         </div>
+
+        <ng-container *ngIf="appointment.diagnostic">
+          <div class="flex">
+            <button
+              mat-raised-button
+              color="primary"
+              class="width-full height-small button"
+              (click)="openViewDiagnostic()" 
+            >
+              Vezi diagnostic
+            </button>
+
+            <span class="block margin_right"></span>
+
+              <button
+                mat-raised-button
+                color="primary"
+                class="width-full height-small button"
+              >
+                <a [href]="generateRaportLink()">Generează raport</a>
+              </button>
+          </div>
+        </ng-container>
       </ng-container>
     </div>
 
