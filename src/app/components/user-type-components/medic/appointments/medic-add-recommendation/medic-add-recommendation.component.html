@@ -2,7 +2,7 @@
 
 <div mat-dialog-content>
     <mat-form-field appearance="outline" class="width-full">
-        <mat-label>Medic specialist recomandat</mat-label>
+        <mat-label>Specializare</mat-label>
 
         <input 
             type="text" 
@@ -19,7 +19,7 @@
                 [value]="option.name" 
                 (click)="selectSpecialist(option)"
             >
-                {{option.domain | upperCaseFirstLetter}} - {{option.name}}
+                {{option.domain | upperCaseFirstLetter}}
             </mat-option>
         </mat-autocomplete>
     </mat-form-field>

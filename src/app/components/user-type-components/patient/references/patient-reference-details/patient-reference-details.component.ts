@@ -18,6 +18,7 @@ export class PatientReferenceDetailsComponent implements OnInit {
 
   public medic = new Medic();
   public specialist = new Specialist();
+  public domain = '';
   public appointment = new Appointment();
 
   public showEditRecommendedMedic = false;
@@ -61,16 +62,15 @@ export class PatientReferenceDetailsComponent implements OnInit {
 
   private getSpecialist(reference: Recommendation): void {
     this.usersService.getUserInfo(reference.specialist).subscribe((user: BaseUser) => {
-      this.specialist = <Specialist>user;
+      this.domain = (<Specialist>user).domain;
       this.cd.detectChanges();
     });
   }
 
   public getAllPosibleMedics(): void {
     this.usersService.getAllSpecialists().subscribe((medics: Specialist[]) => {
-      this.possibleOtherMedics = medics.filter(medic => medic.domain === this.specialist.domain);
+      this.possibleOtherMedics = medics.filter(medic => medic.domain === this.domain);
       this.showEditRecommendedMedic = true;
-      console.log(this.possibleOtherMedics);
     });
   }
 }

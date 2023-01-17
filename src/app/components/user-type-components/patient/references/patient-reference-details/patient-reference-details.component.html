@@ -10,9 +10,9 @@
 
   <div class="recommended-medic" *ngIf="!showEditRecommendedMedic">
     <span>
-      <span class="small-subtitle">Către medicul recomandat</span>
+      <span class="small-subtitle">Către specializarea</span>
   
-      <span class="subtitle block margin_bottom">{{specialist.name}}</span>
+      <span class="subtitle block margin_bottom">{{domain}}</span>
     </span>
 
     <button *ngIf="reference.canCreateAppointment"
@@ -21,14 +21,21 @@
         class="button secondary-button"
         (click)="getAllPosibleMedics()"
     >
-      Schimbă medic
+      <span *ngIf="!specialist.domain">Alege medic</span>
+      <span *ngIf="specialist.domain">Schimbă medic</span>
     </button>
+  </div>
+
+  <div *ngIf="specialist.domain && !showEditRecommendedMedic">
+    <span class="small-subtitle">Către medicul specialist</span>
+
+    <span class="subtitle block margin_bottom">{{specialist.name}}</span>
   </div>
 
   <mat-form-field appearance="fill" class="width-full" *ngIf="showEditRecommendedMedic">
     <mat-label>Medic specialist</mat-label>
     <mat-select (selectionChange)="changeSpecialist($event)">
-      <mat-option [value]="'cancel'">Anulează</mat-option>
+      <mat-option *ngIf="specialist.domain" [value]="'cancel'">Anulează</mat-option>
       <mat-option
         *ngFor="let medic of possibleOtherMedics"
         [value]="medic"
@@ -68,6 +75,7 @@
         mat-raised-button 
         class="max-width-medium" 
         color="primary"
+        [disabled]="!specialist.domain"
         *ngIf="reference.canCreateAppointment"
         (click)="goToCreateAppointment()"
       >

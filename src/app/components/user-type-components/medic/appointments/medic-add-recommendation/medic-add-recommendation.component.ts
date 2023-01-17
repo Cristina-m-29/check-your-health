@@ -62,7 +62,11 @@ export class MedicAddRecommendationComponent implements OnInit {
   }
 
   private _filter(value: string): Specialist[] {
-    return this.specialistList.filter(option => option.name.toLocaleLowerCase().startsWith(value.toLocaleLowerCase()));
+    const copy = this.specialistList;
+    return this.specialistList.filter((option, index) => 
+      option.name.toLocaleLowerCase().startsWith(value.toLocaleLowerCase()) 
+      && copy.reverse().findIndex((specialist: Specialist) => specialist.domain === option.domain) !== index
+    );
   }
 
 }
