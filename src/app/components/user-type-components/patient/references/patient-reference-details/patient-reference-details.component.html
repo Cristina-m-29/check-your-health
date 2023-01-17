@@ -8,9 +8,35 @@
 
   <span class="subtitle block margin_bottom">{{medic.name}}</span>
 
-  <span class="small-subtitle">Către medicul</span>
+  <div class="recommended-medic" *ngIf="!showEditRecommendedMedic">
+    <span>
+      <span class="small-subtitle">Către medicul recomandat</span>
+  
+      <span class="subtitle block margin_bottom">{{specialist.name}}</span>
+    </span>
 
-  <span class="subtitle block margin_bottom">{{specialist.name}}</span>
+    <button *ngIf="reference.canCreateAppointment"
+        mat-button
+        color="primary"
+        class="button secondary-button"
+        (click)="getAllPosibleMedics()"
+    >
+      Schimbă medic
+    </button>
+  </div>
+
+  <mat-form-field appearance="fill" class="width-full" *ngIf="showEditRecommendedMedic">
+    <mat-label>Medic specialist</mat-label>
+    <mat-select (selectionChange)="changeSpecialist($event)">
+      <mat-option [value]="'cancel'">Anulează</mat-option>
+      <mat-option
+        *ngFor="let medic of possibleOtherMedics"
+        [value]="medic"
+      >
+        {{medic.name}} - {{medic.domain}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
 
   <span class="small-subtitle">Motiv</span>
 
@@ -27,7 +53,7 @@
       <span class="subtitle block margin_bottom">Programare refuzată</span>
 
       <button 
-        mat-raised-button 
+        mat-button 
         class="max-width-medium"
         color="primary"
         *ngIf="reference.canCreateAppointment"

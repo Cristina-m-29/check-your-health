@@ -110,6 +110,8 @@ export class PatientAppointmentDetailsComponent implements OnInit {
           value: startTime
         });
       });
+      
+      console.log(this.hoursIntervalOptions);
       this.loading = false;
     });
   }

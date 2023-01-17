@@ -1,4 +1,5 @@
 import { Component, Input, OnInit, ChangeDetectorRef } from '@angular/core';
+import { MatSelectChange } from '@angular/material/select';
 import { Router } from '@angular/router';
 import { Appointment } from 'src/app/models/appointment';
 import { BaseUser } from 'src/app/models/base-user';
@@ -18,6 +19,9 @@ export class PatientReferenceDetailsComponent implements OnInit {
   public medic = new Medic();
   public specialist = new Specialist();
   public appointment = new Appointment();
+
+  public showEditRecommendedMedic = false;
+  public possibleOtherMedics: Specialist[] = [];
 
   constructor(
     private usersService: UsersService, 
@@ -39,6 +43,14 @@ export class PatientReferenceDetailsComponent implements OnInit {
     this.router.navigateByUrl('patient/appointment?id=' + this.appointment.id);
   }
 
+  public changeSpecialist(event: MatSelectChange): void {
+    if (event.value !== 'cancel') {
+      this.specialist = event.value;
+    }
+    this.showEditRecommendedMedic = false;
+    this.cd.detectChanges();
+  }
+
   private getCreationMedic(reference: Recommendation): void {
     this.usersService.getUserInfo(reference.medic).subscribe((user: BaseUser) => {
       this.medic = <Medic>user;
@@ -51,6 +63,14 @@ export class PatientReferenceDetailsComponent implements OnInit {
     this.usersService.getUserInfo(reference.specialist).subscribe((user: BaseUser) => {
       this.specialist = <Specialist>user;
       this.cd.detectChanges();
+    });
+  }
+
+  public getAllPosibleMedics(): void {
+    this.usersService.getAllSpecialists().subscribe((medics: Specialist[]) => {
+      this.possibleOtherMedics = medics.filter(medic => medic.domain === this.specialist.domain);
+      this.showEditRecommendedMedic = true;
+      console.log(this.possibleOtherMedics);
     });
   }
 }
