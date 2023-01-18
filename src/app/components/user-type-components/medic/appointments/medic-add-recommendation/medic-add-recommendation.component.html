@@ -16,7 +16,7 @@
         <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
             <mat-option 
                 *ngFor="let option of specialistListForInput | async" 
-                [value]="option.name" 
+                [value]="option.domain" 
                 (click)="selectSpecialist(option)"
             >
                 {{option.domain | upperCaseFirstLetter}}
