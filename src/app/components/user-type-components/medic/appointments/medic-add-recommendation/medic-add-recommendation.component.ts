@@ -57,16 +57,16 @@ export class MedicAddRecommendationComponent implements OnInit {
 
   private getAllSpecialists(): void {
     this.usersService.getAllSpecialists().subscribe((specialists: Specialist[]) => {
-      this.specialistList = specialists.sort((a,b) => a.domain.localeCompare(b.domain));
+      const original = specialists.sort((a,b) => a.domain.localeCompare(b.domain));
+      const copy = specialists.sort((a,b) => a.domain.localeCompare(b.domain)).reverse();
+      this.specialistList = original.filter((spec, index) => copy.findIndex(s => s.domain === spec.domain) === index)
     });
   }
 
   private _filter(value: string): Specialist[] {
     const copy = this.specialistList;
     return this.specialistList.filter((option, index) => 
-      option.name.toLocaleLowerCase().startsWith(value.toLocaleLowerCase()) 
-      && copy.reverse().findIndex((specialist: Specialist) => specialist.domain === option.domain) !== index
-    );
+      option.name.toLocaleLowerCase().startsWith(value.toLocaleLowerCase()));
   }
 
 }

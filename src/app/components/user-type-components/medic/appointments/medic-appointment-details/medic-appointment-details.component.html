@@ -261,14 +261,14 @@
 
           <div class="padding_top-s padding_bottom border-bottom-prescription">
             <span class="recommendations-grid">
-              <span class="small-subtitle">Nume medic</span>
+              <span class="small-subtitle">Specializare</span>
               <span class="small-subtitle checkbox">Programare creată</span>
               <span class="small-subtitle checkbox"><p>Investigație finalizată</p></span>
               <span class="small-subtitle checkbox">Diagnostic</span>
             </span>
 
             <span class="recommendations-grid rec-row" *ngFor="let rec of appointment.recommendations">
-                <span class="subtitle">{{rec?.medicName}}</span>
+                <span class="subtitle">{{rec.medicName || '' | upperCaseFirstLetter}}</span>
                 <span class="subtitle checkbox">
                   <mat-checkbox color="primary" [disabled]="true" [checked]="!!rec?.appointment"></mat-checkbox>
                 </span>

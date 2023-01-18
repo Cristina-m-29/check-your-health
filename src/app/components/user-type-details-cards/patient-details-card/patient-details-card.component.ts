@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { BaseUser } from 'src/app/models/base-user';
+import { Specialist } from 'src/app/models/medic';
 import { Patient } from 'src/app/models/patient';
 import { Prescription } from 'src/app/models/prescription';
 import { Recommendation } from 'src/app/models/recommendation';
@@ -91,7 +92,7 @@ export class PatientDetailsCardComponent implements OnChanges {
           rec.medicName = medic.name;
 
           this.usersService.getUserInfo(rec.specialist).subscribe((specialist: BaseUser) => {
-            rec.specialistName = specialist.name;
+            rec.specialistName = (<Specialist>specialist).domain;
 
             if (this.patientAllRecommendationsToShow.indexOf(rec) === this.patientAllRecommendationsToShow.length - 1) {
               this.showAllRecommendations = true;
@@ -144,7 +145,7 @@ export class PatientDetailsCardComponent implements OnChanges {
               rec.medicName = medic.name;
   
               this.usersService.getUserInfo(rec.specialist).subscribe((specialist: BaseUser) => {
-                rec.specialistName = specialist.name;
+                rec.specialistName = (<Specialist>specialist).domain;
   
                 if (this.patientRecommendationsToShow.indexOf(rec) === this.patientRecommendationsToShow.length - 1) {
                   this.viewLoaded.emit();

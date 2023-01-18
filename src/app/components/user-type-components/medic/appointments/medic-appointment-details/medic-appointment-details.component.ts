@@ -25,6 +25,7 @@ import { RecommendationsService } from 'src/app/services/recommandations.service
 import { PrescriptionsService } from 'src/app/services/prescriptions.service';
 import { BaseUser } from 'src/app/models/base-user';
 import { SocketNotification } from 'src/app/models/notification';
+import { Specialist } from 'src/app/models/medic';
 
 @Component({
   selector: 'cyh-medic-appointment-details',
@@ -335,7 +336,7 @@ export class MedicAppointmentDetailsComponent implements OnInit {
       const recs = this.appointment.recommendations;
       recs.forEach((rec: Recommendation) => {
         this.userService.getUserInfo(rec.specialist).subscribe((specialist: BaseUser) => {
-          rec.medicName = specialist.name;
+          rec.medicName = (<Specialist>specialist).domain;
           
           if (recs.indexOf(rec) === recs.length - 1) {
             this.appointmentViewLoaded = true;

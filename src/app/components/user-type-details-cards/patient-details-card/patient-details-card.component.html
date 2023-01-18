@@ -90,8 +90,8 @@
       <span class="small-subtitle">Creată de medicul</span>
       <span class="subtitle block margin_bottom-s">{{rec?.medicName}}</span>
 
-      <span class="small-subtitle">Către medicul</span>
-      <span class="subtitle block margin_bottom-s">{{rec?.specialistName}}</span>
+      <span class="small-subtitle">Către specializarea</span>
+      <span class="subtitle block margin_bottom-s">{{rec.specialistName || '' | upperCaseFirstLetter}}</span>
 
       <span class="small-subtitle">Motiv</span>
       <span class="subtitle block margin_bottom-s">{{rec.details}}</span>
@@ -160,7 +160,7 @@
       <span class="subtitle block margin_bottom-s">{{rec?.medicName}}</span>
 
       <span class="small-subtitle">Către medicul</span>
-      <span class="subtitle block margin_bottom-s">{{rec?.specialistName}}</span>
+      <span class="subtitle block margin_bottom-s">{{rec?.specialistName || '' | upperCaseFirstLetter}}</span>
 
       <span class="small-subtitle">Motiv</span>
       <span class="subtitle block margin_bottom-s">{{rec.details}}</span>
